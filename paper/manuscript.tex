@@ -22,7 +22,7 @@
 \usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage[colorlinks=true,linkcolor={blue!55!black},citecolor={green!40!black},urlcolor={blue!60!black}]{hyperref}
 \bibpunct{(}{)}{;}{a}{,}{,}
-\providecommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{doi:#1}}}
+\providecommand{\doi}[1]{\url{https://doi.org/#1}}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
@@ -55,11 +55,11 @@
 \fi
 
 \begin{abstract}
-Digital services are improved through loops of ideation, deployment and online testing, and generative AI is making the first step almost free. Whether such loops reliably improve what organisations ship depends on how they manage the evidence that tests produce. Building on a recent convergence theorem for the iterate--test loop of design thinking, we derive eight design principles for an experimentation information system and instantiate them in an evidence-ledger artefact that retains every tested variant with its evidence, re-tests the leading variants, and ships on a lower confidence bound. We evaluate the artefact in a programmable testbed: a queueing model of a twelve-feature digital service, validated against a discrete-event emulation of its network topology, over 51 service instances and more than fifty thousand simulated improvement projects. Under one traffic budget the ledger ships configurations worth 94.7--95.1\% of the best attainable, 8.5 to 14.7 points more than a sequence of champion--challenger A/B tests, and it reduces both the cost of choosing among tested variants and the overestimation of the chosen one by about a quarter. The validity of pre-screening ideas, not their number, governs what generative ideation adds. Biases that merely favour the incumbent or new variants are harmless below the noise of a test, whereas persistent instrumentation bias is not removed by re-testing and needs an audit. Forgetting is worth its cost only after an abrupt shift, and a Pareto archive represents disagreeing stakeholders better than fixed weights. Evaluation, not generation, is the scarce resource that experimentation information systems must manage.
+Digital services are improved through loops of ideation, deployment and online testing, and generative AI is making ideation almost free. Whether such loops improve what organisations ship depends on how they manage the evidence that tests produce. Building on a convergence theorem for the iterate--test loop of design thinking, we derive eight design principles for experimentation information systems and instantiate them in an evidence ledger, which retains every tested variant with its evidence, re-tests the leading variants and ships on a lower confidence bound. We evaluate the artefact in a programmable testbed: a queueing model of a twelve-feature digital service, validated against a discrete-event emulation of its network topology, with 51 service instances and more than fifty thousand simulated improvement projects. Under equal traffic the ledger ships configurations worth 94.7--95.1\% of the attainable optimum, 8.5 to 14.7 percentage points more than a sequence of champion--challenger A/B tests ($p<0.001$ on every landscape class), and it reduces the loss from choosing among tested variants, and the overestimation of the chosen one, by a quarter to a third. The validity of screening ideas, not their number, governs what generative ideation adds. Biases favouring the incumbent or new variants are harmless below the noise of a test, whereas persistent instrumentation bias survives re-testing and requires an audit. Forgetting pays only after abrupt shifts, and a Pareto archive represents disagreeing stakeholders better than fixed weights. Evaluation, not generation, is the scarce resource that experimentation information systems must manage.
 \end{abstract}
 
 \begin{keyword}
-online experimentation \sep A/B testing \sep design science \sep generative AI \sep decision making under uncertainty \sep design thinking
+online experimentation \sep A/B testing \sep design science \sep generative AI \sep decision making \sep design thinking
 \end{keyword}
 \end{frontmatter}
 
@@ -122,7 +122,7 @@ Following \citet{gregor2020}, a design principle states what a system should ena
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_framework.pdf}
-\caption{Research framework. Conditions and results of the convergence theorem (kernel theory) are translated into design principles, the principles are instantiated in the evidence-ledger artefact, and the artefact is evaluated in nine experiments that test hypotheses H1--H8.}
+\caption{Research framework. Conditions and results of the convergence theorem (kernel theory) are translated into design principles, the principles are instantiated in the evidence-ledger artefact, and the artefact is evaluated in nine experiments that test hypotheses H1--H8. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
 \label{fig:framework}
 \end{figure}
 
@@ -155,7 +155,7 @@ The evidence ledger sits in the experimentation plane of a digital service (Figu
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.92\textwidth]{figures/fig_cycle.pdf}
-\caption{One round of the evidence-ledger loop. Steps 1--3 generate, screen and deploy a variant; steps 4--6 test it and update the evidence; steps 7--8 plan re-tests and decide. The green path returns the leaders to the next round's tests.}
+\caption{One round of the evidence-ledger loop. Steps 1--3 generate, screen and deploy a variant; steps 4--6 test it and update the evidence; steps 7--8 plan re-tests and decide. The green path returns the leaders to the next round's tests. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
 \label{fig:cycle}
 \end{figure}
 
@@ -178,7 +178,7 @@ The theory and the preprint's simulations lead to eight hypotheses about the art
 \section{Method: a programmable testbed}
 \label{sec:method}
 
-Evaluating an experimentation system on a live service would require the same service to be improved many times under different policies, which is impossible, and would not reveal the true utility of what is shipped. We therefore evaluate the artefact in an artificial but validated setting, a choice that design science recognises for early, technically oriented evaluation \citep{venable2016} and that management research uses to develop theory where processes are path dependent \citep{davis2007, harrison2007}. The testbed is written in Python, uses fixed random seeds, and is released with all scripts and raw outputs\ifanon\ (link withheld for review)\else\ (see Data availability)\fi.
+Evaluating an experimentation system on a live service would require the same service to be improved many times under different policies, which is impossible, and would not reveal the true utility of what is shipped. We therefore evaluate the artefact in an artificial but validated setting, a choice that design science recognises for early, technically oriented evaluation \citep{venable2016} and that management research uses to develop theory where processes are path dependent \citep{davis2007, harrison2007}. The testbed is written in Python, uses fixed random seeds, and is released with all scripts and raw outputs \citep{dataset2026}.
 
 \subsection{The digital service and its topology}
 \label{sec:service}
@@ -188,7 +188,7 @@ The testbed represents an online retail service (Figure~\ref{fig:topology}). Use
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_topology.pdf}
-\caption{Topology of the testbed. The data plane serves user requests; deployable capabilities are shown in brackets at the components they change. The experimentation information system (bottom) receives telemetry, keeps the evidence ledger and sets feature flags that route a slice of traffic to the variant under test.}
+\caption{Topology of the testbed. The data plane serves user requests; deployable capabilities are shown in brackets at the components they change. The experimentation information system (bottom) receives telemetry, keeps the evidence ledger and sets feature flags that route a slice of traffic to the variant under test. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
 \label{fig:topology}
 \end{figure}
 
@@ -230,7 +230,7 @@ A \emph{test} is an online experiment on $n$ sessions routed to one configuratio
 
 \subsection{Validation by discrete-event emulation}
 
-To check the analytic model and the sampler we built a discrete-event emulation of the topology in SimPy. Sessions arrive, think between pages, and send requests that queue for the firewall, the application workers, the database, the ML pool and the external API, with exponential service times and an 8-second time-out; conversion is drawn per session from its experienced page times. Each emulated experiment runs the service at full production load for 45 seconds before and after the measured sessions, so that they see steady-state queues. Experiment E1 (Section~\ref{sec:e1}) compares emulated and analytic results following the operational-validity checks of \citet{sargent2013}.
+To check the analytic model and the sampler we built a discrete-event emulation of the topology in SimPy \citep{simpy2023}. Sessions arrive, think between pages, and send requests that queue for the firewall, the application workers, the database, the ML pool and the external API, with exponential service times and an 8-second time-out; conversion is drawn per session from its experienced page times. Each emulated experiment runs the service at full production load for 45 seconds before and after the measured sessions, so that they see steady-state queues. Experiment E1 (Section~\ref{sec:e1}) compares emulated and analytic results following the operational-validity checks of \citet{sargent2013}.
 
 \subsection{Landscape classes}
 
@@ -243,7 +243,7 @@ We compare six policies, each given the same number of tests of the same size, t
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_protocols.pdf}
-\caption{Test schedules of the policies in the first four rounds (five tests per round) and the allocations varied in experiment E4. Each square is one test of $n$ sessions.}
+\caption{Test schedules of the policies in the first four rounds (five tests per round) and the allocations varied in experiment E4. Each square is one test of $n$ sessions. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
 \label{fig:protocols}
 \end{figure}
 
@@ -277,7 +277,7 @@ E9 & How robust? & 120 random scenarios $\times$ 4 policies $\times$ 12 seeds & 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_manip.pdf}
-\caption{Manipulations of experiments E5--E8: (a) generative ideation with volume $V$, homogenisation $h$ and screening validity $\rho$; (b) the points at which novelty (N), instrumentation (I) and favourite (H) bias enter the evidence; (c) drifting criteria within a band and an abrupt regime shift; (d) stakeholders with different criteria and an archive of non-dominated variants.}
+\caption{Manipulations of experiments E5--E8: (a) generative ideation with volume $V$, homogenisation $h$ and screening validity $\rho$; (b) the points at which novelty (N), instrumentation (I) and favourite (H) bias enter the evidence; (c) drifting criteria within a band and an abrupt regime shift; (d) stakeholders with different criteria and an archive of non-dominated variants. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
 \label{fig:manip}
 \end{figure}
 
@@ -297,7 +297,7 @@ The noise of a test depends on its size as sampling theory predicts (Figure~\ref
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_e1_validation.pdf}
-\caption{E1: validation of the testbed. (a) Utility measured in one emulated experiment against the analytic utility for 141 configurations stratified by the utilisation of the busiest tier; the dashed line is equality. (b) Standard deviation of a test result as a function of its size: emulator (points, 20 replications for each of six configurations) and statistical sampler (line).}
+\caption{E1: validation of the testbed. (a) Utility measured in one emulated experiment against the analytic utility for 141 configurations stratified by the utilisation of the busiest tier; the dashed line is equality. (b) Standard deviation of a test result as a function of its size: emulator (points, 20 replications for each of six configurations) and statistical sampler (line). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e1}
 \end{figure}
 
@@ -329,7 +329,7 @@ On the reference instance the loop ships a configuration worth 84.1\% of the opt
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_e2_dynamics.pdf}
-\caption{E2: (a) utility shipped, best utility found and believed utility of the shipped configuration on the reference instance (300 runs; bands are 95\% confidence intervals), and the utility shipped by the evidence ledger (dashed). (b) Share of runs in which the favourite (solid) or the best tested configuration (dashed) is a local optimum (radius 2), determined by enumeration, over 3,200 tests.}
+\caption{E2: (a) utility shipped, best utility found and believed utility of the shipped configuration on the reference instance (300 runs; bands are 95\% confidence intervals), and the utility shipped by the evidence ledger (dashed). (b) Share of runs in which the favourite (solid) or the best tested configuration (dashed) is a local optimum (radius 2), determined by enumeration, over 3,200 tests. Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e2}
 \end{figure}
 
@@ -369,7 +369,7 @@ Thompson sampling & $94.9\pm0.8$ & 2.4 & 4.3 & $-0.3$ ($-0.03$) & $94.8\pm1.1$ &
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_e3_policies.pdf}
-\caption{E3: utility shipped after 400 tests by six policies, with tests of 2,000 sessions (filled) and 500 sessions (open); bars are 95\% confidence intervals (instance-level for the families).}
+\caption{E3: utility shipped after 400 tests by six policies, with tests of 2,000 sessions (filled) and 500 sessions (open); bars are 95\% confidence intervals (instance-level for the families). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e3}
 \end{figure}
 
@@ -383,7 +383,7 @@ Experiment E4 fixes the traffic at 800,000 sessions and varies both the size of 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_e4_allocation.pdf}
-\caption{E4: utility shipped after 800,000 sessions as a function of the number of new configurations per five tests, for three test sizes (loop without rotating re-test; error bars are 95\% confidence intervals; circles mark the best allocation).}
+\caption{E4: utility shipped after 800,000 sessions as a function of the number of new configurations per five tests, for three test sizes (loop without rotating re-test; error bars are 95\% confidence intervals; circles mark the best allocation). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e4}
 \end{figure}
 
@@ -397,7 +397,7 @@ Experiment E5 crosses the validity of screening ($\rho$), the number of ideas pr
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_e5_genai.pdf}
-\caption{E5: utility shipped after 400 tests by the evidence ledger as a function of the validity of screening $\rho$, for one, five and twenty ideas per round ($V$) and without ($h=0$, solid) or with strong homogenisation of ideas ($h=0.9$, dashed).}
+\caption{E5: utility shipped after 400 tests by the evidence ledger as a function of the validity of screening $\rho$, for one, five and twenty ideas per round ($V$) and without ($h=0$, solid) or with strong homogenisation of ideas ($h=0.9$, dashed). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e5}
 \end{figure}
 
@@ -429,7 +429,7 @@ Figure~\ref{fig:e6}a shows the change in shipped utility when one of three biase
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_e6_bias.pdf}
-\caption{E6: change in shipped utility after 400 tests relative to unbiased runs (mean over the three landscape classes). (a) Favourite, novelty and instrumentation bias as multiples of the test noise $\sigma$, and instrumentation bias with an audit of ten tests. (b) Favourite bias in absolute utility units for three test sizes.}
+\caption{E6: change in shipped utility after 400 tests relative to unbiased runs (mean over the three landscape classes). (a) Favourite, novelty and instrumentation bias as multiples of the test noise $\sigma$, and instrumentation bias with an audit of ten tests. (b) Favourite bias in absolute utility units for three test sizes. Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e6}
 \end{figure}
 
@@ -443,7 +443,7 @@ When the weights of the three criteria oscillate during the programme (Figure~\r
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_e7_drift.pdf}
-\caption{E7: (a) mean tracking of the current optimum between 100 and 400 tests as a function of the amplitude of drift in the criterion weights, for four forgetting factors $\gamma$; (b) tracking before and after a regime shift at 200 tests (traffic $+30\%$, mobile share $+15$ percentage points), mean over the three classes.}
+\caption{E7: (a) mean tracking of the current optimum between 100 and 400 tests as a function of the amplitude of drift in the criterion weights, for four forgetting factors $\gamma$; (b) tracking before and after a regime shift at 200 tests (traffic $+30\%$, mobile share $+15$ percentage points), mean over the three classes. Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e7}
 \end{figure}
 
@@ -457,7 +457,7 @@ In E8 users, operations and finance each care about one criterion (Figure~\ref{f
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_e8_pareto.pdf}
-\caption{E8: (a) hypervolume of the delivered configurations as a share of the hypervolume of the true Pareto front, (b) share of delivered configurations that no variant within two capabilities dominates, and (c) number of configurations delivered, for a Pareto archive, three scalarised loops sharing the budget and one loop with fixed weights (means over the three classes; bars are 95\% confidence intervals).}
+\caption{E8: (a) hypervolume of the delivered configurations as a share of the hypervolume of the true Pareto front, (b) share of delivered configurations that no variant within two capabilities dominates, and (c) number of configurations delivered, for a Pareto archive, three scalarised loops sharing the budget and one loop with fixed weights (means over the three classes; bars are 95\% confidence intervals). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e8}
 \end{figure}
 
@@ -473,7 +473,7 @@ The ledger ships a better configuration than champion--challenger testing in 92.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_e9_robustness.pdf}
-\caption{E9: (a) coefficients of a regression of the ledger's advantage over three policies on standardised scenario factors (120 scenarios, 12 runs each; bars are 95\% heteroscedasticity-robust intervals); (b) the advantage over champion--challenger and launch-and-learn against the signal-to-noise ratio of the scenario.}
+\caption{E9: (a) coefficients of a regression of the ledger's advantage over three policies on standardised scenario factors (120 scenarios, 12 runs each; bars are 95\% heteroscedasticity-robust intervals); (b) the advantage over champion--challenger and launch-and-learn against the signal-to-noise ratio of the scenario. Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e9}
 \end{figure}
 
@@ -547,9 +547,9 @@ Iterative online experimentation is how digital services improve, and generative
 % ===========================================================================
 \section*{Data availability}
 \ifanon
-The code of the testbed, the scripts that produce every figure, table and number, and the raw outputs are deposited in a public repository; the link is withheld for anonymous review.
+The code of the testbed, the scripts that produce every figure, table and number, and the raw outputs are deposited in a public repository \citep{dataset2026}; its identifier is withheld for anonymous review. All experiments use fixed random seeds.
 \else
-The code of the testbed, the scripts that produce every figure, table and number, and the raw outputs are available at \url{https://github.com/zxhouse/ijim-workspace}. All experiments use fixed random seeds and require Python with \texttt{numpy}, \texttt{scipy}, \texttt{simpy} and \texttt{matplotlib}.
+The code of the testbed, the scripts that produce every figure, table and number, and the raw outputs are openly available in a public repository \citep{dataset2026}. All experiments use fixed random seeds and require Python with \texttt{numpy}, \texttt{scipy}, \texttt{simpy} and \texttt{matplotlib}.
 \fi
 
 \ifanon\else
@@ -564,7 +564,7 @@ This research did not receive any specific grant from funding agencies in the pu
 \fi
 
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
-During the preparation of this work the authors used Claude (Anthropic) in order to draft and revise text, to write and debug the code of the testbed and the analysis scripts, and to prepare figures. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
+During the preparation of this work the authors used Claude (Anthropic) in order to draft and revise text, to write and debug the code of the testbed and the analysis scripts, and to write the code that draws the schematic figures and plots the data figures (disclosed in each figure caption); all data figures are generated reproducibly from the simulation outputs. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
 
 \input{refs.tex}
 

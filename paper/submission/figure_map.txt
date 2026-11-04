@@ -1,0 +1,14 @@
+Figure_1.pdf  <-  paper/figures/fig_framework.pdf
+Figure_2.pdf  <-  paper/figures/fig_cycle.pdf
+Figure_3.pdf  <-  paper/figures/fig_topology.pdf
+Figure_4.pdf  <-  paper/figures/fig_protocols.pdf
+Figure_5.pdf  <-  paper/figures/fig_manip.pdf
+Figure_6.pdf  <-  paper/figures/fig_e1_validation.pdf
+Figure_7.pdf  <-  paper/figures/fig_e2_dynamics.pdf
+Figure_8.pdf  <-  paper/figures/fig_e3_policies.pdf
+Figure_9.pdf  <-  paper/figures/fig_e4_allocation.pdf
+Figure_10.pdf  <-  paper/figures/fig_e5_genai.pdf
+Figure_11.pdf  <-  paper/figures/fig_e6_bias.pdf
+Figure_12.pdf  <-  paper/figures/fig_e7_drift.pdf
+Figure_13.pdf  <-  paper/figures/fig_e8_pareto.pdf
+Figure_14.pdf  <-  paper/figures/fig_e9_robustness.pdf

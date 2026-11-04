@@ -1,0 +1,41 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\input{icons.tex}
+\tikzset{col/.style={draw=devline!60, rounded corners=3pt, fill=#1, minimum width=40mm, anchor=north, inner sep=0pt},
+  item/.style={box, text width=36mm, minimum height=6.2mm, font=\scriptsize\sffamily, fill=white, inner sep=2pt},
+  head/.style={font=\small\sffamily\bfseries, align=center, text=devline}}
+\begin{document}
+\begin{tikzpicture}
+% columns -----------------------------------------------------------------
+\def\xa{0}\def\xb{4.55}\def\xc{9.1}\def\xd{13.65}
+\node[col=zoneusr, minimum height=82mm] (A) at (\xa,0) {};
+\node[col=zonectl, minimum height=82mm] (B) at (\xb,0) {};
+\node[col=zonedata, minimum height=82mm] (C) at (\xc,0) {};
+\node[col=zonetel, minimum height=82mm] (D) at (\xd,0) {};
+\node[head, below=1.5mm of A.north] (hA) {Kernel theory\\{\scriptsize\mdseries convergence of the iterate--test loop}};
+\node[head, below=1.5mm of B.north] (hB) {Design principles\\{\scriptsize\mdseries for an experimentation IS}};
+\node[head, below=1.5mm of C.north] (hC) {Artefact\\{\scriptsize\mdseries evidence-ledger experimentation IS}};
+\node[head, below=1.5mm of D.north] (hD) {Evaluation in the testbed\\{\scriptsize\mdseries hypotheses and experiments}};
+% theory items ------------------------------------------------------------
+\foreach \t [count=\i] in {T1: A1 finite frame,A2 local ideation,A3 persistent generativity,A4 unbiased repeated tests,A5 retention,T2 bias: $2B$-local optimum,T3 drift: $4D$-local optimum,T4 Pareto archive,{Optimiser's curse; $\sigma^2/\Delta^2$ tests}}{%
+  \node[item] (a\i) at (\xa,{-0.95-0.72*\i}) {\t};}
+% principles --------------------------------------------------------------
+\foreach \t [count=\i] in {DP1 retain every tested variant,DP2 generate near the leaders,DP3 screen before building,DP4 re-test leaders; size tests,DP5 discount thin evidence,DP6 audit persistent bias,DP7 forget after shifts,DP8 archive trade-offs}{%
+  \node[item] (b\i) at (\xb,{-0.95-0.80*\i}) {\t};}
+% artefact components -------------------------------------------------------
+\node[dev] (ic) at (\xc,-1.75) {\devledger};
+\foreach \t [count=\i] in {evidence ledger (belief + count),idea pool with screening scores,re-test planner,ship rule: lower bound $M-\kappa s$,bias audit (A/A + holdout),forgetting factor $\gamma$,Pareto archive}{%
+  \node[item] (c\i) at (\xc,{-2.45-0.72*\i}) {\t};}
+% experiments ---------------------------------------------------------------
+\foreach \t [count=\i] in {E1 validation of the testbed,E2 dynamics: H1,E3 governance policies: H2,E4 new vs re-test: H3,E5 GenAI ideation: H4,E6 measurement bias: H5,E7 drift and shift: H6,E8 stakeholders: H7,E9 robustness: H8}{%
+  \node[item] (d\i) at (\xd,{-0.95-0.72*\i}) {\t};}
+% arrows between columns (one per column pair) -----------------------------
+\foreach \u/\v in {A/B,B/C,C/D}{\draw[flow, line width=1.2pt] (\u.east) -- (\v.west);}
+\node[devlabel, anchor=north] at (\xa,-8.25) {\scriptsize arXiv preprint (2026)};
+\node[devlabel, anchor=north] at (\xb,-8.25) {\scriptsize Gregor et al.\ (2020)};
+\node[devlabel, anchor=north] at (\xc,-8.25) {\scriptsize instantiated in the testbed};
+\node[devlabel, anchor=north] at (\xd,-8.25) {\scriptsize tens of thousands of simulated projects};
+\end{tikzpicture}
+\end{document}

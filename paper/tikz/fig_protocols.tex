@@ -1,0 +1,45 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\input{icons.tex}
+\tikzset{sl/.style={draw=devline, line width=0.35pt, minimum size=3.2mm, inner sep=0pt},
+  N/.style={sl, fill=devacc!70},       % new configuration, first test
+  R/.style={sl, fill=devgreen!65},     % re-test of a leader
+  O/.style={sl, fill=devline!30},      % rotating re-test
+  C/.style={sl, fill=devamber!70},     % champion re-test in an A/B pair
+  T/.style={sl, fill=devpurple!55},    % posterior-sampled re-test
+  rowlab/.style={font=\footnotesize\sffamily, anchor=east, align=right, text width=40mm},
+  shiplab/.style={font=\footnotesize\sffamily, anchor=west, align=left, text width=40mm}}
+% \row{y}{label}{sequence of 20 styles}{ship rule}
+\newcommand{\row}[4]{%
+  \node[rowlab] at (-0.25,#1) {#2};
+  \foreach \s [count=\i from 0] in {#3}{%
+    \pgfmathsetmacro{\xx}{\i*0.40 + floor(\i/5)*0.22}
+    \node[\s] at (\xx,#1) {};}
+  \node[shiplab] at (8.75,#1) {#4};}
+\begin{document}
+\begin{tikzpicture}
+\foreach \r in {1,...,4}{\node[font=\footnotesize\sffamily\bfseries] at ({(\r-1)*2.22+0.8},0.55) {round \r};}
+\node[font=\footnotesize\sffamily\bfseries, anchor=west] at (8.75,0.55) {shipped configuration};
+\row{0}{Random search}{N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N}{highest belief}
+\row{-0.55}{Champion--challenger A/B}{N,C,N,C,N,C,N,C,N,C,N,C,N,C,N,C,N,C,N,C}{current champion (replaced if $z>1.645$)}
+\row{-1.10}{Launch-and-learn (one-shot)}{N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N}{highest belief}
+\row{-1.65}{Design-thinking loop}{N,R,R,R,O,N,R,R,R,O,N,R,R,R,O,N,R,R,R,O}{highest belief}
+\row{-2.20}{Evidence ledger (proposed)}{N,R,R,R,O,N,R,R,R,O,N,R,R,R,O,N,R,R,R,O}{highest lower bound $M-\kappa s$}
+\row{-2.75}{Thompson sampling}{N,T,T,T,T,N,T,T,T,T,N,T,T,T,T,N,T,T,T,T}{highest belief}
+\draw[devline!60, dashed] (-3.9,-3.08) -- (12.4,-3.08);
+\node[font=\footnotesize\sffamily\bfseries, anchor=west] at (-3.9,-3.32) {E4: allocation within a round of five tests (loop, no rotating re-test)};
+\row{-3.75}{\mbox{$k_{\mathrm{new}}=1$}}{N,R,R,R,R,N,R,R,R,R,N,R,R,R,R,N,R,R,R,R}{}
+\row{-4.30}{\mbox{$k_{\mathrm{new}}=3$}}{N,N,N,R,R,N,N,N,R,R,N,N,N,R,R,N,N,N,R,R}{}
+\row{-4.85}{\mbox{$k_{\mathrm{new}}=5$} (nothing re-tested)}{N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N}{}
+% legend
+\begin{scope}[shift={(9.15,-3.85)}]
+\node[N] at (0,0.25) {}; \node[devlabel, anchor=west] at (0.2,0.25) {new configuration (first test)};
+\node[R] at (0,-0.15) {}; \node[devlabel, anchor=west] at (0.2,-0.15) {re-test of a leader};
+\node[O] at (0,-0.55) {}; \node[devlabel, anchor=west] at (0.2,-0.55) {rotating re-test};
+\node[C] at (0,-0.95) {}; \node[devlabel, anchor=west] at (0.2,-0.95) {champion arm of an A/B pair};
+\node[T] at (0,-1.35) {}; \node[devlabel, anchor=west] at (0.2,-1.35) {posterior-sampled re-test};
+\end{scope}
+\draw[decorate, decoration={brace, amplitude=3pt, mirror}, devline] (-0.16,-5.12) -- (1.76,-5.12) node[midway, below=2pt, devlabel] {5 tests $\times$ $n$ sessions};
+\end{tikzpicture}
+\end{document}

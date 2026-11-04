@@ -1,0 +1,6 @@
+Highlights
+- Convergence theory yields eight design principles for experimentation systems
+- An evidence ledger beats champion-challenger A/B testing by 8.5-14.7 points
+- Screening validity, not idea volume, sets the value of generative ideation
+- Persistent instrumentation bias survives re-testing and needs an audit
+- A validated queueing testbed makes the true value of every variant known

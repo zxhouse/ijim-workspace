@@ -21,7 +21,26 @@ NUM = json.load(open(NUM_PATH)) if os.path.exists(NUM_PATH) else {}
 CLASSES = ("ref", "svc", "rug")
 
 
+def check_axes(fig, name):
+    """Every axis of every panel must carry a label and a visible numeric or
+    categorical scale; the figure is not written otherwise."""
+    fig.canvas.draw()
+    problems = []
+    for k, ax in enumerate(fig.axes):
+        if not ax.get_visible() or not ax.axison:
+            continue
+        for which, lab, ticks in (("x", ax.get_xlabel(), ax.get_xticklabels()),
+                                  ("y", ax.get_ylabel(), ax.get_yticklabels())):
+            if not lab.strip():
+                problems.append(f"panel {k}: {which}-axis has no label")
+            if not any(t.get_visible() and t.get_text().strip() for t in ticks):
+                problems.append(f"panel {k}: {which}-axis has no scale (tick labels)")
+    if problems:
+        raise ValueError(f"{name}: " + "; ".join(problems))
+
+
 def savefig(fig, name):
+    check_axes(fig, name)
     fig.savefig(os.path.join(FIG, name))
     plt.close(fig)
 
@@ -178,7 +197,7 @@ POLS = ("random", "abtest", "oneshot", "loop", "ledger", "thompson")
 def e3():
     rows = [r for r in load("e3_policies.json") if r["tests"] == 400]
     out = {}
-    fig, axes = plt.subplots(1, 3, figsize=(W_FULL, 2.7), sharey=True)
+    fig, axes = plt.subplots(3, 1, figsize=(W_FULL, 6.4))
     for k, c in enumerate(CLASSES):
         ax = axes[k]
         for j, n in enumerate((2000, 500)):
@@ -205,13 +224,15 @@ def e3():
                 out[f"{c}_{n}"]["ledger_vs_" + p] = dict(diff=r2(x["mean"]), half=r2(x["half"]), p_holm=float(f"{pa:.2g}"), dz=r2(x["dz"]), units=x["n"])
         ax.set_yticks(range(len(POLS)))
         ax.set_yticklabels([POL_NAME[p] for p in POLS])
+        ax.set_ylabel("policy")
+        ax.set_xlim(68, 100)
         ax.set_title(f"({'abc'[k]}) {CLS_NAME[c]}")
         ax.set_xlabel(r"shipped utility, % of $U^*$")
         ax.grid(axis="y", visible=False)
     h1, = axes[0].plot([], [], "o", color="#555", ms=3.5, label="filled: $n=2000$ sessions per test")
     h2, = axes[0].plot([], [], "s", color="#555", mfc="white", ms=3.5, label="open: $n=500$ sessions per test")
-    fig.legend(handles=[h1, h2], loc="lower center", ncol=2, frameon=False, bbox_to_anchor=(0.6, -0.02))
-    fig.tight_layout(w_pad=1.0, rect=(0, 0.06, 1, 1))
+    fig.legend(handles=[h1, h2], loc="lower center", ncol=2, frameon=False, bbox_to_anchor=(0.55, -0.005))
+    fig.tight_layout(h_pad=1.2, rect=(0, 0.035, 1, 1))
     savefig(fig, "fig_e3_policies.pdf")
     NUM["e3"] = out
 
@@ -240,8 +261,7 @@ def e4():
         ax.set_xticks(K); ax.set_xticklabels(["½", "1", "2", "3", "4", "5"])
         ax.set_xlabel("new configurations per 5 tests")
         ax.set_title(f"({'abc'[k]}) {CLS_NAME[c]}")
-        if k == 0:
-            ax.set_ylabel(r"shipped utility, % of $U^*$")
+        ax.set_ylabel(r"shipped utility, % of $U^*$")
     axes[2].legend(frameon=False, loc="lower left")
     fig.tight_layout(w_pad=1.0)
     savefig(fig, "fig_e4_allocation.pdf")
@@ -300,8 +320,7 @@ def e5():
         ax.set_xlabel(r"validity of screening $\rho$")
         ax.set_xticks(RH); ax.set_xticklabels(["0", ".25", ".5", ".75", ".9"])
         ax.set_title(f"({'abc'[k]}) {CLS_NAME[c]}")
-        if k == 0:
-            ax.set_ylabel(r"shipped utility, % of $U^*$")
+        ax.set_ylabel(r"shipped utility, % of $U^*$")
         out[c] = dict(cells={f"{rho}_{V}_{h}": r2(S[(rho, V, h)][0]) for rho in RH for V in VV for h in HH},
                       eta=anova_eta(a, ("rho", "V", "h"), "shipped_pct"),
                       eta_V5_20=anova_eta([r for r in a if r["V"] in (5, 20)], ("rho", "V", "h"), "shipped_pct"))
@@ -370,6 +389,7 @@ def e6():
         out[f"hippo_{n}"] = {str(rr): dict(b=r2(b, 3), loss={c: [r2(res[rr]["by_cls"][c][0]), r2(res[rr]["by_cls"][c][1])] for c in CLASSES}) for rr, b in zip(R, bs)}
     axes[1].axhline(0, color="#555", lw=0.7)
     axes[1].set_xlabel("favourite bias $b$ (utility units)")
+    axes[1].set_ylabel("change in shipped utility (points)")
     axes[1].set_title("(b) Favourite bias at three test sizes")
     axes[1].legend(frameon=False, loc="lower left")
     fig.tight_layout(w_pad=2.0)
@@ -474,7 +494,10 @@ def e8():
                     out.setdefault(f"{m}_{b}", {}).setdefault(metric, {})[c] = [r2(S[(c,)][0], 3), r2(S[(c,)][1], 3)]
             ax.errorbar(np.array(B) * (1 + 0.04 * (k - 1)), ys, yerr=hs, fmt="-o", ms=3, color=col, label=name, capsize=0)
         ax.set_xscale("log"); ax.set_xticks(B); ax.set_xticklabels([str(b) for b in B]); ax.minorticks_off()
-        ax.set_xlabel("tests"); ax.set_title(f"({'abc'[['hv','share_local','size'].index(metric)]}) {lab}", loc="left", fontsize=7.5)
+        ax.set_xlabel("tests (log scale)")
+        ax.set_ylabel({"hv": "hypervolume / true-front hypervolume", "share_local": "share of delivered configurations",
+                       "size": "number of configurations"}[metric])
+        ax.set_title(f"({'abc'[['hv','share_local','size'].index(metric)]}) {lab}", loc="left", fontsize=7.5)
     axes[0].legend(frameon=False, loc="lower right", fontsize=6.5)
     fig.tight_layout(w_pad=1.0)
     savefig(fig, "fig_e8_pareto.pdf")
@@ -539,6 +562,7 @@ def e9():
     axes[0].axvline(0, color="#555", lw=0.7)
     axes[0].set_yticks(range(len(names))); axes[0].set_yticklabels(names); axes[0].invert_yaxis()
     axes[0].set_xlabel("effect of +1 s.d. of the factor (points)")
+    axes[0].set_ylabel("scenario factor (standardised)")
     axes[0].set_title("(a) What drives the ledger's advantage")
     axes[0].grid(axis="y", visible=False)
     axes[0].legend(frameon=False, loc="upper center", fontsize=6.5, ncol=3, bbox_to_anchor=(0.75, -0.2),

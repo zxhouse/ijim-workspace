@@ -560,7 +560,7 @@ def e9():
 
 
 if __name__ == "__main__":
-    which = sys.argv[1:] or ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8", "e9"]
+    which = [w for w in (sys.argv[1:] or ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8", "e9", "e10"]) if w != "e10"]
     for w in which:
         fn = {"e1": "e1_validation.json", "e2": "e2_dynamics.json", "e3": "e3_policies.json", "e4": "e4_allocation.json",
               "e5": "e5_genai.json", "e6": "e6_bias.json", "e7": "e7_drift.json", "e8": "e8_pareto.json", "e9": "e9_robustness.json"}[w]
@@ -568,3 +568,34 @@ if __name__ == "__main__":
             print("analysing", w, flush=True)
             globals()[w]()
             json.dump(NUM, open(NUM_PATH, "w"), indent=1)
+
+
+# -------------------------------------------------------------------- E10 --
+def e10():
+    rows = load("e10_review.json")
+    out = {}
+    for part in ("ab", "kappa", "perturb"):
+        a = [r for r in rows if r["part"] == part]
+        key = ("pol", "sd") if part == "perturb" else ("pol",)
+        for c in CLASSES:
+            S = summarise([r for r in a if r["cls"] == c], key)
+            for k, v in S.items():
+                out.setdefault(part, {}).setdefault(" | ".join(map(str, k)), {})[c] = [r2(v[0]), r2(v[1])]
+    # paired: ledger vs strongest A/B variant
+    a = [r for r in rows if r["part"] == "ab"]
+    for c in CLASSES:
+        for p in ("A/B (5%, no pooling)", "A/B pooled (5%)", "A/B ship-higher", "A/B pooled ship-higher"):
+            x = paired([r for r in a if r["cls"] == c], "pol", "ledger", p)
+            out.setdefault("ab_paired", {}).setdefault(p, {})[c] = dict(diff=r2(x["mean"]), half=r2(x["half"]), p=float(f"{x['p']:.2g}"))
+    a = [r for r in rows if r["part"] == "perturb"]
+    for sd in (0.0, 0.044, 0.088):
+        for c in CLASSES:
+            for p in ("abtest", "oneshot", "loop"):
+                x = paired([r for r in a if r["cls"] == c and r["sd"] == sd], "pol", "ledger", p)
+                out.setdefault("perturb_paired", {}).setdefault(f"{sd}", {}).setdefault(p, {})[c] = dict(diff=r2(x["mean"]), half=r2(x["half"]), p=float(f"{x['p']:.2g}"))
+    NUM["e10"] = out
+
+
+if __name__ == "__main__" and "e10" in sys.argv[1:]:
+    e10()
+    json.dump(NUM, open(NUM_PATH, "w"), indent=1)

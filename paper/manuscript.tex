@@ -90,13 +90,13 @@ We address that gap with a design science study \citep{hevner2004, gregor2013, p
 
 \subsection{Online experimentation as an information management problem}
 
-Controlled online experiments, or A/B tests, are the standard method by which digital firms evaluate changes \citep{kohavi2009, kohavi2020}. Continuous experimentation embeds them in the delivery pipeline, so that features are deployed behind flags and evaluated on live traffic \citep{bosch2012, fitzgerald2017, fabijan2017}. A mature experimentation platform is an information system in its own right: it assigns users to variants, collects telemetry, computes metrics, stores results and supports decisions. The information systems literature has studied the value of data-driven decision making and of analytics capabilities in general \citep{brynjolfsson2016, provost2013, gupta2016, duan2019, mikalef2021}, but the experimentation platform has mostly been treated as plumbing, and the decision logic that sits on top of it, that is, which variants to test, how often and how to choose among them, has been left to rules of thumb.
+Controlled online experiments, or A/B tests, are the standard method by which digital firms evaluate changes \citep{kohavi2009, kohavi2020}. Continuous experimentation embeds them in the delivery pipeline, so that features are deployed behind flags and evaluated on live traffic \citep{bosch2012, fitzgerald2017, fabijan2017}; a recent review of 128 studies catalogues its processes, infrastructure and cultural, statistical and ethical challenges \citep{auer2021}. A mature experimentation platform is an information system in its own right: it assigns users to variants, collects telemetry, computes metrics, stores results and supports decisions. The information systems literature has studied the value of data-driven decision making and of analytics capabilities in general \citep{brynjolfsson2016, provost2013, gupta2016, duan2019, mikalef2021}, but the experimentation platform has mostly been treated as plumbing, and the decision logic that sits on top of it, that is, which variants to test, how often and how to choose among them, has been left to rules of thumb.
 
-Those rules address one experiment at a time. Practitioners are warned against peeking at interim results \citep{johari2022}, against sample-ratio mismatch and other data-quality problems \citep{fabijan2019}, against misreading metrics \citep{dmitriev2017}, against the highest paid person's opinion (HiPPO) overriding data \citep{kohavi2009}, and against novelty effects that inflate the early results of a new variant \citep{kohavi2020}. A programme of experiments raises problems that no single experiment shows. When many variants are compared, the winner's estimated effect is biased upwards \citep{lee2018}, the more so the noisier the tests; with heavy-tailed effects most tests find nothing and a few find much \citep{azevedo2020}; and a significance threshold controls false positives per test, not the quality of the configuration that a sequence of tests eventually ships. Bandit algorithms allocate traffic adaptively among a fixed set of arms \citep{scott2015, russo2018}, and best-arm identification asks how to find the best of them with few samples \citep{russo2020}, but neither addresses a set of arms that grows as new ideas arrive and are built.
+Those rules address one experiment at a time. Practitioners are warned against peeking at interim results \citep{johari2022}, against sample-ratio mismatch and other data-quality problems \citep{fabijan2019}, against misreading metrics \citep{dmitriev2017}, against the highest paid person's opinion (HiPPO) overriding data \citep{kohavi2009}, and against novelty effects that inflate the early results of a new variant \citep{kohavi2020}. A programme of experiments raises problems that no single experiment shows. When many variants are compared, the winner's estimated effect is biased upwards \citep{lee2018}, the more so the noisier the tests; with heavy-tailed effects most tests find nothing and a few find much \citep{azevedo2020}; and a significance threshold controls false positives per test, not the quality of the configuration that a sequence of tests eventually ships. Variance-reduction techniques make each test more precise \citep{deng2013}. Bandit algorithms allocate traffic adaptively among a fixed set of arms \citep{scott2015, russo2018}, also in marketing practice \citep{schwartz2017}, and best-arm identification asks how to find the best of them with few samples \citep{russo2020}, but neither addresses a set of arms that grows as new ideas arrive and are built.
 
 \subsection{Search, evaluation and the iterate--test loop}
 
-Simon described design as search for a satisfactory alternative under bounded rationality \citep{simon1996}. Organisation theory has modelled search on rugged landscapes, where local adaptation finds a nearby peak and misses distant ones \citep{levinthal1997, march1991, kauffman1993}, and has shown that imperfect evaluation of alternatives shapes the outcome as much as their generation \citep{knudsen2007}. Experiments on idea generation point the same way: groups that produce more ideas do not select better ones, and the quality of the best idea depends on the ability to recognise it \citep{girotra2010}. Building several prototypes in parallel before feedback improves design outcomes \citep{dow2010}, and design thinking is argued to work by disciplining judgement \citep{liedtka2015, micheli2019}.
+Simon described design as search for a satisfactory alternative under bounded rationality \citep{simon1996}. Organisation theory has modelled search on rugged landscapes, where local adaptation finds a nearby peak and misses distant ones \citep{levinthal1997, march1991, kauffman1993}, and has shown that imperfect evaluation of alternatives shapes the outcome as much as their generation \citep{knudsen2007}, sometimes beneficially, since a noisy evaluator can leave a local peak that an accurate one would not. Experiments on idea generation point the same way: groups that produce more ideas do not select better ones, and the quality of the best idea depends on the ability to recognise it \citep{girotra2010}. Building several prototypes in parallel before feedback improves design outcomes \citep{dow2010}, and design thinking is argued to work by disciplining judgement \citep{liedtka2015, micheli2019}.
 
 \citet{kuras2026} formalise the iterate--test core of design thinking. Within a fixed frame, a prototype is a subset $p$ of a finite set of features $F$ with an unknown utility $U(p)\in[0,1]$. In each round a team proposes variants of what it has built, builds one, tests it and some older prototypes, and updates its beliefs $M^p_k$; the favourite is the prototype with the highest belief. A test returns $y=U(p)+b_k+\varepsilon_k$ with noise of variance at most $\sigma^2$ and a bias $|b_k|\le B$. Their main results, restated in the vocabulary of this paper, are the following.
 
@@ -159,7 +159,56 @@ The evidence ledger sits in the experimentation plane of a digital service (Figu
 \label{fig:cycle}
 \end{figure}
 
+\subsection{The ledger as an information system}
+\label{sec:ledgeris}
+
+The ledger is an information system, not only a decision rule. It stores, for every variant ever deployed, its configuration, its screening score, every test result with its time and sample size, the current belief and its uncertainty, and the evidence count; it presents this record to the product team as a ranked list in which each belief is shown with its uncertainty; and it turns the record into three kinds of proposal, namely which idea to build, which variants to re-test and which variant could be shipped. The decisions themselves remain with people: the team decides what counts as a variant, whether to accept a proposal to ship, when to reframe and how to weigh the criteria, and it supplies the screening judgement. Table~\ref{tab:anatomy} sets out the resulting design theory in the eight components of \citet{gregor2007}.
+
+\begin{table}[t]
+\caption{The evidence ledger as a design theory, following the components of \citet{gregor2007}.}
+\label{tab:anatomy}
+\centering\footnotesize
+\begin{tabularx}{\textwidth}{@{}P{3.4cm}L@{}}
+\toprule
+Component & Content in this study\\
+\midrule
+Purpose and scope & Improve what a digital service ships from a programme of online experiments, within one framing of the problem\\
+Constructs & variant, test, belief, evidence count, screening score and validity, leader, favourite, ship bound, bias, drift, archive\\
+Principles of form and function & DP1--DP8 (Table~\ref{tab:dp})\\
+Artefact mutability & number of leaders, rotation, $\kappa$, forgetting factor, archive versus single favourite, audit size are configurable\\
+Testable propositions & H1--H8 (Section~\ref{sec:hyp})\\
+Justificatory knowledge & convergence theorem and corollaries \citep{kuras2026}; optimiser's curse \citep{smithwinkler2006}; best-arm identification \citep{russo2020}\\
+Principles of implementation & pool evidence across experiments; display beliefs with uncertainty; keep humans responsible for framing, screening and the decision to ship; audit instrumentation\\
+Expository instantiation & Python implementation in the testbed (Section~\ref{sec:method}); ledger excerpt in Table~\ref{tab:vignette}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Table~\ref{tab:vignette} shows what the ledger displays after 100 tests in one run on the reference service. The current favourite has the highest belief (0.94), but it rests on three tests and its true utility is 0.78, a typical case of the optimiser's curse. The second variant has a lower belief (0.77) resting on sixteen tests and is worth 0.73. Shown with their uncertainty and evidence counts, the two are no longer simply first and second: the favourite is a promising but unconfirmed variant, and the ledger's next round re-tests it. In this snapshot the lower bound still favours it (0.87 against 0.74); after further re-tests its belief falls towards its true value. The idea the screen ranks third is in fact the best of the three, which illustrates why screening validity matters.
+
+\begin{table}[t]
+\caption{Excerpt of the ledger after 100 tests in one run on the reference service (tests of 2,000 sessions, $\sigma=0.12$). The true utilities, unknown to the team, are shown for illustration; $U^*=0.881$.}
+\label{tab:vignette}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}LP{1.0cm}P{0.8cm}P{0.85cm}P{1.25cm}P{1.0cm}@{}}
+\toprule
+Variant (enabled capabilities) & Belief & s.d. & Tests & Bound $M-s$ & True $U$\\
+\midrule
+COMP, CACHE, REPL, RECO, ONECLICK, AUTOC, TELEM & 0.940 & 0.067 & 3 & 0.873 & 0.782\\
+COMP, CACHE, REPL, RECO, CHAT, ONECLICK, AUTOC, PRIV & 0.773 & 0.030 & 16 & 0.743 & 0.725\\
+COMP, CACHE, REPL, ONECLICK, TELEM & 0.735 & 0.042 & 8 & 0.693 & 0.610\\
+COMP, CACHE, REPL, RECO, CHAT, ONECLICK, PRIV & 0.724 & 0.081 & 2 & 0.643 & 0.682\\
+\midrule
+\multicolumn{6}{@{}p{\linewidth}@{}}{\raggedright\textit{Best-screened unbuilt ideas} (screening score; true $U$): COMP, CACHE, REPL, ONECLICK, AUTOC, TELEM (1.13; 0.646); COMP, CACHE, CHAT, ONECLICK (1.11; 0.643); COMP, CACHE, REPL, RECO, CHAT, ONECLICK, AUTOC, TELEM (1.02; 0.802).}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Because the ledger records each built idea's screening score next to its first test result, it can also estimate the validity of its own screening: the correlation between the two, divided by the square root of the reliability of a single test, estimates $\rho$ among the ideas the team actually builds (Section~\ref{sec:discussion}).
+
 \subsection{Hypotheses}
+\label{sec:hyp}
 
 The theory and the preprint's simulations lead to eight hypotheses about the artefact in a digital service.
 
@@ -178,7 +227,7 @@ The theory and the preprint's simulations lead to eight hypotheses about the art
 \section{Method: a programmable testbed}
 \label{sec:method}
 
-Evaluating an experimentation system on a live service would require the same service to be improved many times under different policies, which is impossible, and would not reveal the true utility of what is shipped. We therefore evaluate the artefact in an artificial but validated setting, a choice that design science recognises for early, technically oriented evaluation \citep{venable2016} and that management research uses to develop theory where processes are path dependent \citep{davis2007, harrison2007}. The testbed is written in Python, uses fixed random seeds, and is released with all scripts and raw outputs \citep{dataset2026}.
+Evaluating an experimentation system on a live service would require the same service to be improved many times under different policies, which is impossible, and would not reveal the true utility of what is shipped. We therefore evaluate the artefact in an artificial but validated setting, a choice that design science recognises for early, technically oriented evaluation \citep{venable2016} and whose simulation-based benchmarking against competing artefacts is an established evaluation pattern in IS design research \citep{prat2015} and that management research uses to develop theory where processes are path dependent \citep{davis2007, harrison2007}. In the terms of FEDS, this is a summative evaluation in an artificial setting whose purpose is to establish the efficacy of the design principles and their robustness to the conditions a real service would impose, before a naturalistic evaluation with practitioners; the risk it addresses first is technical (whether the principles improve outcomes at all), and the main remaining risk, that teams do not use the ledger as intended, is left to that later evaluation (Section~\ref{sec:discussion}). The testbed is written in Python, uses fixed random seeds, and is released with all scripts and raw outputs \citep{dataset2026}.
 
 \subsection{The digital service and its topology}
 \label{sec:service}
@@ -270,6 +319,7 @@ E6 & Which biases matter? & 4 bias types $\times$ 7 levels of $b/\sigma$; favour
 E7 & What if criteria move? & drift amplitude $\times$ forgetting $\gamma$; regime shift at 200 tests & tracking of current optimum & 5,400\\
 E8 & Several stakeholders? & archive vs scalarised loops, 3 budgets & hypervolume, local Pareto optimality & 630\\
 E9 & How robust? & 120 random scenarios $\times$ 4 policies $\times$ 12 seeds & ledger advantage; regression & 5,760\\
+E10 & Review checks & stronger A/B baselines; ship-rule $\kappa$; misspecified ground truth & shipped; paired differences & 8,800\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -281,7 +331,7 @@ E9 & How robust? & 120 random scenarios $\times$ 4 policies $\times$ 12 seeds & 
 \label{fig:manip}
 \end{figure}
 
-Runs are paired by seed across conditions where possible, so that conditions share their starting configurations. On the reference instance we report means across runs with 95\% $t$-intervals; for the families we first average the runs on each instance and report means and intervals across instances, so that the instance is the unit of analysis. Paired comparisons use Wilcoxon signed-rank tests with Holm's correction within each family of comparisons, and effect sizes are reported as Cohen's $d_z$. In the factorial experiment we report partial $\eta^2$ from a balanced analysis of variance on instance-level cell means.
+Runs are paired by seed across conditions where possible, so that conditions share their starting configurations. On the reference instance we report means across runs with 95\% $t$-intervals; for the families we first average the runs on each instance and report means and intervals across instances, so that the instance is the unit of analysis. Paired comparisons use Wilcoxon signed-rank tests with Holm's correction within each family of comparisons, and effect sizes are reported as Cohen's $d_z$. In the factorial experiment we report partial $\eta^2$ from a balanced analysis of variance on instance-level cell means for the families and on runs for the reference instance. The numbers of runs were set so that the 95\% half-width of the main contrasts is about one point of $U^*$ on the reference instance (300 runs in E2 and E3) and so that every family instance contributes several runs; the instance-level intervals for the families are wider and are reported throughout.
 
 % ===========================================================================
 \section{Results}
@@ -340,7 +390,7 @@ The limit of the theorem is remote (Figure~\ref{fig:e2}b). After 400 tests the f
 \subsection{E3: Experimentation-governance policies (H2)}
 \label{sec:e3}
 
-Table~\ref{tab:policies} and Figure~\ref{fig:e3} compare the six policies under 400 tests. Champion--challenger A/B testing, the most common practice, ships 84.1\%, 85.8\% and 86.4\% of the optimum with tests of 2,000 sessions, and 75.6\%, 77.0\% and 76.7\% with tests of 500, little better than random search. The evidence ledger ships 8.5 to 10.6 points more with large tests and 14.5 to 14.7 points more with small ones ($p_{\mathrm{Holm}}<10^{-4}$ on every class; $d_z$ between 0.85 and 2.5). Champion--challenger testing finds configurations nearly as good as the ledger does (best found 93.9--97.9\%) but ships configurations 7.5 to 13 points worse than its own best, because each comparison is decided by one noisy test per arm and the evidence of earlier comparisons is thrown away. A single lucky test can install a poor challenger, and a single unlucky one can keep a good challenger out. Its believed utility is close to the truth only because the belief is itself one recent test result. H2 is supported.
+Table~\ref{tab:policies} and Figure~\ref{fig:e3} compare the six policies under 400 tests. Champion--challenger A/B testing, the most common practice, ships 84.1\%, 85.8\% and 86.4\% of the optimum with tests of 2,000 sessions, and 75.6\%, 77.0\% and 76.7\% with tests of 500, little better than random search. The evidence ledger ships 8.5 to 10.6 points more with large tests and 14.5 to 14.7 points more with small ones ($p_{\mathrm{Holm}}<10^{-4}$ on every class; $d_z$ between 0.85 and 2.5). Champion--challenger testing finds configurations nearly as good as the ledger does (best found 93.9--97.9\%) but ships configurations 7.5 to 13 points worse than its own best, because each comparison is decided by one noisy test per arm and the evidence of earlier comparisons is thrown away. A single lucky test can install a poor challenger, and a single unlucky one can keep a good challenger out. Its believed utility is close to the truth only because the belief is itself one recent test result. Stronger versions of the practice do not close the gap (Section~\ref{sec:e10}): pooling the champion's evidence across experiments raises champion--challenger testing to 86.0--87.2\%, still 7.6 to 8.4 points behind the ledger ($p<10^{-5}$ on every class), and replacing the significance rule by ``ship whichever arm measured higher'' makes it worse. H2 is supported.
 
 \begin{table}[t]
 \caption{E3: utility shipped after 400 tests of 2,000 sessions, as a percentage of $U^*$, with 95\% half-widths; the cost of choosing (found minus shipped) and the overestimation (believed minus shipped), in points; and the paired difference of the evidence ledger from each policy with Holm-adjusted Wilcoxon $p$ and $d_z$ (reference instance: 300 runs; families: 10 runs per instance, instance as unit).}
@@ -387,12 +437,12 @@ Experiment E4 fixes the traffic at 800,000 sessions and varies both the size of 
 \label{fig:e4}
 \end{figure}
 
-The size of the test matters more than the allocation. Under the same traffic, many small tests beat few large ones on every class: the best allocation reaches 97.2\%, 96.0\% and 96.3\% of the optimum with 1,600 tests of 500 sessions, 95.7\%, 95.2\% and 95.5\% with 400 tests of 2,000, and 91.3\%, 91.8\% and 91.3\% with 100 tests of 8,000. More, smaller tests mean more rounds of the loop, and the ledger can concentrate repeated small tests on the leaders where a single large test would spread precision over a variant that turns out to be poor.
+The size of the test matters more than the allocation. Under the same traffic, many small tests beat few large ones on every class: the best allocation reaches 97.2\%, 96.0\% and 96.3\% of the optimum with 1,600 tests of 500 sessions, 95.7\%, 95.2\% and 95.5\% with 400 tests of 2,000, and 91.3\%, 91.8\% and 91.3\% with 100 tests of 8,000. More, smaller tests mean more rounds of the loop, and the ledger can concentrate repeated small tests on the leaders where a single large test would spread precision over a variant that turns out to be poor. The result parallels the analysis of \citet{azevedo2020}, who show that many smaller experiments are preferable when the distribution of improvements has fat tails; in our setting the same conclusion follows from the ability to re-test.
 
 \subsection{E5: Generative ideation (H4)}
 \label{sec:e5}
 
-Experiment E5 crosses the validity of screening ($\rho$), the number of ideas proposed per round ($V$) and their homogenisation ($h$, the share of ideas whose changes are confined to four favoured capabilities; Figure~\ref{fig:manip}a). Figure~\ref{fig:e5} shows the main result. Without valid screening, more ideas are worth nothing: with $\rho=0$, twenty ideas per round ship the same utility as one (differences of $+0.1$, $0.0$ and $-1.2$ points; all n.s.), because the team has no way to tell which of them to build. With valid screening, the gains are large: raising $\rho$ from 0 to 0.9 adds 4.8, 3.4 and 7.2 points on average over the cells with five or twenty ideas. Moving from five to twenty ideas adds 2.0, 1.0 and 2.4 points. In an analysis of variance restricted to $V\in\{5,20\}$, validity explains more variance than volume on every class (partial $\eta^2$ of 0.058 against 0.021 on the reference instance, 0.096 against 0.015 on the service family and 0.254 against 0.066 on the rugged family; Table~\ref{tab:eta}). H4 is supported.
+Experiment E5 crosses the validity of screening ($\rho$), the number of ideas proposed per round ($V$) and their homogenisation ($h$, the share of ideas whose changes are confined to four favoured capabilities; Figure~\ref{fig:manip}a). Figure~\ref{fig:e5} shows the main result. Without valid screening, more ideas are worth nothing: with $\rho=0$, twenty ideas per round ship the same utility as one (differences of $+0.1$, $0.0$ and $-1.2$ points; all n.s.), because the team has no way to tell which of them to build. With valid screening, the gains are large: raising $\rho$ from 0 to 0.9 adds 4.8, 3.4 and 7.2 points on average over the cells with five or twenty ideas. Moving from five to twenty ideas adds 2.0, 1.0 and 2.4 points. In an analysis of variance restricted to $V\in\{5,20\}$ (instance-level cell means for the families, runs for the reference instance), validity explains more variance than volume on every class (partial $\eta^2$ of 0.058 against 0.021 on the reference instance, 0.096 against 0.015 on the service family and 0.254 against 0.066 on the rugged family; Table~\ref{tab:eta}). H4 is supported.
 
 \begin{figure}[t]
 \centering
@@ -477,6 +527,40 @@ The ledger ships a better configuration than champion--challenger testing in 92.
 \label{fig:e9}
 \end{figure}
 
+\subsection{E10: Robustness checks requested in review}
+\label{sec:e10}
+
+Three checks address the strongest objections to the evaluation (Table~\ref{tab:e10}; 150 runs on the reference instance and five per family instance, tests of 2,000 sessions, 400 tests). First, the practice baseline was strengthened. Pooling the champion's evidence over all the experiments in which it took part raises champion--challenger testing by one to two points; letting the higher-measuring arm win without a significance test lowers it by eight to fourteen points, because single noisy comparisons then replace the champion at random. The ledger leads the strongest variant by 8.3, 7.6 and 8.4 points. Second, the constant $\kappa$ of the ship rule, which was set to one posterior standard deviation a priori and not tuned, matters little between 0.5 and 2 (differences within 0.8 points on every class); $\kappa=0$ is the plain loop. Third, the ground truth was perturbed: every configuration's true utility was shifted by a fixed random error with the standard deviation of the model error measured in E1 (0.044) or twice that, so that the testbed's model is wrong in the way and by the amount the emulation suggests. The ledger's lead over champion--challenger testing remains between 7.2 and 11.7 points; its lead over the plain loop shrinks to 0.0--0.5 points, and launch-and-learn remains level with it.
+
+\begin{table}[t]
+\caption{E10: utility shipped after 400 tests (\% of $U^*$; reference instance and means over family instances) under stronger practice baselines, different ship-rule constants and a misspecified ground truth with error s.d. $\tau$.}
+\label{tab:e10}
+\centering\footnotesize
+\begin{tabularx}{\textwidth}{@{}P{7.4cm}CCC@{}}
+\toprule
+Condition & Reference & Service family & Rugged family\\
+\midrule
+\multicolumn{4}{@{}l}{\textit{(a) Practice baselines and the ledger}}\\
+Champion--challenger, 5\%, evidence not pooled & 84.6 & 85.9 & 85.1\\
+Champion--challenger, 5\%, champion's evidence pooled & 86.5 & 87.2 & 86.0\\
+Champion--challenger, ship the higher arm, pooled & 80.2 & 79.8 & 84.4\\
+Evidence ledger ($\kappa=1$) & 94.8 & 94.8 & 94.4\\
+\addlinespace[3pt]
+\multicolumn{4}{@{}l}{\textit{(b) Ship-rule constant of the ledger}}\\
+$\kappa=0$ (the plain loop) & 94.0 & 93.7 & 94.6\\
+$\kappa=0.5$ & 94.5 & 94.3 & 94.6\\
+$\kappa=1.5$ & 95.0 & 95.1 & 94.4\\
+$\kappa=2$ & 95.0 & 95.0 & 94.4\\
+\addlinespace[3pt]
+\multicolumn{4}{@{}l}{\textit{(c) Misspecified ground truth: paired difference of the ledger, points}}\\
+vs champion--challenger, $\tau=0.044$ & $+10.0$ & $+11.4$ & $+10.3$\\
+vs champion--challenger, $\tau=0.088$ & $+7.2$ & $+9.0$ & $+11.7$\\
+vs loop, $\tau=0.044$ & $+0.5$ & $+0.4$ & $+0.4$\\
+vs loop, $\tau=0.088$ & $+0.5$ & $0.0$ & $+0.1$\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 
 % ===========================================================================
 \section{Discussion}
@@ -484,7 +568,7 @@ The ledger ships a better configuration than champion--challenger testing in 92.
 
 \subsection{Summary of findings}
 
-Table~\ref{tab:hyp} summarises the evidence. Six hypotheses are supported and two partly. The convergence theorem of \citet{kuras2026} survives the move from abstract landscapes to a digital service whose utility emerges from capacity, latency, conversion and cost, and whose test noise is set by traffic. Its conditions translate into design principles whose violation is costly, and the finite-horizon findings it reports, namely a remote limit, a large cost of choosing, an optimiser's curse, a bias threshold near the noise level and the importance of screening, reappear in the testbed with similar magnitudes. Two of its finite-horizon results do not carry over unchanged. Spending every test on new configurations is not the worst allocation in a digital service with valid screening and many small tests: it is close to the best, and too little building is the costly error. And forgetting, which the drift corollary might seem to recommend, is of little value under bounded drift and of transient value after a shift.
+Table~\ref{tab:hyp} summarises the evidence. Six hypotheses are supported and two partly. The convergence theorem of \citet{kuras2026} survives the move from abstract landscapes to a digital service whose utility emerges from capacity, latency, conversion and cost, and whose test noise is set by traffic. Its conditions translate into design principles whose violation is costly, and the finite-horizon findings it reports, namely a remote limit, a large cost of choosing, an optimiser's curse, a bias threshold near the noise level and the importance of screening, reappear in the testbed with similar magnitudes. Two of its finite-horizon results do not carry over unchanged. Spending every test on new configurations is not the worst allocation in a digital service with valid screening and many small tests: it is close to the best, and too little building is the costly error. And forgetting, which the drift corollary might seem to recommend, is of little value under bounded drift and of transient value after a shift. The decomposition of the ledger's advantage is also instructive: most of it comes from retaining, pooling and re-testing evidence, which it shares with the design-thinking loop, and about one point from discounting thin evidence when shipping, an increment that shrinks when the model of the service is itself uncertain (E10).
 
 \begin{table}[t]
 \caption{Hypotheses and evidence.}
@@ -495,13 +579,13 @@ Table~\ref{tab:hyp} summarises the evidence. Six hypotheses are supported and tw
 Hypothesis & Evidence & Verdict\\
 \midrule
 H1 choosing & loop loses 3.7--4.1 points to its own choice and overrates it by 6.1--6.7 points on smooth landscapes; ship rule of DP5 cuts both by a quarter to a third (E2) & supported\\
-H2 governance & ledger beats champion--challenger by 8.5--14.7 points under equal traffic on every class (E3) & supported\\
+H2 governance & ledger beats champion--challenger by 8.5--14.7 points under equal traffic on every class, and its strongest pooled variant by 7.6--8.4 points (E3, E10) & supported\\
 H3 allocation & optimum interior or near all-new; moves towards building as tests get precise; building too little costs most (E4) & partly\\
 H4 GenAI & with $\geq5$ ideas, validity of screening explains 3--6 times more variance than volume; volume without validity adds nothing; homogenisation costs 5--6 points (E5) & supported\\
 H5 bias & favourite and novelty bias harmless below $\sigma$; instrumentation bias grows fastest, survives re-testing, is neutralised by an audit (E6) & supported\\
 H6 drift & bounded drift costs about one point and stays within $4D$; forgetting helps only in the first tests after a shift (E7) & partly\\
 H7 stakeholders & archive covers 0.03--0.09 more of the true front's hypervolume than scalarised loops (E8) & supported\\
-H8 robustness & ledger beats champion--challenger in 92.5\% of 120 random scenarios (mean $+11.2$ points); advantage grows as signal-to-noise falls (E9) & supported\\
+H8 robustness & ledger beats champion--challenger in 92.5\% of 120 random scenarios (mean $+11.2$ points); advantage grows as signal-to-noise falls (E9) and survives a misspecified ground truth (E10) & supported\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -512,9 +596,9 @@ H8 robustness & ledger beats champion--challenger in 92.5\% of 120 random scenar
 
 \emph{Kernel theory for experimentation systems.} The study contributes a design theory in the sense of \citet{gregor2007}: eight principles with a stated purpose, a kernel theory that explains why they work, an instantiation and an evaluation. The kernel theory adds something that experimentation practice lacks, namely a statement of the conditions under which a sequence of experiments must improve the outcome and of what each violation costs. It also shows where the bandit literature \citep{russo2018, scott2015} and the experimentation literature meet. A transparent loop that retains, re-tests and discounts does as well as Thompson sampling, so that organisations need not adopt adaptive algorithms they cannot audit in order to manage evidence well.
 
-\emph{Generative AI shifts the bottleneck.} Research on generative AI in organisations has emphasised productivity and creativity in generation \citep{noy2023, dellacqua2023, girotra2023, boussioux2024, dwivedi2023}. Our results show that, within an iterative improvement process, generation is valuable only through the evaluation it feeds. Without a valid screen, twenty ideas are worth no more than one; with one, the validity of the screen matters three to six times more than the number of ideas, and homogenised ideas lose much of their value. The construct that IS research should measure in AI-assisted innovation is therefore the validity of AI-assisted judgement, for example of language models used as judges \citep{zheng2023}, together with the diversity of the ideas they produce, rather than the volume of output. This reframes a question raised in the IJIM debate on generative AI \citep{dwivedi2023}, namely where its value in knowledge work lies, for the setting of continuous product improvement.
+\emph{Generative AI shifts the bottleneck.} Research on generative AI in organisations has emphasised productivity and creativity in generation \citep{noy2023, dellacqua2023, girotra2023, boussioux2024, dwivedi2023}. \citet{girotra2023} conjectured that, once language models make ideas cheap, the bottleneck of innovation moves to evaluation and selection, and \citet{si2025} found that language-model ideas judged more novel than experts' came with unreliable self-evaluation and low diversity. Our results support the conjecture and quantify it: within an iterative improvement process, generation is valuable only through the evaluation it feeds. Without a valid screen, twenty ideas are worth no more than one; with one, the validity of the screen matters three to six times more than the number of ideas, and homogenised ideas, which several studies observe in language-model output \citep{doshi2024, anderson2024, meincke2024}, lose much of their value. The construct that IS research should measure in AI-assisted innovation is therefore the validity of AI-assisted judgement, for example of language models used as judges \citep{zheng2023}, together with the diversity of the ideas they produce, rather than the volume of output. This reframes a question raised in the IJIM debate on generative AI \citep{dwivedi2023}, namely where its value in knowledge work lies, for the setting of continuous product improvement.
 
-\emph{A typology of measurement bias.} The bias results distinguish transient biases, which re-testing corrects and which are harmless below the noise of a test, from persistent biases attached to the measurement of particular configurations, which re-testing cannot correct. The threshold of harm scales with test noise, so that more precise measurement makes an experimentation programme more sensitive to its own bias. For research on data quality in analytics this implies that the materiality of a bias depends on the precision of the measurement system it contaminates. A further persistent bias appeared in validation: short experiments flatter configurations that run beyond capacity, because queues take longer to build than the experiment lasts.
+\emph{A typology of measurement bias.} The bias results distinguish transient biases, which re-testing corrects and which are harmless below the noise of a test, from persistent biases attached to the measurement of particular configurations, which re-testing cannot correct. The threshold of harm scales with test noise, so that more precise measurement makes an experimentation programme more sensitive to its own bias. For research on data quality in analytics, which has long treated accuracy as one dimension among several \citep{wang1996}, this implies that the materiality of a bias depends on the precision of the measurement system it contaminates, and on whether it is attached to the alternatives being compared. A further persistent bias appeared in validation: short experiments flatter configurations that run beyond capacity, because queues take longer to build than the experiment lasts.
 
 \emph{Methodology.} The testbed itself is a contribution: a validated, programmable environment in which the true value of every alternative is known, which allows experimentation systems to be compared on outcomes that field data cannot reveal. It follows the advice of \citet{davis2007} to use simulation where processes are path dependent and outcomes hard to observe, and the call of \citet{venable2016} to evaluate artefacts artificially before naturalistic evaluation.
 
@@ -525,18 +609,20 @@ Seven recommendations follow for managers of digital services and of experimenta
 \begin{enumerate}[leftmargin=*,itemsep=2pt]
 \item \emph{Replace champion--challenger sequences with an evidence ledger.} Keep every tested variant, pool its results across experiments, and re-test the leaders. Under the same traffic this was worth 8.5 to 14.7 points of the attainable utility in our testbed.
 \item \emph{Do not ship the apparent winner at face value.} Rank candidates by a lower confidence bound and expect the chosen variant's measured lift to shrink after launch; in our testbed the winner was overrated by 5 to 7 percent of the optimum even after 400 tests.
-\item \emph{Run many small tests rather than few large ones, and keep building.} Under a fixed traffic budget, 1,600 tests of 500 sessions beat 100 tests of 8,000 by five points, and building a new variant less than once per round was the costliest allocation.
-\item \emph{Invest in screening before investing in generation.} Before scaling generative ideation, validate the judgement that selects among ideas, for example by checking how well a model's or a panel's ratings predict test outcomes, and monitor the diversity of the ideas.
+\item \emph{Run many small tests rather than few large ones, and keep building.} Under a fixed traffic budget, 1,600 tests of 500 sessions beat 100 tests of 8,000 by five points, and building a new variant less than once per round was the costliest allocation. Tests must nevertheless stay large enough for metrics to be stable and for sample-ratio checks to have power \citep{fabijan2019}.
+\item \emph{Invest in screening before investing in generation.} Before scaling generative ideation, validate the judgement that selects among ideas, and monitor the diversity of the ideas. The ledger makes validation cheap: the correlation between the screening scores of built ideas and their first test results, corrected for the reliability of a single test, estimates the validity of the screen, and it can be compared across a model, a panel and their combination.
 \item \emph{Audit persistent measurement bias.} Novelty effects and enthusiasm for the incumbent are tolerable if smaller than the noise of a test, but biases tied to how particular variants are measured, such as differential tracking or instrumentation, must be estimated, for example by A/A comparisons with server-side measurement, and corrected.
 \item \emph{Test capacity-sensitive changes with capacity models.} Short online experiments understate the cost of configurations that overload a tier; combine them with load tests or queueing estimates.
 \item \emph{Keep trade-offs open when stakeholders disagree, and forget only after shifts.} An archive of non-dominated variants represents disagreeing stakeholders better than an early compromise on weights, and old evidence should be discounted when a shift is detected, not continuously.
 \end{enumerate}
 
+Experimentation on users also raises ethical and regulatory questions that an experimentation information system should help manage rather than hide: users exposed to variants should be covered by the service's consent and privacy terms, variants that change prices, authentication or data collection deserve review before exposure, and the ledger's record of who saw what, when and with which result supports accountability. Several principles here, notably auditing measurement and re-testing before shipping, reduce the number of users exposed to variants that a single lucky test would otherwise have promoted.
+
 \subsection{Limitations and future research}
 
 The study evaluates the artefact in an artificial setting. The testbed is grounded in queueing theory and validated against a discrete-event emulation, but it is not a real service: its parameters are plausible rather than estimated, the emulation shares the model's structural assumptions (exponential service times, Poisson arrivals and a simple behavioural model of conversion), and both depart from the analytic model near and beyond capacity. The magnitudes we report are therefore properties of the testbed, and the qualitative patterns are what we expect to generalise; E9 shows how far they hold across a wide range of settings. A naturalistic evaluation on a real experimentation platform, for example by replaying logged experiments through the ledger or by a field experiment that assigns product teams to governance policies, is the natural next step.
 
-The model of a test is simplified. A real experiment returns reasons as well as numbers, which direct the next idea; it uses a concurrent control group, which removes common shocks; and its users may be exposed to several variants. Concurrent controls would reduce the noise of comparisons and could change the best allocation. Our screening model represents judgement by a single validity coefficient, while the validity of real judges varies with the region of the space and may be correlated with the generator's own biases. The configuration space has 1,024 to 16,384 members; very large spaces of continuous parameters call for correlated beliefs and model-based optimisation \citep{frazier2008}. Finally, we hold the frame of the problem fixed within a programme; how organisations decide to reframe, which \citet{kuras2026} treat only briefly and which is central to design thinking \citep{dorst2011}, is outside our scope.
+The model of a test is simplified. A real experiment returns reasons as well as numbers, which direct the next idea; it uses a concurrent control group, which removes common shocks; and its users may be exposed to several variants. Concurrent controls and variance reduction \citep{deng2013} would reduce the noise of comparisons and could change the best allocation. Common shocks, such as day-of-week effects or a marketing campaign, are absent from our tests; they make results obtained at different times less comparable, which would penalise all policies that compare a new variant with evidence collected earlier, the ledger included, and favour designs that re-test leaders concurrently with challengers. Building a variant is also free in our model, apart from its tests; where engineering effort makes building dearer than testing, the best allocation moves towards re-testing, which strengthens the case for the ledger relative to launch-and-learn. Our screening model represents judgement by a single validity coefficient, while the validity of real judges varies with the region of the space and may be correlated with the generator's own biases. The configuration space has 1,024 to 16,384 members; very large spaces of continuous parameters call for correlated beliefs and model-based optimisation \citep{frazier2008}. Finally, we hold the frame of the problem fixed within a programme; how organisations decide to reframe, which \citet{kuras2026} treat only briefly and which is central to design thinking \citep{dorst2011}, is outside our scope.
 
 % ===========================================================================
 \section{Conclusion}

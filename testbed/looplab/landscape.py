@@ -205,9 +205,15 @@ class Landscape:
     def _uv(self, profit):
         return (profit - self.v_lo) / (self.v_hi - self.v_lo)
 
+    def perturb(self, sd: float, seed: int = 0):
+        """Add a fixed idiosyncratic error to every configuration's utility
+        (model misspecification: the true utility differs from the model)."""
+        self.delta = np.random.default_rng(seed).normal(0.0, sd, self.N) if sd > 0 else np.zeros(self.N)
+        self.set_weights(self.w)
+
     def set_weights(self, w):
         self.w = np.asarray(w, float)
-        self.U = self.C @ self.w
+        self.U = self.C @ self.w + getattr(self, "delta", 0.0)
         self.Ustar = self.U.max()
         self.opt = int(self.U.argmax())
         self._lo = {}
@@ -264,7 +270,7 @@ class Landscape:
         uv = self._uv(self._profit(conv_hat, x, cost_hat))
         if components:
             return np.stack([ud, uf, uv], 1)
-        return np.stack([ud, uf, uv], 1) @ self.w
+        return np.stack([ud, uf, uv], 1) @ self.w + getattr(self, "delta", np.zeros(self.N))[x]
 
     def sigma(self, n_sess: int, rng=None, sample=200, reps=200) -> float:
         """Empirical s.d. of a test of n_sess sessions (averaged over configs)."""

@@ -1,0 +1,362 @@
+[
+ {
+  "key": "auer2002",
+  "doi": "10.1023/A:1013689704352",
+  "text": "Auer, P., Cesa-Bianchi, N., & Fischer, P. (2002). Finite-time analysis of the multiarmed bandit problem. Machine Learning, 47(2--3), 235--256."
+ },
+ {
+  "key": "azevedo2020",
+  "doi": "10.1086/710607",
+  "text": "Azevedo, E. M., Deng, A., Montiel Olea, J. L., Rao, J., & Weyl, E. G. (2020). A/B testing with fat tails. Journal of Political Economy, 128(12), 4614--4672."
+ },
+ {
+  "key": "anderson2024",
+  "doi": "10.1145/3635636.3656204",
+  "text": "Anderson, B. R., Shah, J. H., & Kreminski, M. (2024). Homogenization effects of large language models on human creative ideation. In Proceedings of the 16th Conference on Creativity & Cognition. ACM."
+ },
+ {
+  "key": "auer2021",
+  "doi": "10.1016/j.infsof.2021.106551",
+  "text": "Auer, F., Ros, R., Kaltenbrunner, L., Runeson, P., & Felderer, M. (2021). Controlled experimentation in continuous experimentation: Knowledge and challenges. Information and Software Technology, 134, Article 106551."
+ },
+ {
+  "key": "bosch2012",
+  "doi": "10.1007/978-3-642-30746-1_3",
+  "text": "Bosch, J. (2012). Building products as innovation experiment systems. In M. A. Cusumano, B. Iyer, & N. Venkatraman (Eds.), Software Business (pp. 27--39). Springer."
+ },
+ {
+  "key": "boussioux2024",
+  "doi": "10.1287/orsc.2023.18430",
+  "text": "Boussioux, L., Lane, J. N., Zhang, M., Jacimovic, V., & Lakhani, K. R. (2024). The crowdless future? Generative AI and creative problem-solving. Organization Science, 35(5), 1589--1607."
+ },
+ {
+  "key": "brown2008",
+  "doi": null,
+  "text": "Brown, T. (2008). Design thinking. Harvard Business Review, 86(6), 84--92."
+ },
+ {
+  "key": "brynjolfsson2016",
+  "doi": "10.1257/aer.p20161016",
+  "text": "Brynjolfsson, E., & McElheran, K. (2016). The rapid adoption of data-driven decision-making. American Economic Review, 106(5), 133--139."
+ },
+ {
+  "key": "camuffo2020",
+  "doi": "10.1287/mnsc.2018.3249",
+  "text": "Camuffo, A., Cordova, A., Gambardella, A., & Spina, C. (2020). A scientific approach to entrepreneurial decision making: Evidence from a randomized control trial. Management Science, 66(2), 564--586."
+ },
+ {
+  "key": "chen2000",
+  "doi": "10.1023/A:1008349927281",
+  "text": "Chen, C.-H., Lin, J., Y\\\"ucesan, E., & Chick, S. E. (2000). Simulation budget allocation for further enhancing the efficiency of ordinal optimization. Discrete Event Dynamic Systems, 10(3), 251--270."
+ },
+ {
+  "key": "davis2007",
+  "doi": "10.5465/amr.2007.24351453",
+  "text": "Davis, J. P., Eisenhardt, K. M., & Bingham, C. B. (2007). Developing theory through simulation methods. Academy of Management Review, 32(2), 480--499."
+ },
+ {
+  "key": "dean2013",
+  "doi": "10.1145/2408776.2408794",
+  "text": "Dean, J., & Barroso, L. A. (2013). The tail at scale. Communications of the ACM, 56(2), 74--80."
+ },
+ {
+  "key": "dellacqua2023",
+  "doi": "10.1287/orsc.2025.21838",
+  "text": "Dell'Acqua, F., McFowland, E., III, Mollick, E., Lifshitz, H., Kellogg, K. C., Rajendran, S., Krayer, L., Candelon, F., & Lakhani, K. R. (2026). Navigating the jagged technological frontier: Field experimental evidence of the effects of artificial intelligence on knowledge worker productivity and quality. Organization Science. Advance online publication."
+ },
+ {
+  "key": "deng2013",
+  "doi": "10.1145/2433396.2433413",
+  "text": "Deng, A., Xu, Y., Kohavi, R., & Walker, T. (2013). Improving the sensitivity of online controlled experiments by utilizing pre-experiment data. In Proceedings of the Sixth ACM International Conference on Web Search and Data Mining (pp. 123--132). ACM."
+ },
+ {
+  "key": "dmitriev2017",
+  "doi": "10.1145/3097983.3098024",
+  "text": "Dmitriev, P., Gupta, S., Kim, D. W., & Vaz, G. (2017). A dirty dozen: Twelve common metric interpretation pitfalls in online controlled experiments. In Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 1427--1436). ACM."
+ },
+ {
+  "key": "dorst2011",
+  "doi": "10.1016/j.destud.2011.07.006",
+  "text": "Dorst, K. (2011). The core of `design thinking' and its application. Design Studies, 32(6), 521--532."
+ },
+ {
+  "key": "doshi2024",
+  "doi": "10.1126/sciadv.adn5290",
+  "text": "Doshi, A. R., & Hauser, O. P. (2024). Generative AI enhances individual creativity but reduces the collective diversity of novel content. Science Advances, 10(28), eadn5290."
+ },
+ {
+  "key": "dow2010",
+  "doi": "10.1145/1879831.1879836",
+  "text": "Dow, S. P., Glassco, A., Kass, J., Schwarz, M., Schwartz, D. L., & Klemmer, S. R. (2010). Parallel prototyping leads to better design results, more divergence, and increased self-efficacy. ACM Transactions on Computer-Human Interaction, 17(4), Article 18."
+ },
+ {
+  "key": "duan2019",
+  "doi": "10.1016/j.ijinfomgt.2019.01.021",
+  "text": "Duan, Y., Edwards, J. S., & Dwivedi, Y. K. (2019). Artificial intelligence for decision making in the era of Big Data -- evolution, challenges and research agenda. International Journal of Information Management, 48, 63--71."
+ },
+ {
+  "key": "dwivedi2021",
+  "doi": "10.1016/j.ijinfomgt.2019.08.002",
+  "text": "Dwivedi, Y. K., Hughes, L., Ismagilova, E., Aarts, G., Coombs, C., Crick, T., et al. (2021). Artificial Intelligence (AI): Multidisciplinary perspectives on emerging challenges, opportunities, and agenda for research, practice and policy. International Journal of Information Management, 57, 101994."
+ },
+ {
+  "key": "dwivedi2023",
+  "doi": "10.1016/j.ijinfomgt.2023.102642",
+  "text": "Dwivedi, Y. K., Kshetri, N., Hughes, L., Slade, E. L., Jeyaraj, A., Kar, A. K., et al. (2023). ``So what if ChatGPT wrote it?'' Multidisciplinary perspectives on opportunities, challenges and implications of generative conversational AI for research, practice and policy. International Journal of Information Management, 71, 102642."
+ },
+ {
+  "key": "efron2011",
+  "doi": "10.1198/jasa.2011.tm11181",
+  "text": "Efron, B. (2011). Tweedie's formula and selection bias. Journal of the American Statistical Association, 106(496), 1602--1614."
+ },
+ {
+  "key": "fabijan2017",
+  "doi": "10.1109/ICSE.2017.76",
+  "text": "Fabijan, A., Dmitriev, P., Olsson, H. H., & Bosch, J. (2017). The evolution of continuous experimentation in software product development: From data to a data-driven organization at scale. In Proceedings of the 39th International Conference on Software Engineering (pp. 770--780). IEEE."
+ },
+ {
+  "key": "fabijan2019",
+  "doi": "10.1145/3292500.3330722",
+  "text": "Fabijan, A., Gupchup, J., Gupta, S., Omhover, J., Qin, W., Vermeer, L., & Dmitriev, P. (2019). Diagnosing sample ratio mismatch in online controlled experiments: A taxonomy and rules of thumb for practitioners. In Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 2156--2164). ACM."
+ },
+ {
+  "key": "fitzgerald2017",
+  "doi": "10.1016/j.jss.2015.06.063",
+  "text": "Fitzgerald, B., & Stol, K.-J. (2017). Continuous software engineering: A roadmap and agenda. Journal of Systems and Software, 123, 176--189."
+ },
+ {
+  "key": "frazier2008",
+  "doi": "10.1137/070693424",
+  "text": "Frazier, P. I., Powell, W. B., & Dayanik, S. (2008). A knowledge-gradient policy for sequential information collection. SIAM Journal on Control and Optimization, 47(5), 2410--2439."
+ },
+ {
+  "key": "gama2014",
+  "doi": "10.1145/2523813",
+  "text": "Gama, J., \\vZliobait\\.e, I., Bifet, A., Pechenizkiy, M., & Bouchachia, A. (2014). A survey on concept drift adaptation. ACM Computing Surveys, 46(4), Article 44."
+ },
+ {
+  "key": "garivier2011",
+  "doi": "10.1007/978-3-642-24412-4_16",
+  "text": "Garivier, A., & Moulines, E. (2011). On upper-confidence bound policies for switching bandit problems. In J. Kivinen, C. Szepesvari, E. Ukkonen, & T. Zeugmann (Eds.), Algorithmic Learning Theory (pp. 174--188). Springer."
+ },
+ {
+  "key": "gelman2014",
+  "doi": "10.1177/1745691614551642",
+  "text": "Gelman, A., & Carlin, J. (2014). Beyond power calculations: Assessing Type S (sign) and Type M (magnitude) errors. Perspectives on Psychological Science, 9(6), 641--651."
+ },
+ {
+  "key": "girotra2010",
+  "doi": "10.1287/mnsc.1090.1144",
+  "text": "Girotra, K., Terwiesch, C., & Ulrich, K. T. (2010). Idea generation and the quality of the best idea. Management Science, 56(4), 591--605."
+ },
+ {
+  "key": "girotra2023",
+  "doi": "10.2139/ssrn.4526071",
+  "text": "Girotra, K., Meincke, L., Terwiesch, C., & Ulrich, K. T. (2023). Ideas are dimes a dozen: Large language models for idea generation in innovation (Working paper). SSRN."
+ },
+ {
+  "key": "gregor2013",
+  "doi": "10.25300/MISQ/2013/37.2.01",
+  "text": "Gregor, S., & Hevner, A. R. (2013). Positioning and presenting design science research for maximum impact. MIS Quarterly, 37(2), 337--355."
+ },
+ {
+  "key": "gregor2007",
+  "doi": "10.17705/1jais.00129",
+  "text": "Gregor, S., & Jones, D. (2007). The anatomy of a design theory. Journal of the Association for Information Systems, 8(5), 312--335."
+ },
+ {
+  "key": "gregor2020",
+  "doi": "10.17705/1jais.00649",
+  "text": "Gregor, S., Kruse, L. C., & Seidel, S. (2020). Research perspectives: The anatomy of a design principle. Journal of the Association for Information Systems, 21(6), 1622--1652."
+ },
+ {
+  "key": "gupta2016",
+  "doi": "10.1016/j.im.2016.07.004",
+  "text": "Gupta, M., & George, J. F. (2016). Toward the development of a big data analytics capability. Information & Management, 53(8), 1049--1064."
+ },
+ {
+  "key": "harchol2013",
+  "doi": "10.1017/CBO9781139226424",
+  "text": "Harchol-Balter, M. (2013). Performance Modeling and Design of Computer Systems: Queueing Theory in Action. Cambridge University Press."
+ },
+ {
+  "key": "harrison2007",
+  "doi": "10.5465/amr.2007.26586485",
+  "text": "Harrison, J. R., Lin, Z., Carroll, G. R., & Carley, K. M. (2007). Simulation modeling in organizational and management research. Academy of Management Review, 32(4), 1229--1245."
+ },
+ {
+  "key": "hevner2004",
+  "doi": "10.2307/25148625",
+  "text": "Hevner, A. R., March, S. T., Park, J., & Ram, S. (2004). Design science in information systems research. MIS Quarterly, 28(1), 75--105."
+ },
+ {
+  "key": "johari2022",
+  "doi": "10.1287/opre.2021.2135",
+  "text": "Johari, R., Koomen, P., Pekelis, L., & Walsh, D. (2022). Always valid inference: Continuous monitoring of A/B tests. Operations Research, 70(3), 1806--1821."
+ },
+ {
+  "key": "kauffman1993",
+  "doi": null,
+  "text": "Kauffman, S. A. (1993). The Origins of Order: Self-Organization and Selection in Evolution. Oxford University Press."
+ },
+ {
+  "key": "knudsen2007",
+  "doi": "10.1287/orsc.1060.0216",
+  "text": "Knudsen, T., & Levinthal, D. A. (2007). Two faces of search: Alternative generation and alternative evaluation. Organization Science, 18(1), 39--54."
+ },
+ {
+  "key": "kohavi2009",
+  "doi": "10.1007/s10618-008-0114-1",
+  "text": "Kohavi, R., Longbotham, R., Sommerfield, D., & Henne, R. M. (2009). Controlled experiments on the web: Survey and practical guide. Data Mining and Knowledge Discovery, 18(1), 140--181."
+ },
+ {
+  "key": "kohavi2020",
+  "doi": "10.1017/9781108653985",
+  "text": "Kohavi, R., Tang, D., & Xu, Y. (2020). Trustworthy Online Controlled Experiments: A Practical Guide to A/B Testing. Cambridge University Press."
+ },
+ {
+  "key": "koning2022",
+  "doi": "10.1287/mnsc.2021.4209",
+  "text": "Koning, R., Hasan, S., & Chatterji, A. (2022). Experimentation and start-up performance: Evidence from A/B testing. Management Science, 68(9), 6434--6453."
+ },
+ {
+  "key": "kuras2026",
+  "doi": "10.48550/arXiv.2611.03034",
+  "text": "Kuras, P., Michalski, A., Gerka, A., & Organisciak, P. (2026). When does design thinking work? A convergence theorem for the iterate--test core [Preprint]. arXiv."
+ },
+ {
+  "key": "dataset2026",
+  "doi": null,
+  "text": "[dataset] Kuras, P., Nycz, E., & Organisciak, P. (2026). LoopLab: Testbed, experiment scripts and raw outputs for ``Managing evidence, not ideas'' (Version 1.0). GitHub."
+ },
+ {
+  "key": "lee2018",
+  "doi": "10.1145/3219819.3219905",
+  "text": "Lee, M. R., & Shen, M. (2018). Winner's curse: Bias estimation for total effects of features in online controlled experiments. In Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 491--499). ACM."
+ },
+ {
+  "key": "levinthal1997",
+  "doi": "10.1287/mnsc.43.7.934",
+  "text": "Levinthal, D. A. (1997). Adaptation on rugged landscapes. Management Science, 43(7), 934--950."
+ },
+ {
+  "key": "liedtka2015",
+  "doi": "10.1111/jpim.12163",
+  "text": "Liedtka, J. (2015). Perspective: Linking design thinking with innovation outcomes through cognitive bias reduction. Journal of Product Innovation Management, 32(6), 925--938."
+ },
+ {
+  "key": "march1991",
+  "doi": "10.1287/orsc.2.1.71",
+  "text": "March, J. G. (1991). Exploration and exploitation in organizational learning. Organization Science, 2(1), 71--87."
+ },
+ {
+  "key": "meincke2024",
+  "doi": "10.48550/arXiv.2402.01727",
+  "text": "Meincke, L., Mollick, E., & Terwiesch, C. (2024). Prompting diverse ideas: Increasing AI idea variance [Preprint]. arXiv."
+ },
+ {
+  "key": "micheli2019",
+  "doi": "10.1111/jpim.12466",
+  "text": "Micheli, P., Wilner, S. J. S., Bhatti, S. H., Mura, M., & Beverland, M. B. (2019). Doing design thinking: Conceptual review, synthesis, and research agenda. Journal of Product Innovation Management, 36(2), 124--148."
+ },
+ {
+  "key": "mikalef2021",
+  "doi": "10.1016/j.im.2021.103434",
+  "text": "Mikalef, P., & Gupta, M. (2021). Artificial intelligence capability: Conceptualization, measurement calibration, and empirical study on its impact on organizational creativity and firm performance. Information & Management, 58(3), 103434."
+ },
+ {
+  "key": "noy2023",
+  "doi": "10.1126/science.adh2586",
+  "text": "Noy, S., & Zhang, W. (2023). Experimental evidence on the productivity effects of generative artificial intelligence. Science, 381(6654), 187--192."
+ },
+ {
+  "key": "peffers2007",
+  "doi": "10.2753/MIS0742-1222240302",
+  "text": "Peffers, K., Tuunanen, T., Rothenberger, M. A., & Chatterjee, S. (2007). A design science research methodology for information systems research. Journal of Management Information Systems, 24(3), 45--77."
+ },
+ {
+  "key": "prat2015",
+  "doi": "10.1080/07421222.2015.1099390",
+  "text": "Prat, N., Comyn-Wattiau, I., & Akoka, J. (2015). A taxonomy of evaluation methods for information systems artifacts. Journal of Management Information Systems, 32(3), 229--267."
+ },
+ {
+  "key": "provost2013",
+  "doi": "10.1089/big.2013.1508",
+  "text": "Provost, F., & Fawcett, T. (2013). Data science and its relationship to big data and data-driven decision making. Big Data, 1(1), 51--59."
+ },
+ {
+  "key": "ries2011",
+  "doi": null,
+  "text": "Ries, E. (2011). The Lean Startup. Crown Business."
+ },
+ {
+  "key": "russo2020",
+  "doi": "10.1287/opre.2019.1911",
+  "text": "Russo, D. (2020). Simple Bayesian algorithms for best-arm identification. Operations Research, 68(6), 1625--1647."
+ },
+ {
+  "key": "russo2018",
+  "doi": "10.1561/2200000070",
+  "text": "Russo, D. J., Van Roy, B., Kazerouni, A., Osband, I., & Wen, Z. (2018). A tutorial on Thompson sampling. Foundations and Trends in Machine Learning, 11(1), 1--96."
+ },
+ {
+  "key": "sargent2013",
+  "doi": "10.1057/jos.2012.20",
+  "text": "Sargent, R. G. (2013). Verification and validation of simulation models. Journal of Simulation, 7(1), 12--24."
+ },
+ {
+  "key": "schwartz2017",
+  "doi": "10.1287/mksc.2016.1023",
+  "text": "Schwartz, E. M., Bradlow, E. T., & Fader, P. S. (2017). Customer acquisition via display advertising using multi-armed bandit experiments. Marketing Science, 36(4), 500--522."
+ },
+ {
+  "key": "scott2015",
+  "doi": "10.1002/asmb.2104",
+  "text": "Scott, S. L. (2015). Multi-armed bandit experiments in the online service economy. Applied Stochastic Models in Business and Industry, 31(1), 37--45."
+ },
+ {
+  "key": "si2025",
+  "doi": null,
+  "text": "Si, C., Yang, D., & Hashimoto, T. (2025). Can LLMs generate novel research ideas? A large-scale human study with 100+ NLP researchers. In Proceedings of the Thirteenth International Conference on Learning Representations (ICLR 2025). OpenReview."
+ },
+ {
+  "key": "simon1996",
+  "doi": null,
+  "text": "Simon, H. A. (1996). The Sciences of the Artificial (3rd ed.). MIT Press."
+ },
+ {
+  "key": "smithwinkler2006",
+  "doi": "10.1287/mnsc.1050.0451",
+  "text": "Smith, J. E., & Winkler, R. L. (2006). The optimizer's curse: Skepticism and postdecision surprise in decision analysis. Management Science, 52(3), 311--322."
+ },
+ {
+  "key": "simpy2023",
+  "doi": null,
+  "text": "Team SimPy. (2023). SimPy: Discrete event simulation for Python (Version 4.1.1) [Computer software]."
+ },
+ {
+  "key": "thomke2020",
+  "doi": null,
+  "text": "Thomke, S. H. (2020). Experimentation Works: The Surprising Power of Business Experiments. Harvard Business Review Press."
+ },
+ {
+  "key": "venable2016",
+  "doi": "10.1057/ejis.2014.36",
+  "text": "Venable, J., Pries-Heje, J., & Baskerville, R. (2016). FEDS: A framework for evaluation in design science research. European Journal of Information Systems, 25(1), 77--89."
+ },
+ {
+  "key": "wang1996",
+  "doi": "10.1080/07421222.1996.11518099",
+  "text": "Wang, R. Y., & Strong, D. M. (1996). Beyond accuracy: What data quality means to data consumers. Journal of Management Information Systems, 12(4), 5--33."
+ },
+ {
+  "key": "zheng2023",
+  "doi": null,
+  "text": "Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., Lin, Z., Li, Z., Li, D., Xing, E. P., Zhang, H., Gonzalez, J. E., & Stoica, I. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. In Advances in Neural Information Processing Systems 36 (Datasets and Benchmarks Track)."
+ },
+ {
+  "key": "zitzler1999",
+  "doi": "10.1109/4235.797969",
+  "text": "Zitzler, E., & Thiele, L. (1999). Multiobjective evolutionary algorithms: A comparative case study and the strength Pareto approach. IEEE Transactions on Evolutionary Computation, 3(4), 257--271."
+ }
+]

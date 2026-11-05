@@ -52,6 +52,7 @@ class Config:
     bias: float = 0.0
     bias_feature: int = 11          # TELEM for instrumentation bias
     audit: int = 0                  # audit tests that estimate instrumentation bias
+    ab_pool: bool = False           # A/B: pool the champion's evidence across experiments
     # drift: callable round -> weights, and forgetting factor
     drift: object = None
     forget: float = 1.0
@@ -405,7 +406,15 @@ class ABEngine(Engine):
                 self.S[v] += val; self.Cn[v] += 1
             before = self.tests
             self.tests += 2
-            if (y[0] - y[1]) / (self.sigma * np.sqrt(2)) > c.alpha_z:
+            if c.ab_pool:
+                # champion's evidence pooled over all its tests
+                yc, nc = self.S[champ] / self.Cn[champ], self.Cn[champ]
+                z = (y[0] - yc) / (self.sigma * np.sqrt(1 + 1 / nc))
+                if z > c.alpha_z:
+                    champ, self._champ_y = x, float(y[0])
+                else:
+                    self._champ_y = float(yc)
+            elif (y[0] - y[1]) / (self.sigma * np.sqrt(2)) > c.alpha_z:
                 champ, self._champ_y = x, float(y[0])
             else:
                 self._champ_y = float(y[1])

@@ -48,7 +48,7 @@ def get_landscape(cls: str, i: int = 0, n_extra: int = 0, drop: tuple = ()) -> L
     spec = landscape_spec(cls, i)
     rng = np.random.default_rng(spec["seed"])
     p = random_params(rng, rugged=spec.get("rugged", 0.0), K=spec.get("K", 0),
-                      tau=spec.get("tau", 0.0), n_extra=n_extra, drop=drop)
+                      tau=spec.get("tau", 0.0), tails=spec.get("tails", 0.0), n_extra=n_extra, drop=drop)
     return Landscape(p, f"{cls.upper()}{i}")
 
 

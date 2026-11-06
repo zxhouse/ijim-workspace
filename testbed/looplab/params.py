@@ -145,13 +145,16 @@ class Params:
 
 def random_params(rng: np.random.Generator, rugged: float = 0.0,
                   n_extra: int = 0, drop: tuple = (), K: int = 0,
-                  tau: float = 0.0) -> Params:
+                  tau: float = 0.0, tails: float = 0.0) -> Params:
     """Draw one instance of the testbed.
 
     rugged : standard deviation of random pairwise log-lift interactions
              (0 gives the smooth "service" family); triples are added too.
     K, tau : NK-type user-preference term (each feature's contribution
              depends on K others) scaled by tau; used by the rugged family.
+    tails  : scale of heavy-tailed (Student-t, 2 d.f.) main effects and
+             pairwise interactions added to the conversion lifts, so that
+             most capabilities do little and a few do much (fat-tailed family).
     n_extra: number of generic additional features.
     drop   : keys of default features to remove.
     """
@@ -176,6 +179,12 @@ def random_params(rng: np.random.Generator, rugged: float = 0.0,
                              lift_m=lift, lift_d=lift + rng.normal(0, 0.01),
                              cost_h=abs(rng.normal(200, 120)),
                              complexity=abs(rng.normal(0.7, 0.3))))
+    if tails > 0:
+        # fat-tailed family: the designed lifts are shrunk so that most
+        # capabilities do little, and heavy-tailed effects are added
+        for f in feats:
+            t = float(rng.standard_t(2)) * tails
+            f.lift_m = 0.3 * f.lift_m + t; f.lift_d = 0.3 * f.lift_d + t + float(rng.standard_t(2)) * tails * 0.3
     p.features = feats
     p.interactions = {k: v * float(np.exp(rng.normal(0, 0.3)))
                       for k, v in DEFAULT_INTERACTIONS.items()}
@@ -188,6 +197,10 @@ def random_params(rng: np.random.Generator, rugged: float = 0.0,
     p.kappa = float(rng.uniform(0.22, 0.42))
     p.slo_p95 = float(rng.uniform(2.3, 3.0))
     n = len(feats)
+    if tails > 0:
+        R = rng.standard_t(2, size=(n, n)) * tails * 0.5
+        p.rand_inter = np.triu(R, 1)
+        p.rand_triples = []
     if rugged > 0:
         R = rng.normal(0.0, rugged, size=(n, n))
         p.rand_inter = np.triu(R, 1)

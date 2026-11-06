@@ -18,6 +18,7 @@ It builds on the preprint in `preprint/` (Kuraś et al., 2026, arXiv:2611.03034)
 | `testbed/looplab/` | the programmable testbed: `params.py` (service, 12 capabilities), `landscape.py` (queueing model, exact utilities, test sampler), `des.py` (SimPy discrete-event emulation of the topology), `policies.py` (loop, evidence ledger, A/B champion–challenger, launch-and-learn, Thompson, random, Pareto archive) |
 | `experiments/e1_…e9_*.py` | the nine experiments |
 | `experiments/e10_robustness_review.py`, `e11_audit.py`, `e11b_audit.py` | review-round and audit experiments (stronger baselines, κ, misspecified truth; design-principle decomposition, noise, production start, build rate) |
+| `experiments/e13_llm_ideation.py` | language model as generator and screen (needs `ANTHROPIC_API_KEY`; not run in the paper) |
 | `paper/review/` | internal reviews, response letter, audit report |
 | `experiments/analyze.py` | figures and `results/numbers.json` (every number quoted in the paper) |
 | `experiments/results/*.json` | raw outputs |

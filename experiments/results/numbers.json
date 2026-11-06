@@ -605,19 +605,19 @@
    },
    "abtest": {
     "shipped": [
-     84.05,
-     1.15
+     84.1,
+     1.16
     ],
     "overestimate": [
-     2.12,
-     1.89
+     3.09,
+     1.94
     ],
     "choose_loss": [
-     13.06,
-     1.02
+     14.17,
+     1.09
     ],
-    "found": 97.11,
-    "n_built": 171.0
+    "found": 98.27,
+    "n_built": 203.0
    },
    "oneshot": {
     "shipped": [
@@ -691,10 +691,10 @@
     "units": 300
    },
    "ledger_vs_abtest": {
-    "diff": 10.63,
-    "half": 1.37,
-    "p_holm": 3.7e-31,
-    "dz": 0.88,
+    "diff": 10.58,
+    "half": 1.39,
+    "p_holm": 1.5e-30,
+    "dz": 0.87,
     "units": 300
    },
    "ledger_vs_oneshot": {
@@ -738,19 +738,19 @@
    },
    "abtest": {
     "shipped": [
-     75.59,
-     2.26
+     74.92,
+     2.2
     ],
     "overestimate": [
-     -1.86,
-     5.24
+     -0.94,
+     5.19
     ],
     "choose_loss": [
-     20.49,
-     2.08
+     21.9,
+     2.09
     ],
-    "found": 96.08,
-    "n_built": 188.0
+    "found": 96.82,
+    "n_built": 203.0
    },
    "oneshot": {
     "shipped": [
@@ -824,10 +824,10 @@
     "units": 150
    },
    "ledger_vs_abtest": {
-    "diff": 14.72,
-    "half": 2.81,
-    "p_holm": 1.1e-15,
-    "dz": 0.85,
+    "diff": 15.39,
+    "half": 2.74,
+    "p_holm": 2e-17,
+    "dz": 0.91,
     "units": 150
    },
    "ledger_vs_oneshot": {
@@ -871,19 +871,19 @@
    },
    "abtest": {
     "shipped": [
-     85.82,
-     1.39
+     85.06,
+     1.75
     ],
     "overestimate": [
-     2.15,
-     1.91
+     2.36,
+     1.99
     ],
     "choose_loss": [
-     12.03,
-     1.25
+     13.19,
+     1.52
     ],
-    "found": 97.85,
-    "n_built": 175.0
+    "found": 98.24,
+    "n_built": 203.0
    },
    "oneshot": {
     "shipped": [
@@ -957,10 +957,10 @@
     "units": 30
    },
    "ledger_vs_abtest": {
-    "diff": 9.28,
-    "half": 1.49,
+    "diff": 10.05,
+    "half": 1.69,
     "p_holm": 9.3e-09,
-    "dz": 2.33,
+    "dz": 2.22,
     "units": 30
    },
    "ledger_vs_oneshot": {
@@ -1004,19 +1004,19 @@
    },
    "abtest": {
     "shipped": [
-     77.0,
-     2.34
+     76.65,
+     2.25
     ],
     "overestimate": [
-     0.42,
-     4.99
+     2.1,
+     4.83
     ],
     "choose_loss": [
-     19.79,
-     2.12
+     20.62,
+     2.11
     ],
-    "found": 96.79,
-    "n_built": 186.0
+    "found": 97.27,
+    "n_built": 203.0
    },
    "oneshot": {
     "shipped": [
@@ -1085,15 +1085,15 @@
    "ledger_vs_random": {
     "diff": 16.57,
     "half": 2.82,
-    "p_holm": 1.9e-08,
+    "p_holm": 1.5e-08,
     "dz": 2.2,
     "units": 30
    },
    "ledger_vs_abtest": {
-    "diff": 14.59,
-    "half": 2.65,
-    "p_holm": 1.9e-08,
-    "dz": 2.06,
+    "diff": 14.94,
+    "half": 2.49,
+    "p_holm": 9.3e-09,
+    "dz": 2.24,
     "units": 30
    },
    "ledger_vs_oneshot": {
@@ -1137,19 +1137,19 @@
    },
    "abtest": {
     "shipped": [
-     86.4,
-     2.01
+     87.08,
+     1.39
     ],
     "overestimate": [
-     -0.4,
-     1.93
+     -0.52,
+     1.47
     ],
     "choose_loss": [
-     7.5,
-     0.95
+     9.11,
+     1.52
     ],
-    "found": 93.9,
-    "n_built": 132.0
+    "found": 96.2,
+    "n_built": 203.0
    },
    "oneshot": {
     "shipped": [
@@ -1223,10 +1223,10 @@
     "units": 20
    },
    "ledger_vs_abtest": {
-    "diff": 8.53,
-    "half": 1.57,
-    "p_holm": 9.5e-06,
-    "dz": 2.54,
+    "diff": 7.85,
+    "half": 1.51,
+    "p_holm": 1.5e-05,
+    "dz": 2.44,
     "units": 20
    },
    "ledger_vs_oneshot": {
@@ -1270,19 +1270,19 @@
    },
    "abtest": {
     "shipped": [
-     76.68,
-     3.64
+     74.41,
+     3.39
     ],
     "overestimate": [
-     -0.69,
-     4.14
+     1.43,
+     4.46
     ],
     "choose_loss": [
-     16.56,
-     2.86
+     20.2,
+     3.31
     ],
-    "found": 93.23,
-    "n_built": 166.0
+    "found": 94.61,
+    "n_built": 203.0
    },
    "oneshot": {
     "shipped": [
@@ -1356,10 +1356,10 @@
     "units": 20
    },
    "ledger_vs_abtest": {
-    "diff": 14.45,
-    "half": 4.6,
-    "p_holm": 7.6e-05,
-    "dz": 1.47,
+    "diff": 16.71,
+    "half": 4.53,
+    "p_holm": 2.3e-05,
+    "dz": 1.73,
     "units": 20
    },
    "ledger_vs_oneshot": {
@@ -3538,11 +3538,11 @@
  "e9": {
   "n_scen": 120,
   "vs_abtest": {
-   "mean": 11.19,
-   "median": 10.46,
-   "share_pos": 0.925,
-   "q10": 2.14,
-   "q90": 21.79
+   "mean": 7.59,
+   "median": 6.0,
+   "share_pos": 0.9,
+   "q10": 0.34,
+   "q90": 17.11
   },
   "vs_oneshot": {
    "mean": 1.06,
@@ -3561,43 +3561,43 @@
   "reg_abtest": {
    "coef": {
     "intercept": [
-     11.19,
-     0.96
+     7.59,
+     0.71
     ],
     "log test size": [
-     -1.77,
-     1.31
+     -2.07,
+     1.09
     ],
     "log budget": [
-     3.34,
-     1.08
+     3.18,
+     0.78
     ],
     "screen validity": [
-     0.28,
-     1.01
+     0.11,
+     0.71
     ],
     "ideas per round": [
-     0.01,
-     1.02
+     0.49,
+     0.75
     ],
     "radius": [
-     -4.45,
-     0.97
+     0.09,
+     0.78
     ],
     "features": [
-     -1.5,
-     1.07
+     -1.72,
+     0.7
     ],
     "rugged family": [
-     1.9,
-     1.41
+     1.4,
+     1.02
     ],
     "log SNR": [
-     -2.27,
-     1.76
+     -3.4,
+     1.35
     ]
    },
-   "R2": 0.637
+   "R2": 0.685
   },
   "reg_oneshot": {
    "coef": {
@@ -3690,30 +3690,30 @@
   "ab": {
    "A/B (5%, no pooling)": {
     "ref": [
-     84.55,
-     1.6
+     83.96,
+     1.59
     ],
     "svc": [
-     85.86,
-     1.81
+     84.85,
+     1.99
     ],
     "rug": [
-     85.11,
-     2.6
+     86.79,
+     1.62
     ]
    },
    "A/B pooled (5%)": {
     "ref": [
-     86.54,
-     1.46
+     87.47,
+     1.6
     ],
     "svc": [
-     87.21,
-     1.39
+     88.26,
+     1.62
     ],
     "rug": [
-     86.02,
-     2.31
+     89.5,
+     1.93
     ]
    },
    "A/B ship-higher": {
@@ -3726,22 +3726,22 @@
      1.84
     ],
     "rug": [
-     76.59,
-     3.1
+     76.16,
+     2.98
     ]
    },
    "A/B pooled ship-higher": {
     "ref": [
-     80.24,
-     1.97
+     79.89,
+     1.95
     ],
     "svc": [
      79.77,
      2.38
     ],
     "rug": [
-     84.38,
-     2.81
+     83.48,
+     3.23
     ]
    },
    "ledger": {
@@ -3834,16 +3834,16 @@
   "perturb": {
    "abtest | 0.0": {
     "ref": [
-     84.55,
-     1.6
+     83.96,
+     1.59
     ],
     "svc": [
-     85.86,
-     1.81
+     84.85,
+     1.99
     ],
     "rug": [
-     85.11,
-     2.6
+     86.79,
+     1.62
     ]
    },
    "oneshot | 0.0": {
@@ -3890,16 +3890,16 @@
    },
    "abtest | 0.044": {
     "ref": [
-     82.86,
-     1.67
+     82.98,
+     1.75
     ],
     "svc": [
-     82.45,
-     2.33
+     82.02,
+     1.88
     ],
     "rug": [
-     84.23,
-     3.42
+     88.43,
+     2.35
     ]
    },
    "oneshot | 0.044": {
@@ -3946,16 +3946,16 @@
    },
    "abtest | 0.088": {
     "ref": [
-     86.25,
-     1.41
+     86.03,
+     1.52
     ],
     "svc": [
-     82.31,
-     2.6
+     82.65,
+     2.84
     ],
     "rug": [
-     82.21,
-     3.47
+     88.34,
+     2.58
     ]
    },
    "oneshot | 0.088": {
@@ -4004,36 +4004,36 @@
   "ab_paired": {
    "A/B (5%, no pooling)": {
     "ref": {
-     "diff": 10.27,
-     "half": 1.93,
-     "p": 3.1e-16
+     "diff": 10.86,
+     "half": 1.95,
+     "p": 4.3e-17
     },
     "svc": {
-     "diff": 8.94,
-     "half": 2.19,
-     "p": 8e-08
+     "diff": 9.95,
+     "half": 2.14,
+     "p": 9.3e-09
     },
     "rug": {
-     "diff": 9.32,
-     "half": 2.53,
-     "p": 3.8e-06
+     "diff": 7.64,
+     "half": 1.9,
+     "p": 1.9e-06
     }
    },
    "A/B pooled (5%)": {
     "ref": {
-     "diff": 8.28,
-     "half": 1.78,
-     "p": 8e-14
+     "diff": 7.34,
+     "half": 1.95,
+     "p": 1.7e-10
     },
     "svc": {
-     "diff": 7.59,
-     "half": 1.94,
-     "p": 2.8e-06
+     "diff": 6.54,
+     "half": 1.92,
+     "p": 1.2e-06
     },
     "rug": {
-     "diff": 8.4,
-     "half": 1.85,
-     "p": 1.9e-06
+     "diff": 4.93,
+     "half": 2.39,
+     "p": 0.00032
     }
    },
    "A/B ship-higher": {
@@ -4048,16 +4048,16 @@
      "p": 1.9e-09
     },
     "rug": {
-     "diff": 17.84,
-     "half": 3.16,
+     "diff": 18.27,
+     "half": 2.9,
      "p": 1.9e-06
     }
    },
    "A/B pooled ship-higher": {
     "ref": {
-     "diff": 14.58,
+     "diff": 14.93,
      "half": 2.09,
-     "p": 1.6e-21
+     "p": 1.1e-21
     },
     "svc": {
      "diff": 15.03,
@@ -4065,8 +4065,8 @@
      "p": 1.9e-09
     },
     "rug": {
-     "diff": 10.05,
-     "half": 3.16,
+     "diff": 10.95,
+     "half": 3.61,
      "p": 9.5e-06
     }
    }
@@ -4075,19 +4075,19 @@
    "0.0": {
     "abtest": {
      "ref": {
-      "diff": 10.27,
-      "half": 1.93,
-      "p": 3.1e-16
+      "diff": 10.86,
+      "half": 1.95,
+      "p": 4.3e-17
      },
      "svc": {
-      "diff": 8.94,
-      "half": 2.19,
-      "p": 8e-08
+      "diff": 9.95,
+      "half": 2.14,
+      "p": 9.3e-09
      },
      "rug": {
-      "diff": 9.32,
-      "half": 2.53,
-      "p": 3.8e-06
+      "diff": 7.64,
+      "half": 1.9,
+      "p": 1.9e-06
      }
     },
     "oneshot": {
@@ -4128,19 +4128,19 @@
    "0.044": {
     "abtest": {
      "ref": {
-      "diff": 10.01,
-      "half": 2.01,
-      "p": 1.4e-15
+      "diff": 9.89,
+      "half": 2.16,
+      "p": 8.1e-14
      },
      "svc": {
-      "diff": 11.37,
-      "half": 2.5,
-      "p": 1.3e-08
+      "diff": 11.8,
+      "half": 2.12,
+      "p": 3.7e-09
      },
      "rug": {
-      "diff": 10.27,
-      "half": 3.15,
-      "p": 1.9e-06
+      "diff": 6.08,
+      "half": 2.49,
+      "p": 6.3e-05
      }
     },
     "oneshot": {
@@ -4181,19 +4181,19 @@
    "0.088": {
     "abtest": {
      "ref": {
-      "diff": 7.19,
-      "half": 1.56,
-      "p": 2.7e-14
+      "diff": 7.41,
+      "half": 1.76,
+      "p": 5.5e-13
      },
      "svc": {
-      "diff": 8.96,
-      "half": 2.91,
-      "p": 2e-07
+      "diff": 8.62,
+      "half": 2.98,
+      "p": 4.7e-07
      },
      "rug": {
-      "diff": 11.68,
-      "half": 3.14,
-      "p": 3.8e-06
+      "diff": 5.54,
+      "half": 3.12,
+      "p": 0.002
      }
     },
     "oneshot": {
@@ -4231,6 +4231,693 @@
      }
     }
    }
+  }
+ },
+ "e11": {
+  "ladder_ref": {
+   "L0 A/B, one test per arm": [
+    83.96,
+    1.59
+   ],
+   "L1 + pool champion evidence": [
+    87.47,
+    1.6
+   ],
+   "L2 + retain all variants": [
+    88.7,
+    1.4
+   ],
+   "L3 + re-test favourite 4x/round": [
+    92.66,
+    1.35
+   ],
+   "L4 + re-test three leaders": [
+    94.22,
+    1.21
+   ],
+   "L5 + rotating re-test (loop)": [
+    94.04,
+    1.24
+   ],
+   "L6 + ship on lower bound (ledger)": [
+    94.82,
+    1.18
+   ],
+   "launch-and-learn": [
+    94.84,
+    1.06
+   ],
+   "L2b + screen from the idea pool": [
+    88.56,
+    1.37
+   ]
+  },
+  "ladder_steps_ref": {
+   "L1 + pool champion evidence": {
+    "diff": 3.52,
+    "half": 2.18,
+    "p": 0.0011
+   },
+   "L2 + retain all variants": {
+    "diff": 1.23,
+    "half": 1.74,
+    "p": 0.25
+   },
+   "L3 + re-test favourite 4x/round": {
+    "diff": 3.96,
+    "half": 2.05,
+    "p": 0.00015
+   },
+   "L4 + re-test three leaders": {
+    "diff": 1.56,
+    "half": 1.71,
+    "p": 0.15
+   },
+   "L5 + rotating re-test (loop)": {
+    "diff": -0.18,
+    "half": 1.55,
+    "p": 0.95
+   },
+   "L6 + ship on lower bound (ledger)": {
+    "diff": 0.78,
+    "half": 0.47,
+    "p": 0.0002
+   },
+   "L2b vs L2": {
+    "diff": -0.14,
+    "half": 1.92,
+    "p": 0.83
+   }
+  },
+  "ladder_svc": {
+   "L0 A/B, one test per arm": [
+    84.85,
+    1.99
+   ],
+   "L1 + pool champion evidence": [
+    88.26,
+    1.62
+   ],
+   "L2 + retain all variants": [
+    88.89,
+    1.61
+   ],
+   "L3 + re-test favourite 4x/round": [
+    93.43,
+    1.45
+   ],
+   "L4 + re-test three leaders": [
+    94.65,
+    0.89
+   ],
+   "L5 + rotating re-test (loop)": [
+    93.66,
+    1.51
+   ],
+   "L6 + ship on lower bound (ledger)": [
+    94.8,
+    1.52
+   ],
+   "launch-and-learn": [
+    93.53,
+    1.53
+   ],
+   "L2b + screen from the idea pool": [
+    87.8,
+    1.94
+   ]
+  },
+  "ladder_steps_svc": {
+   "L1 + pool champion evidence": {
+    "diff": 3.4,
+    "half": 2.1,
+    "p": 0.00087
+   },
+   "L2 + retain all variants": {
+    "diff": 0.63,
+    "half": 1.73,
+    "p": 0.82
+   },
+   "L3 + re-test favourite 4x/round": {
+    "diff": 4.54,
+    "half": 1.4,
+    "p": 4.7e-07
+   },
+   "L4 + re-test three leaders": {
+    "diff": 1.22,
+    "half": 1.28,
+    "p": 0.07
+   },
+   "L5 + rotating re-test (loop)": {
+    "diff": -0.98,
+    "half": 1.37,
+    "p": 0.24
+   },
+   "L6 + ship on lower bound (ledger)": {
+    "diff": 1.14,
+    "half": 0.63,
+    "p": 0.0006
+   },
+   "L2b vs L2": {
+    "diff": -1.08,
+    "half": 1.82,
+    "p": 0.18
+   }
+  },
+  "ladder_rug": {
+   "L0 A/B, one test per arm": [
+    86.79,
+    1.62
+   ],
+   "L1 + pool champion evidence": [
+    89.5,
+    1.93
+   ],
+   "L2 + retain all variants": [
+    88.96,
+    1.81
+   ],
+   "L3 + re-test favourite 4x/round": [
+    91.8,
+    1.94
+   ],
+   "L4 + re-test three leaders": [
+    94.54,
+    2.37
+   ],
+   "L5 + rotating re-test (loop)": [
+    94.57,
+    1.6
+   ],
+   "L6 + ship on lower bound (ledger)": [
+    94.43,
+    1.54
+   ],
+   "launch-and-learn": [
+    95.16,
+    1.64
+   ],
+   "L2b + screen from the idea pool": [
+    86.67,
+    1.69
+   ]
+  },
+  "ladder_steps_rug": {
+   "L1 + pool champion evidence": {
+    "diff": 2.71,
+    "half": 2.23,
+    "p": 0.03
+   },
+   "L2 + retain all variants": {
+    "diff": -0.54,
+    "half": 1.98,
+    "p": 0.52
+   },
+   "L3 + re-test favourite 4x/round": {
+    "diff": 2.84,
+    "half": 2.15,
+    "p": 0.014
+   },
+   "L4 + re-test three leaders": {
+    "diff": 2.73,
+    "half": 2.27,
+    "p": 0.03
+   },
+   "L5 + rotating re-test (loop)": {
+    "diff": 0.04,
+    "half": 2.34,
+    "p": 0.84
+   },
+   "L6 + ship on lower bound (ledger)": {
+    "diff": -0.14,
+    "half": 0.26,
+    "p": 0.48
+   },
+   "L2b vs L2": {
+    "diff": -2.29,
+    "half": 2.25,
+    "p": 0.064
+   }
+  },
+  "start_random": {
+   "ledger k_new=1": {
+    "ref": [
+     94.78,
+     1.16
+    ],
+    "svc": [
+     95.46,
+     0.8
+    ],
+    "rug": [
+     94.93,
+     1.97
+    ]
+   },
+   "ledger k_new=2": {
+    "ref": [
+     95.33,
+     1.02
+    ],
+    "svc": [
+     94.82,
+     1.41
+    ],
+    "rug": [
+     96.08,
+     1.06
+    ]
+   },
+   "ledger k_new=3": {
+    "ref": [
+     96.19,
+     0.88
+    ],
+    "svc": [
+     94.73,
+     1.08
+    ],
+    "rug": [
+     95.53,
+     1.49
+    ]
+   },
+   "oneshot": {
+    "ref": [
+     94.84,
+     1.06
+    ],
+    "svc": [
+     93.53,
+     1.53
+    ],
+    "rug": [
+     95.16,
+     1.64
+    ]
+   },
+   "abtest_pooled": {
+    "ref": [
+     87.47,
+     1.6
+    ],
+    "svc": [
+     88.26,
+     1.62
+    ],
+    "rug": [
+     89.5,
+     1.93
+    ]
+   }
+  },
+  "start_statusquo": {
+   "ledger k_new=1": {
+    "ref": [
+     88.53,
+     1.39
+    ],
+    "svc": [
+     93.61,
+     1.5
+    ],
+    "rug": [
+     93.41,
+     2.22
+    ]
+   },
+   "ledger k_new=2": {
+    "ref": [
+     93.63,
+     1.23
+    ],
+    "svc": [
+     93.38,
+     1.53
+    ],
+    "rug": [
+     94.0,
+     1.98
+    ]
+   },
+   "ledger k_new=3": {
+    "ref": [
+     94.13,
+     1.12
+    ],
+    "svc": [
+     94.46,
+     1.25
+    ],
+    "rug": [
+     95.12,
+     1.99
+    ]
+   },
+   "oneshot": {
+    "ref": [
+     94.23,
+     1.16
+    ],
+    "svc": [
+     93.69,
+     1.6
+    ],
+    "rug": [
+     94.89,
+     1.55
+    ]
+   },
+   "abtest_pooled": {
+    "ref": [
+     85.61,
+     1.46
+    ],
+    "svc": [
+     87.21,
+     1.91
+    ],
+    "rug": [
+     89.34,
+     2.25
+    ]
+   }
+  },
+  "start_paired_random": {
+   "ledger k_new=3 - ledger k_new=1 | ref": {
+    "diff": 1.41,
+    "half": 1.33,
+    "p": 0.19
+   },
+   "ledger k_new=3 - oneshot | ref": {
+    "diff": 1.34,
+    "half": 1.29,
+    "p": 0.029
+   },
+   "ledger k_new=3 - abtest_pooled | ref": {
+    "diff": 8.72,
+    "half": 1.85,
+    "p": 1.3e-14
+   },
+   "ledger k_new=3 - ledger k_new=1 | svc": {
+    "diff": -0.73,
+    "half": 0.91,
+    "p": 0.21
+   },
+   "ledger k_new=3 - oneshot | svc": {
+    "diff": 1.2,
+    "half": 1.27,
+    "p": 0.088
+   },
+   "ledger k_new=3 - abtest_pooled | svc": {
+    "diff": 6.47,
+    "half": 1.64,
+    "p": 1.3e-08
+   },
+   "ledger k_new=3 - ledger k_new=1 | rug": {
+    "diff": 0.6,
+    "half": 1.18,
+    "p": 0.43
+   },
+   "ledger k_new=3 - oneshot | rug": {
+    "diff": 0.37,
+    "half": 1.71,
+    "p": 0.55
+   },
+   "ledger k_new=3 - abtest_pooled | rug": {
+    "diff": 6.03,
+    "half": 2.06,
+    "p": 2.7e-05
+   }
+  },
+  "start_paired_statusquo": {
+   "ledger k_new=3 - ledger k_new=1 | ref": {
+    "diff": 5.6,
+    "half": 1.79,
+    "p": 7.4e-08
+   },
+   "ledger k_new=3 - oneshot | ref": {
+    "diff": -0.1,
+    "half": 1.58,
+    "p": 0.67
+   },
+   "ledger k_new=3 - abtest_pooled | ref": {
+    "diff": 8.51,
+    "half": 1.94,
+    "p": 1.2e-12
+   },
+   "ledger k_new=3 - ledger k_new=1 | svc": {
+    "diff": 0.85,
+    "half": 1.29,
+    "p": 0.52
+   },
+   "ledger k_new=3 - oneshot | svc": {
+    "diff": 0.77,
+    "half": 1.71,
+    "p": 0.4
+   },
+   "ledger k_new=3 - abtest_pooled | svc": {
+    "diff": 7.25,
+    "half": 1.85,
+    "p": 2.6e-08
+   },
+   "ledger k_new=3 - ledger k_new=1 | rug": {
+    "diff": 1.71,
+    "half": 1.78,
+    "p": 0.033
+   },
+   "ledger k_new=3 - oneshot | rug": {
+    "diff": 0.23,
+    "half": 1.54,
+    "p": 0.84
+   },
+   "ledger k_new=3 - abtest_pooled | rug": {
+    "diff": 5.78,
+    "half": 2.23,
+    "p": 4.8e-05
+   }
+  },
+  "sigma_ref": {
+   "loop x0.5": [
+    93.44,
+    1.15
+   ],
+   "ledger x0.5": [
+    94.2,
+    1.05
+   ],
+   "thompson x0.5": [
+    95.51,
+    1.0
+   ],
+   "oneshot x0.5": [
+    94.29,
+    1.15
+   ],
+   "loop x1.0": [
+    94.04,
+    1.24
+   ],
+   "ledger x1.0": [
+    94.82,
+    1.18
+   ],
+   "thompson x1.0": [
+    95.45,
+    1.03
+   ],
+   "oneshot x1.0": [
+    94.84,
+    1.06
+   ],
+   "loop x1.3": [
+    94.99,
+    1.0
+   ],
+   "ledger x1.3": [
+    95.56,
+    0.95
+   ],
+   "thompson x1.3": [
+    94.55,
+    1.16
+   ],
+   "oneshot x1.3": [
+    95.62,
+    1.0
+   ],
+   "loop x2.0": [
+    93.84,
+    1.18
+   ],
+   "ledger x2.0": [
+    93.78,
+    1.15
+   ],
+   "thompson x2.0": [
+    94.13,
+    1.24
+   ],
+   "oneshot x2.0": [
+    94.33,
+    1.13
+   ],
+   "ledger learned sigma xlearned": [
+    94.28,
+    1.17
+   ],
+   "loop learned sigma xlearned": [
+    94.29,
+    1.17
+   ]
+  },
+  "sigma_svc": {
+   "loop x0.5": [
+    93.57,
+    1.35
+   ],
+   "ledger x0.5": [
+    94.25,
+    1.28
+   ],
+   "thompson x0.5": [
+    95.07,
+    0.94
+   ],
+   "oneshot x0.5": [
+    93.26,
+    1.23
+   ],
+   "loop x1.0": [
+    93.66,
+    1.51
+   ],
+   "ledger x1.0": [
+    94.8,
+    1.52
+   ],
+   "thompson x1.0": [
+    94.69,
+    1.25
+   ],
+   "oneshot x1.0": [
+    93.53,
+    1.53
+   ],
+   "loop x1.3": [
+    94.39,
+    1.04
+   ],
+   "ledger x1.3": [
+    95.18,
+    1.03
+   ],
+   "thompson x1.3": [
+    94.62,
+    1.37
+   ],
+   "oneshot x1.3": [
+    94.96,
+    1.33
+   ],
+   "loop x2.0": [
+    93.41,
+    1.41
+   ],
+   "ledger x2.0": [
+    93.3,
+    1.5
+   ],
+   "thompson x2.0": [
+    94.46,
+    1.07
+   ],
+   "oneshot x2.0": [
+    93.44,
+    1.63
+   ],
+   "ledger learned sigma xlearned": [
+    94.78,
+    1.43
+   ],
+   "loop learned sigma xlearned": [
+    94.3,
+    1.44
+   ]
+  },
+  "sigma_rug": {
+   "loop x0.5": [
+    94.69,
+    0.94
+   ],
+   "ledger x0.5": [
+    94.89,
+    0.93
+   ],
+   "thompson x0.5": [
+    93.8,
+    1.88
+   ],
+   "oneshot x0.5": [
+    95.18,
+    1.85
+   ],
+   "loop x1.0": [
+    94.57,
+    1.6
+   ],
+   "ledger x1.0": [
+    94.43,
+    1.54
+   ],
+   "thompson x1.0": [
+    95.21,
+    1.53
+   ],
+   "oneshot x1.0": [
+    95.16,
+    1.64
+   ],
+   "loop x1.3": [
+    94.53,
+    1.48
+   ],
+   "ledger x1.3": [
+    94.77,
+    1.47
+   ],
+   "thompson x1.3": [
+    93.58,
+    1.65
+   ],
+   "oneshot x1.3": [
+    95.67,
+    1.38
+   ],
+   "loop x2.0": [
+    93.44,
+    1.61
+   ],
+   "ledger x2.0": [
+    93.45,
+    1.72
+   ],
+   "thompson x2.0": [
+    93.82,
+    1.59
+   ],
+   "oneshot x2.0": [
+    94.73,
+    1.44
+   ],
+   "ledger learned sigma xlearned": [
+    94.42,
+    1.3
+   ],
+   "loop learned sigma xlearned": [
+    93.99,
+    1.26
+   ]
   }
  }
 }

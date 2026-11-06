@@ -53,6 +53,12 @@ class Config:
     bias_feature: int = 11          # TELEM for instrumentation bias
     audit: int = 0                  # audit tests that estimate instrumentation bias
     ab_pool: bool = False           # A/B: pool the champion's evidence across experiments
+    ab_retain: bool = False         # A/B: ship the best pooled belief among ALL tested variants
+    start: str = "random"           # "random": n_init random configs; "statusquo": production config + history
+    history: int = 10               # free tests of the status-quo config from production history
+    sigma_factor: float = 1.0       # beliefs assume sigma_factor * true sigma (misspecified noise)
+    sigma_learn: bool = False       # estimate sigma online from within-variant re-test residuals
+    ab_poolpick: bool = False       # A/B: build the best-screened idea from the whole pool (as the loop does)
     # drift: callable round -> weights, and forgetting factor
     drift: object = None
     forget: float = 1.0
@@ -66,12 +72,13 @@ class Engine:
         self.rng = np.random.default_rng(seed)
         N = L.N
         self.S = np.zeros(N); self.Cn = np.zeros(N); self.first = np.full(N, np.nan)
+        self.SS = np.zeros(N)              # sum of squared results (for sigma estimation)
         self.built: list[int] = []
         self.is_built = np.zeros(N, bool)
         self.est = np.full(N, np.nan)      # rough estimate of unbuilt ideas
         self.in_pool = np.zeros(N, bool)
         self.tests = 0
-        self.sigma = cfg.sigma if cfg.sigma is not None else L.sigma(cfg.n_sess)
+        self.sigma = (cfg.sigma if cfg.sigma is not None else L.sigma(cfg.n_sess)) * cfg.sigma_factor
         self.m0, self.v0 = cfg.prior
         rho = cfg.rho
         if rho is None:  # as informative as one test
@@ -124,6 +131,18 @@ class Engine:
             M0 = coef[0] + coef[1] * np.nan_to_num(self.est, nan=0.0)
             self.m0 = np.clip(M0, 0, 1)
 
+    def learn_sigma(self):
+        """Pooled within-variant variance over variants tested at least twice,
+        weighted towards the leaders (where decisions are made)."""
+        b = np.array(self.built)
+        m = self.Cn[b] >= 2
+        if m.sum() < 3:
+            return
+        bb = b[m]
+        ss = self.SS[bb] - self.S[bb] ** 2 / self.Cn[bb]
+        df = self.Cn[bb] - 1
+        self.sigma = float(np.sqrt(max(ss.sum() / df.sum(), 1e-6)))
+
     def leaders(self, k):
         b = np.array(self.built)
         mu, _ = self.post(b)
@@ -167,7 +186,9 @@ class Engine:
         for x, v in zip(xs, y):
             if np.isnan(self.first[x]):
                 self.first[x] = v
-            self.S[x] += v; self.Cn[x] += 1
+            self.S[x] += v; self.Cn[x] += 1; self.SS[x] += v * v
+        if self.c.sigma_learn:
+            self.learn_sigma()
         before = self.tests
         self.tests += len(xs)
         while self.cp and self.tests >= self.cp[0] and before < self.cp[0]:
@@ -251,6 +272,21 @@ class Engine:
 
     # --------------------------------------------------------------- run --
     def init(self):
+        if self.c.start == "statusquo":
+            # the service as it runs today (no optional capability enabled),
+            # with free evidence from production history, plus four
+            # one-capability variants proposed and built in the first round
+            x0 = 0
+            self.est[[x0]] = self.rough(np.array([x0]))
+            self.build(x0)
+            y = self.L.measure(np.full(self.c.history, x0), self.c.n_sess, self.rng)
+            self.first[x0] = y[0]; self.S[x0] += y.sum(); self.Cn[x0] += len(y)
+            ideas = self.propose(x0, max(self.c.n_init - 1, 1))
+            xs = ideas[np.argsort(-self.est[ideas])[: self.c.n_init - 1]] if len(ideas) else np.array([], dtype=np.int64)
+            for x in xs:
+                self.build(x)
+            self.test(xs, np.zeros(len(xs), int))
+            return
         xs = self.rng.choice(self.L.N, self.c.n_init, replace=False)
         self.est[xs] = self.rough(xs)     # starting ideas get a screen score too
         for x in xs:
@@ -397,9 +433,19 @@ class ABEngine(Engine):
             cand = self.propose(champ)
             if len(cand) == 0:
                 cand = self.propose(champ, 30)
+            if len(cand) == 0:
+                # the champion's neighbourhood is exhausted: propose from
+                # another tested variant rather than stop experimenting
+                for _ in range(10):
+                    cand = self.propose(int(self.rng.choice(self.built)), 30)
+                    if len(cand):
+                        break
                 if len(cand) == 0:
                     break
-            x = int(cand[np.argmax(self.est[cand])]) if c.prescreen else int(self.rng.choice(cand))
+            if c.ab_poolpick:
+                x = self.pick_build(cand)
+            else:
+                x = int(cand[np.argmax(self.est[cand])]) if c.prescreen else int(self.rng.choice(cand))
             self.build(x)
             y = self.L.measure(np.array([x, champ]), c.n_sess, self.rng) + self._bias(np.array([x, champ]), np.array([0, 1]))
             for v, val in zip((x, champ), y):
@@ -423,6 +469,8 @@ class ABEngine(Engine):
                 self.record(self.cp.pop(0))
 
     def shipped(self):
+        if self.c.ab_retain:
+            return Engine.shipped(self)
         return getattr(self, "_champ", super().shipped())
 
     def record(self, t):

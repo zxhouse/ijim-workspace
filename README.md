@@ -17,6 +17,8 @@ It builds on the preprint in `preprint/` (Kuraś et al., 2026, arXiv:2611.03034)
 | `paper/figures/` | all figures as vector PDF |
 | `testbed/looplab/` | the programmable testbed: `params.py` (service, 12 capabilities), `landscape.py` (queueing model, exact utilities, test sampler), `des.py` (SimPy discrete-event emulation of the topology), `policies.py` (loop, evidence ledger, A/B champion–challenger, launch-and-learn, Thompson, random, Pareto archive) |
 | `experiments/e1_…e9_*.py` | the nine experiments |
+| `experiments/e10_robustness_review.py`, `e11_audit.py`, `e11b_audit.py` | review-round and audit experiments (stronger baselines, κ, misspecified truth; design-principle decomposition, noise, production start, build rate) |
+| `paper/review/` | internal reviews, response letter, audit report |
 | `experiments/analyze.py` | figures and `results/numbers.json` (every number quoted in the paper) |
 | `experiments/results/*.json` | raw outputs |
 
@@ -25,7 +27,7 @@ It builds on the preprint in `preprint/` (Kuraś et al., 2026, arXiv:2611.03034)
 ```bash
 pip install numpy scipy simpy matplotlib
 cd experiments
-./run_all.sh            # ~20 min on 4 cores
+./run_all.sh            # ~35 min on 4 cores
 python3 analyze.py      # figures -> paper/figures, numbers -> results/numbers.json
 cd ../paper/tikz && for f in fig_*.tex; do pdflatex $f; done && cp fig_*.pdf ../figures/
 cd .. && pdflatex manuscript && pdflatex manuscript

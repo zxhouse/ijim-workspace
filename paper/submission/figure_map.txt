@@ -12,3 +12,4 @@ Figure_11.pdf  <-  paper/figures/fig_e6_bias.pdf
 Figure_12.pdf  <-  paper/figures/fig_e7_drift.pdf
 Figure_13.pdf  <-  paper/figures/fig_e8_pareto.pdf
 Figure_14.pdf  <-  paper/figures/fig_e9_robustness.pdf
+Figure_15.pdf  <-  paper/figures/fig_e11_audit.pdf

@@ -584,7 +584,7 @@ def e9():
 
 
 if __name__ == "__main__":
-    which = [w for w in (sys.argv[1:] or ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8", "e9", "e10"]) if w != "e10"]
+    which = [w for w in (sys.argv[1:] or ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8", "e9", "e10", "e11"]) if w not in ("e10", "e11")]
     for w in which:
         fn = {"e1": "e1_validation.json", "e2": "e2_dynamics.json", "e3": "e3_policies.json", "e4": "e4_allocation.json",
               "e5": "e5_genai.json", "e6": "e6_bias.json", "e7": "e7_drift.json", "e8": "e8_pareto.json", "e9": "e9_robustness.json"}[w]
@@ -622,4 +622,67 @@ def e10():
 
 if __name__ == "__main__" and "e10" in sys.argv[1:]:
     e10()
+    json.dump(NUM, open(NUM_PATH, "w"), indent=1)
+
+
+# -------------------------------------------------------------------- E11 --
+def e11():
+    import importlib
+    LADDER = [n for n, _ in importlib.import_module("e11_audit").LADDER]
+    rows = [r for r in load("e11_audit.json") if r["tests"] == 400]
+    rows += [r for r in load("e11b_audit.json") if r["tests"] == 400]
+    out = {}
+    lad = [r for r in rows if r["part"] == "ladder"]
+    steps = LADDER[:7]
+    names = ["A/B, one test per arm", "+ pool champion evidence", "+ retain all variants", "+ re-test favourite 4x per build",
+             "+ re-test three leaders", "+ rotating re-test (loop)", "+ ship on lower bound (ledger)"]
+    fig, axes = plt.subplots(1, 2, figsize=(W_FULL, 2.9), gridspec_kw=dict(width_ratios=[1.25, 1]))
+    for c in CLASSES:
+        S = summarise([r for r in lad if r["cls"] == c], ("pol",))
+        m = [S[(s,)][0] for s in steps]; h = [S[(s,)][1] for s in steps]
+        axes[0].errorbar(m, np.arange(len(steps)) + {"ref": -0.2, "svc": 0, "rug": 0.2}[c], xerr=h, fmt="o", ms=3.5,
+                         color=COL[c], capsize=0, lw=1, label=CLS_NAME[c])
+        out[f"ladder_{c}"] = {s: [r2(S[(s,)][0]), r2(S[(s,)][1])] for s in steps + ["launch-and-learn", "L2b + screen from the idea pool"]}
+        out[f"ladder_steps_{c}"] = {}
+        for p, q in zip(steps[:-1], steps[1:]):
+            x = paired([r for r in lad if r["cls"] == c], "pol", q, p)
+            out[f"ladder_steps_{c}"][q] = dict(diff=r2(x["mean"]), half=r2(x["half"]), p=float(f"{x['p']:.2g}"))
+        x = paired([r for r in lad if r["cls"] == c], "pol", "L2b + screen from the idea pool", "L2 + retain all variants")
+        out[f"ladder_steps_{c}"]["L2b vs L2"] = dict(diff=r2(x["mean"]), half=r2(x["half"]), p=float(f"{x['p']:.2g}"))
+    axes[0].set_yticks(range(len(steps))); axes[0].set_yticklabels(names); axes[0].invert_yaxis()
+    axes[0].set_ylabel("design principle added"); axes[0].set_xlabel(r"shipped utility, % of $U^*$")
+    axes[0].set_title("(a) From A/B testing to the ledger"); axes[0].grid(axis="y", visible=False)
+    axes[0].legend(frameon=False, loc="lower left", fontsize=6.5)
+    kn = [r for r in rows if r["part"] == "knew"] + [r for r in rows if r["part"] == "start" and r["pol"] in ("oneshot", "abtest_pooled")]
+    labels = {"ledger k_new=1": ("ledger, 1 build / 5 tests", "#43A047", "-"), "ledger k_new=2": ("ledger, 2 builds / 5 tests", "#43A047", "--"),
+              "ledger k_new=3": ("ledger, 3 builds / 5 tests", "#43A047", ":"), "oneshot": ("launch-and-learn", "#8E24AA", "-"),
+              "abtest_pooled": ("A/B, pooled champion", "#FB8C00", "-")}
+    for pol, (lab, col, ls) in labels.items():
+        ys = []
+        for st in ("random", "statusquo"):
+            S = summarise([r for r in kn if r["pol"] == pol and r["start"] == st], ("cls",))
+            ys.append(np.mean([S[(c,)][0] for c in CLASSES]))
+            out.setdefault(f"start_{st}", {})[pol] = {c: [r2(S[(c,)][0]), r2(S[(c,)][1])] for c in CLASSES}
+        axes[1].plot([0, 1], ys, ls, marker="o", ms=3.5, color=col, label=lab)
+    axes[1].set_xticks([0, 1]); axes[1].set_xticklabels(["five random\nconfigurations", "production configuration\nwith history"])
+    axes[1].set_xlim(-0.3, 1.3); axes[1].set_xlabel("starting point of the programme")
+    axes[1].set_ylabel(r"shipped utility, % of $U^*$ (mean of classes)")
+    axes[1].set_title("(b) Build rate and starting point"); axes[1].legend(frameon=False, fontsize=6.3, loc="lower left")
+    fig.tight_layout(w_pad=2.0)
+    savefig(fig, "fig_e11_audit.pdf")
+    for st in ("random", "statusquo"):
+        for c in CLASSES:
+            a = [r for r in kn if r["cls"] == c and r["start"] == st]
+            for q, p in (("ledger k_new=3", "ledger k_new=1"), ("ledger k_new=3", "oneshot"), ("ledger k_new=3", "abtest_pooled")):
+                x = paired(a, "pol", q, p)
+                out.setdefault(f"start_paired_{st}", {})[f"{q} - {p} | {c}"] = dict(diff=r2(x["mean"]), half=r2(x["half"]), p=float(f"{x['p']:.2g}"))
+    sg = [r for r in rows if r["part"] == "sigma"]
+    for c in CLASSES:
+        S = summarise([r for r in sg if r["cls"] == c], ("pol", "factor"))
+        out[f"sigma_{c}"] = {f"{k[0]} x{k[1]}": [r2(v[0]), r2(v[1])] for k, v in S.items()}
+    NUM["e11"] = out
+
+
+if __name__ == "__main__" and "e11" in sys.argv[1:]:
+    e11()
     json.dump(NUM, open(NUM_PATH, "w"), indent=1)

@@ -32,6 +32,12 @@
 \theoremstyle{definition}
 \newtheorem{assumption}{Assumption}
 \renewcommand{\arraystretch}{1.12}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.7}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{5}
 \setlength{\tabcolsep}{4pt}
 \journal{International Journal of Information Management}
 
@@ -119,14 +125,14 @@ The theorem is a kernel theory in the sense of design science \citep{gregor2007,
 
 Following \citet{gregor2020}, a design principle states what a system should enable, for whom and why. We derive eight principles (Table~\ref{tab:dp}, Figure~\ref{fig:framework}). Five secure the conditions of the convergence result, and three follow from its corollaries and from the finite-horizon findings of \citet{kuras2026}.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_1.pdf}
 \caption{Research framework. Conditions and results of the convergence theorem (kernel theory) are translated into design principles, the principles are instantiated in the evidence-ledger artefact, and the artefact is evaluated in nine experiments that test hypotheses H1--H8. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
 \label{fig:framework}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{Design principles for an experimentation information system, the theoretical condition each secures, its instantiation in the evidence ledger, and where it is evaluated.}
 \label{tab:dp}
 \centering\footnotesize
@@ -152,7 +158,7 @@ DP8 & keep trade-offs open when stakeholders disagree & T4 & archive of non-domi
 
 The evidence ledger sits in the experimentation plane of a digital service (Figure~\ref{fig:topology}) and runs the cycle of Figure~\ref{fig:cycle}. In round $k$ it (1) collects $V$ ideas for variants of a leader, (2) scores them, (3) deploys the best-screened unbuilt idea behind a feature flag, (4) runs one test of $n$ sessions on the new variant and re-tests three leaders and one rotating variant, (5) receives the measured criteria from telemetry, (6) updates conjugate normal beliefs with prior mean $0.5$ and variance $0.08$ and known test variance $\sigma^2(n)$, (7) plans the next re-tests and (8) decides whether to continue or ship. A round thus consumes five tests. Apart from the ship rule, the procedure is the design-thinking loop of \citet{kuras2026}, which lets us attribute differences between the two to DP5.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=0.92\textwidth]{Figure_2.pdf}
 \caption{One round of the evidence-ledger loop. Steps 1--3 generate, screen and deploy a variant; steps 4--6 test it and update the evidence; steps 7--8 plan re-tests and decide. The green path returns the leaders to the next round's tests. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
@@ -164,7 +170,7 @@ The evidence ledger sits in the experimentation plane of a digital service (Figu
 
 The ledger is an information system, not only a decision rule. It stores, for every variant ever deployed, its configuration, its screening score, every test result with its time and sample size, the current belief and its uncertainty, and the evidence count; it presents this record to the product team as a ranked list in which each belief is shown with its uncertainty; and it turns the record into three kinds of proposal, namely which idea to build, which variants to re-test and which variant could be shipped. The decisions themselves remain with people: the team decides what counts as a variant, whether to accept a proposal to ship, when to reframe and how to weigh the criteria, and it supplies the screening judgement. Table~\ref{tab:anatomy} sets out the resulting design theory in the eight components of \citet{gregor2007}.
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{The evidence ledger as a design theory, following the components of \citet{gregor2007}.}
 \label{tab:anatomy}
 \centering\footnotesize
@@ -186,7 +192,7 @@ Expository instantiation & Python implementation in the testbed (Section~\ref{se
 
 Table~\ref{tab:vignette} shows what the ledger displays after 100 tests in one run on the reference service. The current favourite has the highest belief (0.94), but it rests on three tests and its true utility is 0.78, a typical case of the optimiser's curse. The second variant has a lower belief (0.77) resting on sixteen tests and is worth 0.73. Shown with their uncertainty and evidence counts, the two are no longer simply first and second: the favourite is a promising but unconfirmed variant, and the ledger's next round re-tests it. In this snapshot the lower bound still favours it (0.87 against 0.74); after further re-tests its belief falls towards its true value. The idea the screen ranks third is in fact the best of the three, which illustrates why screening validity matters.
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{Excerpt of the ledger after 100 tests in one run on the reference service (tests of 2,000 sessions, $\sigma=0.12$). The true utilities, unknown to the team, are shown for illustration; $U^*=0.881$.}
 \label{tab:vignette}
 \centering\footnotesize
@@ -234,7 +240,7 @@ Evaluating an experimentation system on a live service would require the same se
 
 The testbed represents an online retail service (Figure~\ref{fig:topology}). Users arrive as a Poisson stream of $\lambda=30$ sessions per second, 62\% on mobile devices with a round-trip time of 65\,ms and 12\,Mbit/s, the rest on desktop with 28\,ms and 60\,Mbit/s. A request passes the Internet, an edge router (or a content delivery network, CDN, when enabled), a web-application firewall, a core switch and a load balancer, and is served by a pool of $c=9$ application workers. A worker is held for the whole synchronous request, including database calls (an M/M/3 server of 4\,ms), calls to an ML inference pool of six workers and, if enabled, an external language-model API. Telemetry flows to a collector and an experiment data store; feature flags are set by the experiment server.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_3.pdf}
 \caption{Topology of the testbed. The data plane serves user requests; deployable capabilities are shown in brackets at the components they change. The experimentation information system (bottom) receives telemetry, keeps the evidence ledger and sets feature flags that route a slice of traffic to the variant under test. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
@@ -243,7 +249,7 @@ The testbed represents an online retail service (Figure~\ref{fig:topology}). Use
 
 A configuration of the service is a subset of twelve deployable capabilities (Table~\ref{tab:features}), giving $2^{12}=4{,}096$ configurations. Each capability changes some of the following: the CPU time of a request, the number of database calls, ML inference time, page weight, pages per session, the number of workers, conversion in each user segment, fixed and per-session cost, operational complexity and the rate of fraud losses. Six pairwise interactions encode dependencies that practitioners will recognise: recommendations need behavioural telemetry, step-up authentication defeats one-click checkout, and a privacy dashboard offsets the friction of authentication and telemetry. Capacity creates further interactions, since capabilities that add work per request push the application pool towards saturation unless caching or replicas relieve it.
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{Deployable capabilities of the reference service and their main mechanisms. Lifts are changes of log-conversion for mobile/desktop users; costs are per hour unless stated.}
 \label{tab:features}
 \centering\footnotesize
@@ -289,7 +295,7 @@ Besides the \emph{reference instance} (REF) we use two families. The \emph{servi
 
 We compare six policies, each given the same number of tests of the same size, the same idea generator, the same screening and, where applicable, the same beliefs (Figure~\ref{fig:protocols}). \emph{Random search} tests a random variant of a random tested configuration in every test. \emph{Champion--challenger A/B} testing, the common practice, runs a two-arm experiment between the best-screened variant of the current champion and the champion, one test each, and replaces the champion if the challenger wins at the one-sided 5\% level; evidence is not pooled across experiments. \emph{Launch-and-learn} spends every test on a new, screened variant and ships the configuration with the highest belief. The \emph{design-thinking loop} is the procedure of \citet{kuras2026}. The \emph{evidence ledger} adds the ship rule of DP5. \emph{Thompson sampling} \citep{russo2018}, a strong bandit benchmark, samples from the beliefs to choose each re-test and adds a new screened variant every five tests.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_4.pdf}
 \caption{Test schedules of the policies in the first four rounds (five tests per round) and the allocations varied in experiment E4. Each square is one test of $n$ sessions. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
@@ -302,7 +308,7 @@ Ideas are variants that differ from their parent in one or two capabilities, fiv
 
 Table~\ref{tab:experiments} summarises the nine experiments, and Figure~\ref{fig:manip} shows the manipulations of E5--E8. The primary outcome is the true utility of the configuration a policy would ship, as a percentage of $U^*$; a difference of one \emph{point} is one percent of $U^*$. Secondary outcomes are the best utility among tested configurations (\emph{found}), their difference (the \emph{cost of choosing}), the overestimation of the shipped configuration (belief minus true utility), whether the shipped configuration is a local optimum, and outcome-specific measures defined with each experiment.
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{Overview of the experiments. Budgets are in tests; runs are independent simulated improvement projects.}
 \label{tab:experiments}
 \centering\footnotesize
@@ -325,7 +331,7 @@ E11 & Audit & decomposition by design principle; misspecified noise; production 
 \end{tabularx}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_5.pdf}
 \caption{Manipulations of experiments E5--E8: (a) generative ideation with volume $V$, homogenisation $h$ and screening validity $\rho$; (b) the points at which novelty (N), instrumentation (I) and favourite (H) bias enter the evidence; (c) drifting criteria within a band and an abrupt regime shift; (d) stakeholders with different criteria and an archive of non-dominated variants. The weight paths in (c) and the points in (d) are illustrative, not data. Schematic drawn in TikZ with code written with the assistance of Claude (Anthropic).}
@@ -345,7 +351,7 @@ Figure~\ref{fig:e1}a compares the utility measured in one emulated experiment of
 
 The noise of a test depends on its size as sampling theory predicts (Figure~\ref{fig:e1}b). Across six configurations and four sizes, the standard deviation of emulated results is on average 0.98 times that of the statistical sampler (range 0.56--1.28, with 20 replications per cell; mean log variance ratio $-0.07$, $p=0.33$), and both fall as $n^{-1/2}$, from 0.29 at 500 sessions to 0.10 at 4,000. We therefore use the analytic model as ground truth and the sampler as the test, which allows tens of thousands of runs.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_6.pdf}
 \caption{E1: validation of the testbed. (a) Utility measured in one emulated experiment against the analytic utility for 141 configurations stratified by the utilisation of the busiest tier; the dashed line is equality. (b) Standard deviation of a test result as a function of its size: emulator (points, 20 replications for each of six configurations) and statistical sampler (line). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
@@ -354,7 +360,7 @@ The noise of a test depends on its size as sampling theory predicts (Figure~\ref
 
 The landscapes differ in the ways intended (Table~\ref{tab:landscapes}). The reference instance has four local optima for one-capability variants and two for variants within two capabilities; the service family has one to eight and one to three; the rugged family has three to 57 and one to 13. In every class the noise of a test of 2,000 sessions (0.05--0.20) is two to five times the spread of the fifty best configurations (0.015--0.058), so that a single test cannot separate good configurations from the best ones.
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{Structure of the landscapes: medians, with ranges across instances in brackets. $\sigma(n)$ is the standard deviation of a test of $n$ sessions; ``top-50 s.d.'' is the standard deviation of the 50 best utilities.}
 \label{tab:landscapes}
 \centering\footnotesize
@@ -372,12 +378,13 @@ Top-50 s.d. & 0.032 & 0.026 [0.015, 0.055] & 0.041 [0.020, 0.058]\\
 \end{tabularx}
 \end{table}
 
+\FloatBarrier
 \subsection{E2: The cost of choosing and the optimiser's curse (H1)}
 \label{sec:e2}
 
 On the reference instance the loop ships a configuration worth 84.1\% of the optimum after 100 tests, 89.4\% after 200 and 93.7\% after 400 (Figure~\ref{fig:e2}a). At every horizon it has already tested a better configuration: the best found is worth 87.8\%, 93.5\% and 97.4\%. After 400 tests the loop loses 2.6 points to configurations it has not found and 3.7 points to its own choice among those it has. The team's belief about the configuration it would ship exceeds that configuration's true utility by 6.1 points, so that it believes it holds 99.8\% of the optimum. The service family looks the same (losses of 2.1 and 4.1 points, overestimation 6.7 points). On the rugged family, where the best configurations differ more relative to the noise, the cost of choosing (0.8 points) and the overestimation (0.8 points) are small and finding is the larger problem (4.3 points).
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_7.pdf}
 \caption{E2: (a) utility shipped, best utility found and believed utility of the shipped configuration on the reference instance (300 runs; bands are 95\% confidence intervals), and the utility shipped by the evidence ledger (dashed). (b) Share of runs in which the favourite (solid) or the best tested configuration (dashed) is a local optimum (radius 2), determined by enumeration, over 3,200 tests. Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
@@ -388,12 +395,13 @@ Discounting thin evidence (DP5) changes what is shipped, not what is found. The 
 
 The limit of the theorem is remote (Figure~\ref{fig:e2}b). After 400 tests the favourite is a local optimum in 10\% of runs on the reference instance, 12\% on the service family and 57\% on the rugged family, although the best configuration tested already is one in 43\%, 52\% and 75\% of runs. After 3,200 tests, about eight times the budget of a typical programme, the best tested configuration is a local optimum in 98--100\% of runs while the favourite is one in only 27\%, 42\% and 83\%. As in the abstract landscapes of \citet{kuras2026}, the limiting factor at realistic horizons is recognition, not discovery.
 
+\FloatBarrier
 \subsection{E3: Experimentation-governance policies (H2)}
 \label{sec:e3}
 
 Table~\ref{tab:policies} and Figure~\ref{fig:e3} compare the six policies under 400 tests. Champion--challenger A/B testing, the most common practice, ships 84.1\%, 85.1\% and 87.1\% of the optimum with tests of 2,000 sessions, and 74.9\%, 76.7\% and 74.4\% with tests of 500, little better than random search. The evidence ledger ships 7.9 to 10.6 points more with large tests and 14.9 to 16.7 points more with small ones ($p_{\mathrm{Holm}}<10^{-4}$ on every class; $d_z$ between 0.87 and 2.4). Champion--challenger testing finds configurations as good as the ledger does (best found 96.2--98.3\%) but ships configurations 9 to 14 points worse than its own best, because each comparison is decided by one noisy test per arm and the evidence of earlier comparisons is thrown away. A single lucky test can install a poor challenger, and a single unlucky one can keep a good challenger out. Its believed utility is close to the truth only because the belief is itself one recent test result. Stronger versions of the practice do not close the gap (Section~\ref{sec:e10}): pooling the champion's evidence across experiments raises champion--challenger testing to 87.5--89.5\%, still 4.9 to 7.3 points behind the ledger ($p<10^{-3}$ on every class), and replacing the significance rule by ``ship whichever arm measured higher'' makes it worse. H2 is supported.
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{E3: utility shipped after 400 tests of 2,000 sessions, as a percentage of $U^*$, with 95\% half-widths; the cost of choosing (found minus shipped) and the overestimation (believed minus shipped), in points; and the paired difference of the evidence ledger from each policy with Holm-adjusted Wilcoxon $p$ and $d_z$ (reference instance: 300 runs; families: 10 runs per instance, instance as unit).}
 \label{tab:policies}
 \centering\footnotesize
@@ -417,7 +425,7 @@ Thompson sampling & $94.9\pm0.8$ & 2.4 & 4.3 & $-0.3$ ($-0.03$) & $94.8\pm1.1$ &
 {\scriptsize $^{**}p_{\mathrm{Holm}}<0.01$; $^{***}p_{\mathrm{Holm}}<0.001$; $d_z$ in brackets. Results for the rugged family and for tests of 500 sessions are in Figure~\ref{fig:e3} and the text.\par}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_8.pdf}
 \caption{E3: utility shipped after 400 tests by six policies, with tests of 2,000 sessions (filled) and 500 sessions (open); bars are 95\% confidence intervals (instance-level for the families). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
@@ -426,12 +434,13 @@ Thompson sampling & $94.9\pm0.8$ & 2.4 & 4.3 & $-0.3$ ($-0.03$) & $94.8\pm1.1$ &
 
 Among the policies that pool evidence the differences are an order of magnitude smaller. The ledger is level with Thompson sampling on every class and at both test sizes (differences between $-0.5$ and $+1.9$ points, none significant after correction), so that a fixed, transparent routine with a conservative ship rule does as well as a tuned bandit. Launch-and-learn, which never re-tests, is level with the ledger when tests are large (reference $-0.6$, rugged $-0.8$, both n.s.) and behind it on the service family ($-1.5$, $p_{\mathrm{Holm}}=0.008$); with small tests it is 1.6 to 2.4 points behind on all classes ($p_{\mathrm{Holm}}=0.006$ on the service family). It builds almost three times as many configurations as the ledger and finds better ones (99.2\% against 97.4\% on the reference instance), but chooses worse among them. Re-testing pays when tests are noisy.
 
+\FloatBarrier
 \subsection{E4: New variants or re-tests? (H3)}
 \label{sec:e4}
 
 Experiment E4 fixes the traffic at 800,000 sessions and varies both the size of a test and the number of new configurations built per round of five tests (Figure~\ref{fig:e4}). Two results stand out. First, building too little is the worst choice in eight of the nine combinations of class and test size: against the best allocation, a new configuration every second round costs 0.9 to 4.5 points with tests of 500 or 2,000 sessions and 8.0 to 12.6 points with tests of 8,000. Second, the best allocation is interior or near the top of the range: three or four new configurations per five tests with small and medium tests on the reference instance and the service family, and two to three on the rugged family; with the largest tests it moves to five on the two families. Spending all five tests on new configurations is never far behind the best (0.1 to 1.7 points, significant only on the service family with tests of 2,000 sessions). The optimum thus moves towards building as tests become more precise, which is the direction the theory predicts, but the penalty for building too much is much smaller than the penalty for building too little. H3 is partially supported.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_9.pdf}
 \caption{E4: utility shipped after 800,000 sessions as a function of the number of new configurations per five tests, for three test sizes (loop without rotating re-test; error bars are 95\% confidence intervals; circles mark the best allocation). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
@@ -440,19 +449,20 @@ Experiment E4 fixes the traffic at 800,000 sessions and varies both the size of 
 
 The size of the test matters more than the allocation. Under the same traffic, many small tests beat few large ones on every class: the best allocation reaches 97.2\%, 96.0\% and 96.3\% of the optimum with 1,600 tests of 500 sessions, 95.7\%, 95.2\% and 95.5\% with 400 tests of 2,000, and 91.3\%, 91.8\% and 91.3\% with 100 tests of 8,000. More, smaller tests mean more rounds of the loop, and the ledger can concentrate repeated small tests on the leaders where a single large test would spread precision over a variant that turns out to be poor. The result parallels the analysis of \citet{azevedo2020}, who show that many smaller experiments are preferable when the distribution of improvements has fat tails; in our setting the same conclusion follows from the ability to re-test.
 
+\FloatBarrier
 \subsection{E5: Generative ideation (H4)}
 \label{sec:e5}
 
 Experiment E5 crosses the validity of screening ($\rho$), the number of ideas proposed per round ($V$) and their homogenisation ($h$, the share of ideas whose changes are confined to four favoured capabilities; Figure~\ref{fig:manip}a). Figure~\ref{fig:e5} shows the main result. Without valid screening, more ideas are worth nothing: with $\rho=0$, twenty ideas per round ship the same utility as one (differences of $+0.1$, $0.0$ and $-1.2$ points; all n.s.), because the team has no way to tell which of them to build. This part of the result is a structural property of the model, in which ideas are exchangeable unless a screen distinguishes them, rather than an empirical finding; the empirical content lies in the size of the effect of validity and in its interaction with volume and homogenisation. With valid screening, the gains are large: raising $\rho$ from 0 to 0.9 adds 4.8, 3.4 and 7.2 points on average over the cells with five or twenty ideas. Moving from five to twenty ideas adds 2.0, 1.0 and 2.4 points. In an analysis of variance restricted to $V\in\{5,20\}$ (instance-level cell means for the families, runs for the reference instance), validity explains more variance than volume on every class (partial $\eta^2$ of 0.058 against 0.021 on the reference instance, 0.096 against 0.015 on the service family and 0.254 against 0.066 on the rugged family; Table~\ref{tab:eta}). H4 is supported.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_10.pdf}
 \caption{E5: utility shipped after 400 tests by the evidence ledger as a function of the validity of screening $\rho$, for one, five and twenty ideas per round ($V$) and without ($h=0$, solid) or with strong homogenisation of ideas ($h=0.9$, dashed). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e5}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{E5: partial $\eta^2$ of the factors of generative ideation for shipped utility, from a balanced analysis of variance restricted to five and twenty ideas per round (instance-level cell means for the families; runs for the reference instance).}
 \label{tab:eta}
 \centering\footnotesize
@@ -472,12 +482,13 @@ $V\times h$ & 0.005 & 0.005 & 0.043\\
 
 Homogenisation is costly. Confining 90\% of ideas to a few favoured capabilities costs 5.8, 4.7 and 6.1 points on average across cells and, with a single idea per round, about ten points on every class, because the loop can no longer reach the capabilities that matter. Volume partly compensates: with twenty homogenised ideas a valid screen still finds the occasional idea outside the favoured set. A language model that generates many similar ideas, in the manner reported by \citet{doshi2024}, is therefore worth much less than its volume suggests, and its value rests on the quality of the judgement that selects among its ideas.
 
+\FloatBarrier
 \subsection{E6: Measurement bias (H5)}
 \label{sec:e6}
 
 Figure~\ref{fig:e6}a shows the change in shipped utility when one of three biases is injected into the tests (Figure~\ref{fig:manip}b), relative to the same runs without bias. A bias that inflates every re-test of the current favourite, the signature of the highest paid person's opinion or of confirmation-seeking analysis, has no detectable effect up to half the standard deviation of a test; at $b=\sigma$ it costs 1.1 to 2.3 points, at $2\sigma$ 3.1 to 5.7 and at $3\sigma$ 6.2 to 11.6. A novelty effect that inflates the first test of every new variant is harmless up to $2\sigma$ and costs at most 2.6 points at $3\sigma$, because the re-tests of the leaders correct it. An instrumentation bias that inflates every test of configurations with fine-grained telemetry, for example because better tracking captures conversions that other configurations miss, is harmless up to about $\sigma$ but then grows fastest of all: $-2.1$ to $-5.8$ points at $2\sigma$ and $-6.2$ to $-14.9$ at $3\sigma$. Re-testing cannot remove it, since every test of an affected configuration is biased in the same direction. An audit of ten tests that estimates the bias by comparing instrumented with server-side measurements, and corrects subsequent tests, caps the loss at 0.3 to 0.9 points (n.s.) at every level of bias, including the audit's own cost.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_11.pdf}
 \caption{E6: change in shipped utility after 400 tests relative to unbiased runs (mean over the three landscape classes). (a) Favourite, novelty and instrumentation bias as multiples of the test noise $\sigma$, and instrumentation bias with an audit of ten tests. (b) Favourite bias in absolute utility units for three test sizes. Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
@@ -486,12 +497,13 @@ Figure~\ref{fig:e6}a shows the change in shipped utility when one of three biase
 
 The threshold scales with the noise of a test (Figure~\ref{fig:e6}b). A favourite bias of 0.11 utility units costs 1.4 to 2.2 points with precise tests of 8,000 sessions, where it equals $2\sigma$, but at most 1.2 points with tests of 500 sessions, where it equals $\sigma/2$. Precise measurement makes an experimentation programme more, not less, vulnerable to its own bias. H5 is supported.
 
+\FloatBarrier
 \subsection{E7: Drifting criteria and regime shifts (H6)}
 \label{sec:e7}
 
 When the weights of the three criteria oscillate during the programme (Figure~\ref{fig:manip}c), the loop keeps tracking the moving optimum (Figure~\ref{fig:e7}a). Averaged over tests 100 to 400, the shipped configuration is worth 90.4--91.9\% of the current optimum without drift and 89.3--91.3\% with the largest amplitude, which moves the utility of configurations by a median $D=0.14$. Corollary T3 is satisfied with room to spare: at 400 tests the best variant of the shipped configuration beats it by a median 0.015 to 0.019 under the current criteria, within $4D$ in 93\% of runs at the smallest amplitude and in all runs at the largest. Forgetting old evidence makes no material difference under drift: the means for the four forgetting factors differ by at most 1.4 points, within their confidence intervals.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_12.pdf}
 \caption{E7: (a) mean tracking of the current optimum between 100 and 400 tests as a function of the amplitude of drift in the criterion weights, for four forgetting factors $\gamma$; (b) tracking before and after a regime shift at 200 tests (traffic $+30\%$, mobile share $+15$ percentage points), mean over the three classes. Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
@@ -500,12 +512,13 @@ When the weights of the three criteria oscillate during the programme (Figure~\r
 
 An abrupt shift is different (Figure~\ref{fig:e7}b). When traffic rises by 30\% and the mobile share by 15 percentage points after 200 tests, capacity-hungry configurations lose value, and the configuration the ledger would ship drops from 90.3\% to 85.4\% of the new optimum. With forgetting at $\gamma=0.95$ the drop is to 88.8\%; on the reference instance this is 7.7 points better 25 tests after the shift ($p=0.02$). The advantage disappears within 50 tests, and by 400 tests strong forgetting ($\gamma=0.9$) is 2.0 points worse on the rugged family ($p=0.01$), because it discards evidence the loop still needs. H6 is supported for bounded drift and only partly for forgetting: forgetting buys a faster first response to a shift at the price of a slightly worse long-run choice, which argues for forgetting that is triggered by a detected shift rather than applied continuously \citep{gama2014, garivier2011}.
 
+\FloatBarrier
 \subsection{E8: Several stakeholders (H7)}
 \label{sec:e8}
 
 In E8 users, operations and finance each care about one criterion (Figure~\ref{fig:manip}d). The true Pareto front contains 41 configurations on the reference instance, 17--72 on the service family and 6--26 on the rugged family. We compare the ledger with a Pareto archive, three loops that split the budget and each optimise a different weighting (0.6 on one criterion, 0.2 on the others), and a single loop with the default weights. Coverage is measured by the hypervolume of the true criteria of the delivered configurations as a share of that of the true front \citep{zitzler1999}.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_13.pdf}
 \caption{E8: (a) hypervolume of the delivered configurations as a share of the hypervolume of the true Pareto front, (b) share of delivered configurations that no variant within two capabilities dominates, and (c) number of configurations delivered, for a Pareto archive, three scalarised loops sharing the budget and one loop with fixed weights (means over the three classes; bars are 95\% confidence intervals). Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
@@ -514,6 +527,7 @@ In E8 users, operations and finance each care about one criterion (Figure~\ref{f
 
 The archive covers the front better at every budget (Figure~\ref{fig:e8}a): its hypervolume share is 0.67--0.75 after 200 tests and 0.82--0.88 after 800, against 0.57--0.68 and 0.76--0.85 for the scalarised loops. The paired advantage of 0.03 to 0.09 is significant in eight of the nine combinations of class and budget. By 400 tests half or more of the archive's members are locally Pareto-optimal (0.50, 0.50 and 0.72 on the three classes), against 0.32, 0.32 and 0.54 of the configurations delivered by the scalarised loops, and the archive offers the decision makers six to twelve mutually incomparable configurations instead of three. The single configuration shipped by a loop with fixed weights is more often locally Pareto-optimal, because the whole budget serves one trade-off, but it represents only that trade-off. H7 is supported: when stakeholders have not agreed on weights, an archive defers the disagreement without wasting tests on it.
 
+\FloatBarrier
 \subsection{E9: Robustness (H8)}
 \label{sec:e9}
 
@@ -521,19 +535,20 @@ Experiment E9 draws 120 scenarios at random: the landscape family and instance, 
 
 The ledger ships a better configuration than champion--challenger testing in 90\% of the scenarios, by 7.6 points on average (median 6.0; tenth percentile 0.3, ninetieth 17.1). Figure~\ref{fig:e9}a shows how the advantage depends on the scenario in a regression on standardised factors with heteroscedasticity-robust intervals ($R^2=0.69$). The advantage is larger when the signal-to-noise ratio is low ($-3.4\pm1.4$ points per standard deviation of its logarithm), when the budget is larger ($+3.2\pm0.8$), because champion--challenger testing cannot accumulate evidence however long it runs, and when tests are small ($-2.1\pm1.1$ per standard deviation of log test size); the reach of ideation and the number of ideas make no difference to it. Against launch-and-learn the ledger is ahead by 1.1 points on average ($\pm0.7$) and in 63\% of scenarios, more so when screening is valid ($+1.4\pm0.7$) and when the signal-to-noise ratio is low ($-2.0\pm1.4$); against the plain loop it is ahead by $0.3\pm0.2$ points, the gain of its ship rule, which grows with the budget. H8 is supported.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{Figure_14.pdf}
 \caption{E9: (a) coefficients of a regression of the ledger's advantage over three policies on standardised scenario factors (120 scenarios, 12 runs each; bars are 95\% heteroscedasticity-robust intervals); (b) the advantage over champion--challenger and launch-and-learn against the signal-to-noise ratio of the scenario. Plotted directly from the simulation outputs with code written with the assistance of Claude (Anthropic).}
 \label{fig:e9}
 \end{figure}
 
+\FloatBarrier
 \subsection{E10: Robustness checks requested in review}
 \label{sec:e10}
 
 Three checks address the strongest objections to the evaluation (Table~\ref{tab:e10}; 150 runs on the reference instance and five per family instance, tests of 2,000 sessions, 400 tests). First, the practice baseline was strengthened. Pooling the champion's evidence over all the experiments in which it took part raises champion--challenger testing by three to four points; letting the higher-measuring arm win without a significance test lowers it by eight to thirteen points, because single noisy comparisons then replace the champion at random. The ledger leads the strongest variant by 7.3, 6.5 and 4.9 points ($p\le0.0003$). Second, the constant $\kappa$ of the ship rule, which was set to one posterior standard deviation a priori and not tuned, matters little between 0.5 and 2 (differences within 0.8 points on every class); $\kappa=0$ is the plain loop. Third, the ground truth was perturbed: every configuration's true utility was shifted by a fixed random error with the standard deviation of the model error measured in E1 (0.044) or twice that, so that the testbed's model is wrong in the way and by the amount the emulation suggests. The ledger's lead over champion--challenger testing remains between 5.5 and 11.8 points; its lead over the plain loop shrinks to 0.0--0.5 points, and launch-and-learn remains level with it.
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{E10: utility shipped after 400 tests (\% of $U^*$; reference instance and means over family instances) under stronger practice baselines, different ship-rule constants and a misspecified ground truth with error s.d. $\tau$.}
 \label{tab:e10}
 \centering\footnotesize
@@ -562,6 +577,7 @@ vs loop, $\tau=0.088$ & $+0.5$ & $0.0$ & $+0.1$\\
 \end{tabularx}
 \end{table}
 
+\FloatBarrier
 \subsection{E11: Audit of the evaluation}
 \label{sec:e11}
 
@@ -590,7 +606,7 @@ A final set of experiments audits the evaluation itself (Figure~\ref{fig:e11}; 1
 
 Table~\ref{tab:hyp} summarises the evidence. Six hypotheses are supported and two partly. The convergence theorem of \citet{kuras2026} survives the move from abstract landscapes to a digital service whose utility emerges from capacity, latency, conversion and cost, and whose test noise is set by traffic. Its conditions translate into design principles whose violation is costly, and the finite-horizon findings it reports, namely a remote limit, a large cost of choosing, an optimiser's curse, a bias threshold near the noise level and the importance of screening, reappear in the testbed with similar magnitudes. Two of its finite-horizon results do not carry over unchanged. Spending every test on new configurations is not the worst allocation in a digital service with valid screening and many small tests: it is close to the best, and too little building is the costly error. And forgetting, which the drift corollary might seem to recommend, is of little value under bounded drift and of transient value after a shift. The decomposition of the ledger's advantage is also instructive (E11): pooling the champion's evidence and re-testing more often per build contribute about three and four points each, re-testing three leaders instead of one about one to three, discounting thin evidence when shipping about one, and the rotating re-test that the theorem's fourth assumption calls for nothing at all within 400 tests; the increment of the ship rule shrinks when the model of the service is itself uncertain (E10).
 
-\begin{table}[t]
+\begin{table}[!tbp]
 \caption{Hypotheses and evidence.}
 \label{tab:hyp}
 \centering\footnotesize

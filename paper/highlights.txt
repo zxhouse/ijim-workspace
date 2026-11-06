@@ -1,6 +1,6 @@
 Highlights
 - Convergence theory yields eight design principles for experimentation systems
-- An evidence ledger beats champion-challenger A/B testing by 8 to 17 points
-- Screening validity, not idea volume, sets the value of generative ideation
+- An evidence ledger beats champion-challenger A/B testing by 8 to 18 points
+- Ideas pay through the screen that selects them; homogenised ideas cost 5-7 points
 - Persistent instrumentation bias survives re-testing and needs an audit
 - A validated queueing testbed makes the true value of every variant known

@@ -27,8 +27,18 @@ Every number in Sections 5.1–5.10, the abstract, Table 10 (hypotheses), the re
 - The equivalence of the ledger with Thompson sampling and, at n = 2,000, with launch-and-learn.
 - The bias, drift and stakeholder results (E6–E8), which do not depend on the A/B engine or on the start.
 
-## 5. Open points for the authors
+## 5. Follow-up: full re-run with the revised artefact (done)
 
-1. The ledger as evaluated in E2–E10 uses 1 build per 5 tests. E11 shows 2–3 is better from a realistic start. A full re-run of E2–E10 with the new default (~30 min) would make the artefact consistent with its own recommendation; the paper currently reports the discrepancy instead.
+Open point 1 below was executed. The ledger's default is now three builds and two re-tests of the leaders per round, no rotating re-test (`Config.ledger_builds=3.0`; the loop keeps one build and the rotation). E2, E3, E5, E6, E7, E9, E10, E11 and E11b were re-run (62,000 runs) and every dependent number in the manuscript was updated. Consequences:
+
+- Headline: ledger 94.8–95.9 % of the optimum; +8.5 to +17.6 points over champion–challenger A/B; +6.0 to +8.7 over its pooled variant; wins 98 % of E9 scenarios (mean +8.8); +1.6 over the loop and +2.3 over launch-and-learn in E9.
+- **H4 (GenAI) is now only partly supported.** With three builds per round and five ideas, the screen can exclude only two ideas, and its validity no longer matters (ρ 0→0.9: +0.5, −0.4, 0.0 points); with twenty ideas it still pays 3.4, 1.2 and 5.3 points. The former claim "validity explains 3–6× more variance than volume" is withdrawn; the V=1 cells are now confounded with the build rate and are not interpreted. Homogenisation remains costly (5–7 points). Abstract, highlights, graphical abstract, Section 5.5, Table 6 and the discussion were rewritten.
+- H1: the ship rule's isolated contribution is 0.8–1.1 points (E10 κ-ladder, E11); the cost of choosing is reduced on the reference instance only. Section 5.2 and Table 10 state this.
+- E7 regime shift: the ledger now falls further after the shift (91.8 → 79.5 %) because it holds more thinly tested variants; forgetting helps more in the first 25 tests (+12 to +16 points on the reference instance) and still costs by 400 tests.
+- E6 thresholds move slightly (favourite bias at σ: 0.2–1.4 points; instrumentation bias harmless to 1.5σ).
+
+## 6. Open points for the authors
+
+1. (Done, see section 5.)
 2. `L.sigma(n)` is a landscape average; a per-leader σ (or the learned σ now implemented, `sigma_learn=True`) is the cleaner default for a production system, although it makes no difference in the testbed.
 3. The production-start scenario uses the bare service as status quo; a service that already has several capabilities enabled would start closer to the optimum and reduce every policy's measured gain.

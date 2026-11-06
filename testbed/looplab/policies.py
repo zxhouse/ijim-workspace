@@ -10,7 +10,8 @@ Policies
 loop        the iterate-test loop of the design-thinking model (baseline)
 oneshot     every test on a new configuration ("launch and learn")
 abtest      champion-challenger A/B testing with a significance rule
-ledger      evidence-ledger loop: the loop plus a ship decision that
+ledger      evidence-ledger loop: the loop with three builds and two
+            re-tests of the leaders per round, and a ship decision that
             discounts thin evidence (lower confidence bound)
 thompson    Thompson sampling with arrivals of new arms
 random      random search among variants
@@ -43,6 +44,7 @@ class Config:
     eb_prior: bool = False          # empirical-Bayes prior (ledger)
     ship: str = "mean"              # "mean" or "lcb"
     lcb_k: float = 1.0
+    ledger_builds: float | None = 3.0   # ledger default: new configurations per round (E4/E11); None keeps k_new
     retest: str = "top"             # "top" or "ttts"
     alpha_z: float = 1.645          # A/B decision threshold (one-sided 5 %)
     n_init: int = 5
@@ -375,6 +377,11 @@ class Engine:
         deviations is highest.
         """
         self.c.ship = "lcb"
+        if self.c.ledger_builds is not None:
+            # the artefact's default allocation (E4, E11): three builds and two
+            # re-tests of the leaders per round, no rotating re-test
+            self.c.k_new = self.c.ledger_builds
+            self.c.rotate = False
         self.run_loop()
 
     def run_oneshot(self):

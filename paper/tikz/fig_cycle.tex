@@ -10,12 +10,12 @@
 % row 1 ------------------------------------------------------------------
 \node[stage] (s1) at (0,0) {\textbf{Ideation}\\$V$ variants of a leader\\(team, GenAI)};
 \node[stage] (s2) at (3.75,0) {\textbf{Pre-screening}\\rough score of every\\unbuilt idea (validity $\rho$)};
-\node[stage] (s3) at (7.5,0) {\textbf{Build \& deploy}\\best-screened idea\\behind a feature flag};
+\node[stage] (s3) at (7.5,0) {\textbf{Build \& deploy}\\three best-screened\\ideas behind flags};
 \node[stage] (s4) at (11.25,0) {\textbf{Online test}\\traffic slice of $n$\\sessions per test};
 % row 2 ------------------------------------------------------------------
 \node[stage] (s5) at (11.25,-3.5) {\textbf{Telemetry}\\conversion, p95 latency,\\errors, metered cost};
 \node[stage] (s6) at (7.5,-3.5) {\textbf{Evidence ledger}\\belief $M^p_k$ and evidence\\count of every variant};
-\node[stage] (s7) at (3.75,-3.5) {\textbf{Re-test plan}\\leaders $+$ one rotating\\variant in next round};
+\node[stage] (s7) at (3.75,-3.5) {\textbf{Re-test plan}\\two leaders re-tested\\in the next round};
 \node[stage] (s8) at (0,-3.5) {\textbf{Ship decision}\\lower bound $M-\kappa s$\\continue / ship / reframe};
 % icons ----------------------------------------------------------------------
 \node[dev, above=1mm of s1] (i1) {\devperson};
@@ -42,6 +42,6 @@
 \draw[flow] (s8.north) -- node[devlabel, left, align=right]{next round\\(continue)} (s1.south);
 \draw[flow, devgreen!50!black] (s7.north) |- (10.2,-1.75) -- ([xshift=-10.5mm]s4.south)
   node[devlabel, pos=0.5, right, text=devgreen!50!black]{};
-\node[devlabel, text=devgreen!40!black, fill=white, inner sep=1pt] at (7.1,-1.75) {re-tests of the leaders and of one rotating variant};
+\node[devlabel, text=devgreen!40!black, fill=white, inner sep=1pt] at (7.1,-1.75) {re-tests of the two leading variants};
 \end{tikzpicture}
 \end{document}

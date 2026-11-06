@@ -633,9 +633,9 @@ def e11():
     rows += [r for r in load("e11b_audit.json") if r["tests"] == 400]
     out = {}
     lad = [r for r in rows if r["part"] == "ladder"]
-    steps = LADDER[:7]
+    steps = LADDER[:8]
     names = ["A/B, one test per arm", "+ pool champion evidence", "+ retain all variants", "+ re-test favourite 4x per build",
-             "+ re-test three leaders", "+ rotating re-test (loop)", "+ ship on lower bound (ledger)"]
+             "+ re-test three leaders", "+ rotating re-test (loop)", "+ ship on lower bound", "+ three builds per round (ledger)"]
     fig, axes = plt.subplots(1, 2, figsize=(W_FULL, 2.9), gridspec_kw=dict(width_ratios=[1.25, 1]))
     for c in CLASSES:
         S = summarise([r for r in lad if r["cls"] == c], ("pol",))

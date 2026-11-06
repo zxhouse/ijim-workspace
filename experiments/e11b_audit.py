@@ -15,7 +15,7 @@ def main():
     for k in (1, 2, 3):
         for st in ("random", "statusquo"):
             for cls, i, s in units():
-                jobs.append(("knew", cls, i, dict(policy="ledger", k_new=k, rotate=False, start=st), s, dict(pol=f"ledger k_new={k}", start=st, k_new=k)))
+                jobs.append(("knew", cls, i, dict(policy="ledger", k_new=k, rotate=False, start=st, ledger_builds=None), s, dict(pol=f"ledger k_new={k}", start=st, k_new=k)))
     t = time.time()
     with Pool(os.cpu_count()) as P:
         res = P.map(job, jobs, chunksize=4)

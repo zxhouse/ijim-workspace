@@ -43,7 +43,8 @@ LADDER = [
     ("L3 + re-test favourite 4x/round", dict(policy="loop", leaders=1, rotate=False)),
     ("L4 + re-test three leaders", dict(policy="loop", leaders=3, rotate=False)),
     ("L5 + rotating re-test (loop)", dict(policy="loop")),
-    ("L6 + ship on lower bound (ledger)", dict(policy="ledger")),
+    ("L6 + ship on lower bound", dict(policy="loop", ship="lcb")),
+    ("L7 + three builds per round (ledger)", dict(policy="ledger")),
     ("launch-and-learn", dict(policy="oneshot")),
 ]
 

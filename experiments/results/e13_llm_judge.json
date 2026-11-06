@@ -1,0 +1,198 @@
+{
+ "validity_opus_A": {
+  "n": 537,
+  "n_missing": 0,
+  "all": {
+   "rho": 0.26522882391724906,
+   "ci": [
+    0.18405705342683268,
+    0.34132303583147644
+   ],
+   "spearman": 0.33907176222256125,
+   "n": 537,
+   "top_decile_precision": 0.4528301886792453
+  },
+  "random": {
+   "rho": 0.10247018327098237,
+   "ci": [
+    -0.0131118277559143,
+    0.2157767977362251
+   ],
+   "spearman": 0.17228293843514292,
+   "n": 300,
+   "top_decile_precision": 0.3333333333333333
+  },
+  "near_leaders": {
+   "rho": 0.0700883377031,
+   "ci": [
+    -0.05732016953559585,
+    0.19769915826303547
+   ],
+   "spearman": 0.24038648483794103,
+   "n": 237,
+   "top_decile_precision": 0.2608695652173913
+  },
+  "overloaded_share_in_top_quartile": 0.3333333333333333,
+  "overloaded_share_overall": 0.3370577281191806
+ },
+ "ideas_opus_A": {
+  "n_valid": 40,
+  "share_flips_in_top4": 0.5614035087719298,
+  "share_flips_in_top4_random": 0.45614035087719296,
+  "mean_jaccard_distance": 0.8942307692307693,
+  "flips_per_capability": {
+   "CDN": 3,
+   "COMP": 2,
+   "CACHE": 3,
+   "REPL": 6,
+   "RECO": 1,
+   "CHAT": 8,
+   "ONECLICK": 5,
+   "MFA": 9,
+   "MEDIA": 9,
+   "AUTOC": 4,
+   "PRIV": 5,
+   "TELEM": 2
+  },
+  "mean_utility_of_ideas": 0.5964254569459725,
+  "mean_utility_random_variants": 0.6153707540068891,
+  "share_improving": 0.25,
+  "share_improving_random": 0.15
+ },
+ "validity_opus_B": {
+  "n": 200,
+  "n_missing": 0,
+  "all": {
+   "rho": 0.33509936692647097,
+   "ci": [
+    0.20743829517903906,
+    0.45360518361088886
+   ],
+   "spearman": 0.3541923885833923,
+   "n": 200,
+   "top_decile_precision": 0.4
+  },
+  "random": {
+   "rho": 0.33509936692647097,
+   "ci": [
+    0.20228116631180673,
+    0.4527726873178629
+   ],
+   "spearman": 0.3541923885833923,
+   "n": 200,
+   "top_decile_precision": 0.4
+  },
+  "overloaded_share_in_top_quartile": 0.038461538461538464,
+  "overloaded_share_overall": 0.05
+ },
+ "ideas_opus_B": {
+  "n_valid": 40,
+  "share_flips_in_top4": 0.72,
+  "share_flips_in_top4_random": 0.45614035087719296,
+  "mean_jaccard_distance": 0.8581196581196581,
+  "flips_per_capability": {
+   "CDN": 10,
+   "COMP": 4,
+   "CACHE": 11,
+   "REPL": 8,
+   "RECO": 0,
+   "CHAT": 5,
+   "ONECLICK": 0,
+   "MFA": 0,
+   "MEDIA": 5,
+   "AUTOC": 7,
+   "PRIV": 0,
+   "TELEM": 0
+  },
+  "mean_utility_of_ideas": 0.8302726181613955,
+  "mean_utility_random_variants": 0.7210084325139283,
+  "share_improving": 0.5,
+  "share_improving_random": 0.15
+ },
+ "validity_haiku_A": {
+  "n": 537,
+  "n_missing": 0,
+  "all": {
+   "rho": 0.2375045368724884,
+   "ci": [
+    0.1634970108260231,
+    0.31002913393222614
+   ],
+   "spearman": 0.29613219873843977,
+   "n": 537,
+   "top_decile_precision": 0.4339622641509434
+  },
+  "random": {
+   "rho": -0.04043599348605867,
+   "ci": [
+    -0.14935106702825074,
+    0.06590310567829505
+   ],
+   "spearman": -0.024546372136397824,
+   "n": 300,
+   "top_decile_precision": 0.1
+  },
+  "near_leaders": {
+   "rho": 0.1156492499548723,
+   "ci": [
+    -0.00968151663620548,
+    0.2360384731406601
+   ],
+   "spearman": 0.17866915112866397,
+   "n": 237,
+   "top_decile_precision": 0.30434782608695654
+  },
+  "overloaded_share_in_top_quartile": 0.2857142857142857,
+  "overloaded_share_overall": 0.3370577281191806
+ },
+ "ledger": {
+  "opus_V5": {
+   "mean": 97.03623994423143,
+   "half": 0.9915974711705087,
+   "vs_none": {
+    "diff": 1.3319095780141799,
+    "half": 1.4331246134478262
+   }
+  },
+  "opus_V20": {
+   "mean": 96.04372298574454,
+   "half": 1.0305574585397694,
+   "vs_none": {
+    "diff": 1.1406918506454016,
+    "half": 1.5940692584804357
+   }
+  },
+  "haiku_V5": {
+   "mean": 96.23244042518263,
+   "half": 1.056487511769344,
+   "vs_none": {
+    "diff": 0.5281100589654139,
+    "half": 1.4014354918015623
+   }
+  },
+  "haiku_V20": {
+   "mean": 96.81076138615006,
+   "half": 1.0161382189442125,
+   "vs_none": {
+    "diff": 1.9077302510509384,
+    "half": 1.3661173350008942
+   }
+  },
+  "default_V5": {
+   "mean": 96.02983116083307,
+   "half": 1.0674241416762378
+  },
+  "none_V5": {
+   "mean": 95.70433036621725,
+   "half": 1.1152988595721414
+  },
+  "default_V20": {
+   "mean": 97.50142800535976,
+   "half": 0.7362654312723607
+  },
+  "none_V20": {
+   "mean": 94.90303113509911,
+   "half": 1.2008302654674687
+  }
+ }
+}

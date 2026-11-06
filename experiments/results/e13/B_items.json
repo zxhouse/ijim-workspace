@@ -1,0 +1,2405 @@
+{
+"cls": "svc",
+"inst": 3,
+"brief": "Service 'B': online retail service, 28 sessions per second, 53% of users on mobile (RTT 65 ms) and the rest on desktop; application pool of 10 workers; database with 3 workers; base conversion 2.6% mobile / 4.8% desktop; profit margin 19%; p95 page-time SLO 2.5 s.\nOptional capabilities (flag: what it does; its main costs and risks):\n- CDN: Edge content delivery network (edge caching of static content, shorter round trips; page weight x1.05; fixed cost 255/h; operational complexity 1.0)\n- COMP: Response compression (+3.5 ms CPU per page; page weight x0.61; operational complexity 0.3)\n- CACHE: Application data cache (+0.5 ms CPU per page; database calls x0.35; page weight x1.06; fixed cost 90/h; operational complexity 0.8)\n- REPL: Three extra application replicas (page weight x0.97; +3 application workers; fixed cost 1114/h; operational complexity 0.6)\n- RECO: ML recommendation service (+17 ms ML inference per page; page weight x1.07; +0.4 pages per session; fixed cost 2080/h; operational complexity 1.7)\n- CHAT: Generative-AI shopping assistant (+2.0 ms CPU per page; page weight x0.95; +45 ms external API delay per page; 0.069 per session; operational complexity 1.7)\n- ONECLICK: One-click checkout (page weight x1.05; -1.0 pages per session; fraud losses x1.25; operational complexity 0.6)\n- MFA: Step-up authentication (+1.7 ms CPU per page; page weight x0.78; 0.019 per session; fraud losses x0.25; operational complexity 0.8)\n- MEDIA: Rich product media (page weight x2.41; fixed cost 227/h; operational complexity 0.4)\n- AUTOC: Search autocomplete (+2.4 ms CPU per page; page weight x1.20; -0.3 pages per session; operational complexity 0.6)\n- PRIV: Privacy dashboard and consent manager (page weight x1.09; fixed cost 70/h; operational complexity 0.6)\n- TELEM: Fine-grained behavioural telemetry (+2.3 ms CPU per page; page weight x0.98; fixed cost 696/h; operational complexity 0.9)\nKnown interactions: recommendations work much better with behavioural telemetry; step-up authentication largely cancels the gain of one-click checkout; a privacy dashboard offsets the friction of authentication and telemetry; the assistant can use recommendations; rich media and the assistant compete for attention.\nA configuration is judged by a weighted utility: user conversion (weight 0.45), feasibility (0.25: p95 latency within the SLO, no overload, low complexity) and hourly profit after infrastructure, bandwidth, per-session and fraud costs (0.30). Overloading the application pool (utilisation above ~95%) is catastrophic for latency and conversion.",
+"items": [
+{
+"id": "B000",
+"x": 1891,
+"enabled": [
+"CDN",
+"COMP",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B001",
+"x": 1640,
+"enabled": [
+"REPL",
+"CHAT",
+"ONECLICK",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B002",
+"x": 3173,
+"enabled": [
+"CDN",
+"CACHE",
+"CHAT",
+"ONECLICK",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B003",
+"x": 398,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B004",
+"x": 2070,
+"enabled": [
+"COMP",
+"CACHE",
+"RECO",
+"TELEM"
+]
+},
+{
+"id": "B005",
+"x": 1655,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"RECO",
+"CHAT",
+"ONECLICK",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B006",
+"x": 2049,
+"enabled": [
+"CDN",
+"TELEM"
+]
+},
+{
+"id": "B007",
+"x": 107,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"CHAT",
+"ONECLICK"
+]
+},
+{
+"id": "B008",
+"x": 75,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"ONECLICK"
+]
+},
+{
+"id": "B009",
+"x": 422,
+"enabled": [
+"COMP",
+"CACHE",
+"CHAT",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B010",
+"x": 238,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"ONECLICK",
+"MFA"
+]
+},
+{
+"id": "B011",
+"x": 621,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"CHAT",
+"ONECLICK",
+"AUTOC"
+]
+},
+{
+"id": "B012",
+"x": 3248,
+"enabled": [
+"RECO",
+"CHAT",
+"MFA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B013",
+"x": 1129,
+"enabled": [
+"CDN",
+"REPL",
+"CHAT",
+"ONECLICK",
+"PRIV"
+]
+},
+{
+"id": "B014",
+"x": 2036,
+"enabled": [
+"CACHE",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B015",
+"x": 3425,
+"enabled": [
+"CDN",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B016",
+"x": 1418,
+"enabled": [
+"COMP",
+"REPL",
+"MFA",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B017",
+"x": 445,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B018",
+"x": 2041,
+"enabled": [
+"CDN",
+"REPL",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B019",
+"x": 2366,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"MEDIA",
+"TELEM"
+]
+},
+{
+"id": "B020",
+"x": 1041,
+"enabled": [
+"CDN",
+"RECO",
+"PRIV"
+]
+},
+{
+"id": "B021",
+"x": 2733,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"CHAT",
+"MFA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B022",
+"x": 344,
+"enabled": [
+"REPL",
+"RECO",
+"ONECLICK",
+"MEDIA"
+]
+},
+{
+"id": "B023",
+"x": 3086,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B024",
+"x": 878,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B025",
+"x": 2239,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"MFA",
+"TELEM"
+]
+},
+{
+"id": "B026",
+"x": 2197,
+"enabled": [
+"CDN",
+"CACHE",
+"RECO",
+"MFA",
+"TELEM"
+]
+},
+{
+"id": "B027",
+"x": 3365,
+"enabled": [
+"CDN",
+"CACHE",
+"CHAT",
+"MEDIA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B028",
+"x": 812,
+"enabled": [
+"CACHE",
+"REPL",
+"CHAT",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B029",
+"x": 3139,
+"enabled": [
+"CDN",
+"COMP",
+"ONECLICK",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B030",
+"x": 3186,
+"enabled": [
+"COMP",
+"RECO",
+"CHAT",
+"ONECLICK",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B031",
+"x": 1435,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"RECO",
+"MFA",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B032",
+"x": 3239,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"CHAT",
+"MFA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B033",
+"x": 1915,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B034",
+"x": 1427,
+"enabled": [
+"CDN",
+"COMP",
+"RECO",
+"MFA",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B035",
+"x": 3478,
+"enabled": [
+"COMP",
+"CACHE",
+"RECO",
+"MFA",
+"MEDIA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B036",
+"x": 211,
+"enabled": [
+"CDN",
+"COMP",
+"RECO",
+"ONECLICK",
+"MFA"
+]
+},
+{
+"id": "B037",
+"x": 3797,
+"enabled": [
+"CDN",
+"CACHE",
+"RECO",
+"ONECLICK",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B038",
+"x": 2696,
+"enabled": [
+"REPL",
+"MFA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B039",
+"x": 1053,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"RECO",
+"PRIV"
+]
+},
+{
+"id": "B040",
+"x": 820,
+"enabled": [
+"CACHE",
+"RECO",
+"CHAT",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B041",
+"x": 2922,
+"enabled": [
+"COMP",
+"REPL",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B042",
+"x": 1307,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"RECO",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B043",
+"x": 3784,
+"enabled": [
+"REPL",
+"ONECLICK",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B044",
+"x": 3238,
+"enabled": [
+"COMP",
+"CACHE",
+"CHAT",
+"MFA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B045",
+"x": 2231,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"RECO",
+"CHAT",
+"MFA",
+"TELEM"
+]
+},
+{
+"id": "B046",
+"x": 1586,
+"enabled": [
+"COMP",
+"RECO",
+"CHAT",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B047",
+"x": 3694,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"ONECLICK",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B048",
+"x": 3153,
+"enabled": [
+"CDN",
+"RECO",
+"ONECLICK",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B049",
+"x": 3354,
+"enabled": [
+"COMP",
+"REPL",
+"RECO",
+"MEDIA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B050",
+"x": 1366,
+"enabled": [
+"COMP",
+"CACHE",
+"RECO",
+"ONECLICK",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B051",
+"x": 2755,
+"enabled": [
+"CDN",
+"COMP",
+"ONECLICK",
+"MFA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B052",
+"x": 1169,
+"enabled": [
+"CDN",
+"RECO",
+"MFA",
+"PRIV"
+]
+},
+{
+"id": "B053",
+"x": 2014,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B054",
+"x": 2889,
+"enabled": [
+"CDN",
+"REPL",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B055",
+"x": 3928,
+"enabled": [
+"REPL",
+"RECO",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B056",
+"x": 16,
+"enabled": [
+"RECO"
+]
+},
+{
+"id": "B057",
+"x": 3009,
+"enabled": [
+"CDN",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B058",
+"x": 1607,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"ONECLICK",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B059",
+"x": 2708,
+"enabled": [
+"CACHE",
+"RECO",
+"MFA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B060",
+"x": 3224,
+"enabled": [
+"REPL",
+"RECO",
+"MFA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B061",
+"x": 1605,
+"enabled": [
+"CDN",
+"CACHE",
+"ONECLICK",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B062",
+"x": 3590,
+"enabled": [
+"COMP",
+"CACHE",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B063",
+"x": 2625,
+"enabled": [
+"CDN",
+"ONECLICK",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B064",
+"x": 2101,
+"enabled": [
+"CDN",
+"CACHE",
+"RECO",
+"CHAT",
+"TELEM"
+]
+},
+{
+"id": "B065",
+"x": 792,
+"enabled": [
+"REPL",
+"RECO",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B066",
+"x": 1375,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"ONECLICK",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B067",
+"x": 941,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"CHAT",
+"MFA",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B068",
+"x": 3581,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B069",
+"x": 2020,
+"enabled": [
+"CACHE",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B070",
+"x": 1209,
+"enabled": [
+"CDN",
+"REPL",
+"RECO",
+"CHAT",
+"MFA",
+"PRIV"
+]
+},
+{
+"id": "B071",
+"x": 14,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL"
+]
+},
+{
+"id": "B072",
+"x": 3095,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"RECO",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B073",
+"x": 1581,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"CHAT",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B074",
+"x": 2831,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B075",
+"x": 658,
+"enabled": [
+"COMP",
+"RECO",
+"MFA",
+"AUTOC"
+]
+},
+{
+"id": "B076",
+"x": 1631,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"ONECLICK",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B077",
+"x": 1523,
+"enabled": [
+"CDN",
+"COMP",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B078",
+"x": 3123,
+"enabled": [
+"CDN",
+"COMP",
+"RECO",
+"CHAT",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B079",
+"x": 3596,
+"enabled": [
+"CACHE",
+"REPL",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B080",
+"x": 3802,
+"enabled": [
+"COMP",
+"REPL",
+"RECO",
+"ONECLICK",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B081",
+"x": 921,
+"enabled": [
+"CDN",
+"REPL",
+"RECO",
+"MFA",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B082",
+"x": 3978,
+"enabled": [
+"COMP",
+"REPL",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B083",
+"x": 163,
+"enabled": [
+"CDN",
+"COMP",
+"CHAT",
+"MFA"
+]
+},
+{
+"id": "B084",
+"x": 2571,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B085",
+"x": 3730,
+"enabled": [
+"COMP",
+"RECO",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B086",
+"x": 1964,
+"enabled": [
+"CACHE",
+"REPL",
+"CHAT",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B087",
+"x": 58,
+"enabled": [
+"COMP",
+"REPL",
+"RECO",
+"CHAT"
+]
+},
+{
+"id": "B088",
+"x": 318,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"MEDIA"
+]
+},
+{
+"id": "B089",
+"x": 2968,
+"enabled": [
+"REPL",
+"RECO",
+"MFA",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B090",
+"x": 2872,
+"enabled": [
+"REPL",
+"RECO",
+"CHAT",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B091",
+"x": 3518,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"MFA",
+"MEDIA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B092",
+"x": 1817,
+"enabled": [
+"CDN",
+"REPL",
+"RECO",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B093",
+"x": 731,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"RECO",
+"ONECLICK",
+"MFA",
+"AUTOC"
+]
+},
+{
+"id": "B094",
+"x": 3943,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B095",
+"x": 1429,
+"enabled": [
+"CDN",
+"CACHE",
+"RECO",
+"MFA",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B096",
+"x": 602,
+"enabled": [
+"COMP",
+"REPL",
+"RECO",
+"ONECLICK",
+"AUTOC"
+]
+},
+{
+"id": "B097",
+"x": 2990,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"MFA",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B098",
+"x": 1577,
+"enabled": [
+"CDN",
+"REPL",
+"CHAT",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B099",
+"x": 3788,
+"enabled": [
+"CACHE",
+"REPL",
+"ONECLICK",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B100",
+"x": 3006,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"MFA",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B101",
+"x": 1410,
+"enabled": [
+"COMP",
+"MFA",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B102",
+"x": 1885,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"RECO",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B103",
+"x": 1092,
+"enabled": [
+"CACHE",
+"ONECLICK",
+"PRIV"
+]
+},
+{
+"id": "B104",
+"x": 1250,
+"enabled": [
+"COMP",
+"CHAT",
+"ONECLICK",
+"MFA",
+"PRIV"
+]
+},
+{
+"id": "B105",
+"x": 791,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"RECO",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B106",
+"x": 900,
+"enabled": [
+"CACHE",
+"MFA",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B107",
+"x": 2687,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"ONECLICK",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B108",
+"x": 3499,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"CHAT",
+"MFA",
+"MEDIA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B109",
+"x": 1518,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B110",
+"x": 709,
+"enabled": [
+"CDN",
+"CACHE",
+"ONECLICK",
+"MFA",
+"AUTOC"
+]
+},
+{
+"id": "B111",
+"x": 844,
+"enabled": [
+"CACHE",
+"REPL",
+"ONECLICK",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B112",
+"x": 1534,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B113",
+"x": 3688,
+"enabled": [
+"REPL",
+"CHAT",
+"ONECLICK",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B114",
+"x": 2369,
+"enabled": [
+"CDN",
+"ONECLICK",
+"MEDIA",
+"TELEM"
+]
+},
+{
+"id": "B115",
+"x": 2068,
+"enabled": [
+"CACHE",
+"RECO",
+"TELEM"
+]
+},
+{
+"id": "B116",
+"x": 4002,
+"enabled": [
+"COMP",
+"CHAT",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B117",
+"x": 3772,
+"enabled": [
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B118",
+"x": 456,
+"enabled": [
+"REPL",
+"ONECLICK",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B119",
+"x": 2411,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"TELEM"
+]
+},
+{
+"id": "B120",
+"x": 1477,
+"enabled": [
+"CDN",
+"CACHE",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B121",
+"x": 333,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"ONECLICK",
+"MEDIA"
+]
+},
+{
+"id": "B122",
+"x": 1219,
+"enabled": [
+"CDN",
+"COMP",
+"ONECLICK",
+"MFA",
+"PRIV"
+]
+},
+{
+"id": "B123",
+"x": 2436,
+"enabled": [
+"CACHE",
+"MFA",
+"MEDIA",
+"TELEM"
+]
+},
+{
+"id": "B124",
+"x": 2298,
+"enabled": [
+"COMP",
+"REPL",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MFA",
+"TELEM"
+]
+},
+{
+"id": "B125",
+"x": 2106,
+"enabled": [
+"COMP",
+"REPL",
+"RECO",
+"CHAT",
+"TELEM"
+]
+},
+{
+"id": "B126",
+"x": 3171,
+"enabled": [
+"CDN",
+"COMP",
+"CHAT",
+"ONECLICK",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B127",
+"x": 471,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"RECO",
+"ONECLICK",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B128",
+"x": 3307,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"CHAT",
+"ONECLICK",
+"MFA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B129",
+"x": 2214,
+"enabled": [
+"COMP",
+"CACHE",
+"CHAT",
+"MFA",
+"TELEM"
+]
+},
+{
+"id": "B130",
+"x": 141,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"MFA"
+]
+},
+{
+"id": "B131",
+"x": 1054,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"PRIV"
+]
+},
+{
+"id": "B132",
+"x": 1337,
+"enabled": [
+"CDN",
+"REPL",
+"RECO",
+"CHAT",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B133",
+"x": 2285,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"CHAT",
+"ONECLICK",
+"MFA",
+"TELEM"
+]
+},
+{
+"id": "B134",
+"x": 111,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"ONECLICK"
+]
+},
+{
+"id": "B135",
+"x": 3195,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"RECO",
+"CHAT",
+"ONECLICK",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B136",
+"x": 1540,
+"enabled": [
+"CACHE",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B137",
+"x": 2017,
+"enabled": [
+"CDN",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B138",
+"x": 1062,
+"enabled": [
+"COMP",
+"CACHE",
+"CHAT",
+"PRIV"
+]
+},
+{
+"id": "B139",
+"x": 3683,
+"enabled": [
+"CDN",
+"COMP",
+"CHAT",
+"ONECLICK",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B140",
+"x": 3803,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"RECO",
+"ONECLICK",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B141",
+"x": 3641,
+"enabled": [
+"CDN",
+"REPL",
+"RECO",
+"CHAT",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B142",
+"x": 3887,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"MEDIA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B143",
+"x": 416,
+"enabled": [
+"CHAT",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B144",
+"x": 3085,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B145",
+"x": 1267,
+"enabled": [
+"CDN",
+"COMP",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MFA",
+"PRIV"
+]
+},
+{
+"id": "B146",
+"x": 3775,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"RECO",
+"CHAT",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B147",
+"x": 3673,
+"enabled": [
+"CDN",
+"REPL",
+"RECO",
+"ONECLICK",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B148",
+"x": 925,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"RECO",
+"MFA",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B149",
+"x": 3255,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"RECO",
+"CHAT",
+"MFA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B150",
+"x": 3793,
+"enabled": [
+"CDN",
+"RECO",
+"ONECLICK",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B151",
+"x": 1128,
+"enabled": [
+"REPL",
+"CHAT",
+"ONECLICK",
+"PRIV"
+]
+},
+{
+"id": "B152",
+"x": 487,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B153",
+"x": 4078,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B154",
+"x": 3217,
+"enabled": [
+"CDN",
+"RECO",
+"MFA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B155",
+"x": 2570,
+"enabled": [
+"COMP",
+"REPL",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B156",
+"x": 1779,
+"enabled": [
+"CDN",
+"COMP",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MFA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B157",
+"x": 3160,
+"enabled": [
+"REPL",
+"RECO",
+"ONECLICK",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B158",
+"x": 2693,
+"enabled": [
+"CDN",
+"CACHE",
+"MFA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B159",
+"x": 2626,
+"enabled": [
+"COMP",
+"ONECLICK",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B160",
+"x": 1184,
+"enabled": [
+"CHAT",
+"MFA",
+"PRIV"
+]
+},
+{
+"id": "B161",
+"x": 1559,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"RECO",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B162",
+"x": 2234,
+"enabled": [
+"COMP",
+"REPL",
+"RECO",
+"CHAT",
+"MFA",
+"TELEM"
+]
+},
+{
+"id": "B163",
+"x": 389,
+"enabled": [
+"CDN",
+"CACHE",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B164",
+"x": 2167,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"RECO",
+"CHAT",
+"ONECLICK",
+"TELEM"
+]
+},
+{
+"id": "B165",
+"x": 1352,
+"enabled": [
+"REPL",
+"ONECLICK",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B166",
+"x": 2003,
+"enabled": [
+"CDN",
+"COMP",
+"RECO",
+"ONECLICK",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B167",
+"x": 1907,
+"enabled": [
+"CDN",
+"COMP",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"PRIV"
+]
+},
+{
+"id": "B168",
+"x": 3874,
+"enabled": [
+"COMP",
+"CHAT",
+"MEDIA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B169",
+"x": 47,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"CHAT"
+]
+},
+{
+"id": "B170",
+"x": 2465,
+"enabled": [
+"CDN",
+"CHAT",
+"MFA",
+"MEDIA",
+"TELEM"
+]
+},
+{
+"id": "B171",
+"x": 427,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"CHAT",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B172",
+"x": 2321,
+"enabled": [
+"CDN",
+"RECO",
+"MEDIA",
+"TELEM"
+]
+},
+{
+"id": "B173",
+"x": 1315,
+"enabled": [
+"CDN",
+"COMP",
+"CHAT",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B174",
+"x": 2953,
+"enabled": [
+"CDN",
+"REPL",
+"MFA",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B175",
+"x": 2895,
+"enabled": [
+"CDN",
+"COMP",
+"CACHE",
+"REPL",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B176",
+"x": 859,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"RECO",
+"ONECLICK",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B177",
+"x": 2162,
+"enabled": [
+"COMP",
+"RECO",
+"CHAT",
+"ONECLICK",
+"TELEM"
+]
+},
+{
+"id": "B178",
+"x": 1165,
+"enabled": [
+"CDN",
+"CACHE",
+"REPL",
+"MFA",
+"PRIV"
+]
+},
+{
+"id": "B179",
+"x": 649,
+"enabled": [
+"CDN",
+"REPL",
+"MFA",
+"AUTOC"
+]
+},
+{
+"id": "B180",
+"x": 2670,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"ONECLICK",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B181",
+"x": 821,
+"enabled": [
+"CDN",
+"CACHE",
+"RECO",
+"CHAT",
+"MEDIA",
+"AUTOC"
+]
+},
+{
+"id": "B182",
+"x": 2964,
+"enabled": [
+"CACHE",
+"RECO",
+"MFA",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B183",
+"x": 3508,
+"enabled": [
+"CACHE",
+"RECO",
+"CHAT",
+"MFA",
+"MEDIA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B184",
+"x": 2898,
+"enabled": [
+"COMP",
+"RECO",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B185",
+"x": 3312,
+"enabled": [
+"RECO",
+"CHAT",
+"ONECLICK",
+"MFA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B186",
+"x": 4014,
+"enabled": [
+"COMP",
+"CACHE",
+"REPL",
+"CHAT",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B187",
+"x": 2937,
+"enabled": [
+"CDN",
+"REPL",
+"RECO",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"AUTOC",
+"TELEM"
+]
+},
+{
+"id": "B188",
+"x": 3264,
+"enabled": [
+"ONECLICK",
+"MFA",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B189",
+"x": 128,
+"enabled": [
+"MFA"
+]
+},
+{
+"id": "B190",
+"x": 3969,
+"enabled": [
+"CDN",
+"MFA",
+"MEDIA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B191",
+"x": 1381,
+"enabled": [
+"CDN",
+"CACHE",
+"CHAT",
+"ONECLICK",
+"MEDIA",
+"PRIV"
+]
+},
+{
+"id": "B192",
+"x": 3756,
+"enabled": [
+"CACHE",
+"REPL",
+"CHAT",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B193",
+"x": 32,
+"enabled": [
+"CHAT"
+]
+},
+{
+"id": "B194",
+"x": 3668,
+"enabled": [
+"CACHE",
+"RECO",
+"ONECLICK",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B195",
+"x": 470,
+"enabled": [
+"COMP",
+"CACHE",
+"RECO",
+"ONECLICK",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B196",
+"x": 3796,
+"enabled": [
+"CACHE",
+"RECO",
+"ONECLICK",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B197",
+"x": 489,
+"enabled": [
+"CDN",
+"REPL",
+"CHAT",
+"ONECLICK",
+"MFA",
+"MEDIA"
+]
+},
+{
+"id": "B198",
+"x": 3739,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"RECO",
+"MFA",
+"AUTOC",
+"PRIV",
+"TELEM"
+]
+},
+{
+"id": "B199",
+"x": 1147,
+"enabled": [
+"CDN",
+"COMP",
+"REPL",
+"RECO",
+"CHAT",
+"ONECLICK",
+"PRIV"
+]
+}
+],
+"n_rand": 200
+}

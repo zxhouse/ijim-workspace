@@ -1,0 +1,119 @@
+Service 'B': online retail service, 28 sessions per second, 53% of users on mobile (RTT 65 ms) and the rest on desktop; application pool of 10 workers; database with 3 workers; base conversion 2.6% mobile / 4.8% desktop; profit margin 19%; p95 page-time SLO 2.5 s.
+Optional capabilities (flag: what it does; its main costs and risks):
+- CDN: Edge content delivery network (edge caching of static content, shorter round trips; page weight x1.05; fixed cost 255/h; operational complexity 1.0)
+- COMP: Response compression (+3.5 ms CPU per page; page weight x0.61; operational complexity 0.3)
+- CACHE: Application data cache (+0.5 ms CPU per page; database calls x0.35; page weight x1.06; fixed cost 90/h; operational complexity 0.8)
+- REPL: Three extra application replicas (page weight x0.97; +3 application workers; fixed cost 1114/h; operational complexity 0.6)
+- RECO: ML recommendation service (+17 ms ML inference per page; page weight x1.07; +0.4 pages per session; fixed cost 2080/h; operational complexity 1.7)
+- CHAT: Generative-AI shopping assistant (+2.0 ms CPU per page; page weight x0.95; +45 ms external API delay per page; 0.069 per session; operational complexity 1.7)
+- ONECLICK: One-click checkout (page weight x1.05; -1.0 pages per session; fraud losses x1.25; operational complexity 0.6)
+- MFA: Step-up authentication (+1.7 ms CPU per page; page weight x0.78; 0.019 per session; fraud losses x0.25; operational complexity 0.8)
+- MEDIA: Rich product media (page weight x2.41; fixed cost 227/h; operational complexity 0.4)
+- AUTOC: Search autocomplete (+2.4 ms CPU per page; page weight x1.20; -0.3 pages per session; operational complexity 0.6)
+- PRIV: Privacy dashboard and consent manager (page weight x1.09; fixed cost 70/h; operational complexity 0.6)
+- TELEM: Fine-grained behavioural telemetry (+2.3 ms CPU per page; page weight x0.98; fixed cost 696/h; operational complexity 0.9)
+Known interactions: recommendations work much better with behavioural telemetry; step-up authentication largely cancels the gain of one-click checkout; a privacy dashboard offsets the friction of authentication and telemetry; the assistant can use recommendations; rich media and the assistant compete for attention.
+A configuration is judged by a weighted utility: user conversion (weight 0.45), feasibility (0.25: p95 latency within the SLO, no overload, low complexity) and hourly profit after infrastructure, bandwidth, per-session and fraud costs (0.30). Overloading the application pool (utilisation above ~95%) is catastrophic for latency and conversion.
+
+Rate each configuration below on a 0-100 scale for its overall value under the three criteria (100 = the best configuration you can imagine for this service). Judge from the descriptions; do not compute anything precisely. Reply ONLY with a JSON object mapping id to integer score, no commentary.
+
+B136: CACHE, AUTOC, PRIV
+B080: COMP, REPL, RECO, ONECLICK, MFA, AUTOC, PRIV, TELEM
+B145: CDN, COMP, RECO, CHAT, ONECLICK, MFA, PRIV
+B125: COMP, REPL, RECO, CHAT, TELEM
+B060: REPL, RECO, MFA, PRIV, TELEM
+B172: CDN, RECO, MEDIA, TELEM
+B006: CDN, TELEM
+B127: CDN, COMP, CACHE, RECO, ONECLICK, MFA, MEDIA
+B092: CDN, REPL, RECO, MEDIA, AUTOC, PRIV
+B069: CACHE, CHAT, ONECLICK, MFA, MEDIA, AUTOC, PRIV
+B041: COMP, REPL, CHAT, ONECLICK, MEDIA, AUTOC, TELEM
+B090: REPL, RECO, CHAT, MEDIA, AUTOC, TELEM
+B177: COMP, RECO, CHAT, ONECLICK, TELEM
+B175: CDN, COMP, CACHE, REPL, ONECLICK, MEDIA, AUTOC, TELEM
+B008: CDN, COMP, REPL, ONECLICK
+B095: CDN, CACHE, RECO, MFA, MEDIA, PRIV
+B178: CDN, CACHE, REPL, MFA, PRIV
+B112: COMP, CACHE, REPL, RECO, CHAT, ONECLICK, MFA, MEDIA, PRIV
+B102: CDN, CACHE, REPL, RECO, ONECLICK, MEDIA, AUTOC, PRIV
+B085: COMP, RECO, MFA, AUTOC, PRIV, TELEM
+B189: MFA
+B049: COMP, REPL, RECO, MEDIA, PRIV, TELEM
+B068: CDN, CACHE, REPL, RECO, CHAT, ONECLICK, MFA, MEDIA, PRIV, TELEM
+B089: REPL, RECO, MFA, MEDIA, AUTOC, TELEM
+B108: CDN, COMP, REPL, CHAT, MFA, MEDIA, PRIV, TELEM
+B066: CDN, COMP, CACHE, REPL, RECO, ONECLICK, MEDIA, PRIV
+B062: COMP, CACHE, AUTOC, PRIV, TELEM
+B000: CDN, COMP, CHAT, ONECLICK, MEDIA, AUTOC, PRIV
+B018: CDN, REPL, RECO, CHAT, ONECLICK, MFA, MEDIA, AUTOC, PRIV
+B074: CDN, COMP, CACHE, REPL, MEDIA, AUTOC, TELEM
+B045: CDN, COMP, CACHE, RECO, CHAT, MFA, TELEM
+B014: CACHE, RECO, CHAT, ONECLICK, MFA, MEDIA, AUTOC, PRIV
+B072: CDN, COMP, CACHE, RECO, PRIV, TELEM
+B107: CDN, COMP, CACHE, REPL, RECO, CHAT, ONECLICK, AUTOC, TELEM
+B113: REPL, CHAT, ONECLICK, AUTOC, PRIV, TELEM
+B147: CDN, REPL, RECO, ONECLICK, AUTOC, PRIV, TELEM
+B075: COMP, RECO, MFA, AUTOC
+B035: COMP, CACHE, RECO, MFA, MEDIA, PRIV, TELEM
+B022: REPL, RECO, ONECLICK, MEDIA
+B076: CDN, COMP, CACHE, REPL, RECO, ONECLICK, AUTOC, PRIV
+B155: COMP, REPL, AUTOC, TELEM
+B040: CACHE, RECO, CHAT, MEDIA, AUTOC
+B027: CDN, CACHE, CHAT, MEDIA, PRIV, TELEM
+B051: CDN, COMP, ONECLICK, MFA, AUTOC, TELEM
+B104: COMP, CHAT, ONECLICK, MFA, PRIV
+B031: CDN, COMP, REPL, RECO, MFA, MEDIA, PRIV
+B187: CDN, REPL, RECO, CHAT, ONECLICK, MEDIA, AUTOC, TELEM
+B081: CDN, REPL, RECO, MFA, MEDIA, AUTOC
+B120: CDN, CACHE, ONECLICK, MFA, MEDIA, PRIV
+B140: CDN, COMP, REPL, RECO, ONECLICK, MFA, AUTOC, PRIV, TELEM
+B087: COMP, REPL, RECO, CHAT
+B088: COMP, CACHE, REPL, RECO, CHAT, MEDIA
+B141: CDN, REPL, RECO, CHAT, AUTOC, PRIV, TELEM
+B046: COMP, RECO, CHAT, AUTOC, PRIV
+B063: CDN, ONECLICK, AUTOC, TELEM
+B028: CACHE, REPL, CHAT, MEDIA, AUTOC
+B043: REPL, ONECLICK, MFA, AUTOC, PRIV, TELEM
+B131: COMP, CACHE, REPL, RECO, PRIV
+B180: COMP, CACHE, REPL, CHAT, ONECLICK, AUTOC, TELEM
+B151: REPL, CHAT, ONECLICK, PRIV
+B194: CACHE, RECO, ONECLICK, AUTOC, PRIV, TELEM
+B065: REPL, RECO, MEDIA, AUTOC
+B154: CDN, RECO, MFA, PRIV, TELEM
+B160: CHAT, MFA, PRIV
+B190: CDN, MFA, MEDIA, AUTOC, PRIV, TELEM
+B156: CDN, COMP, RECO, CHAT, ONECLICK, MFA, AUTOC, PRIV
+B061: CDN, CACHE, ONECLICK, AUTOC, PRIV
+B142: CDN, COMP, CACHE, REPL, CHAT, MEDIA, AUTOC, PRIV, TELEM
+B149: CDN, COMP, CACHE, RECO, CHAT, MFA, PRIV, TELEM
+B184: COMP, RECO, ONECLICK, MEDIA, AUTOC, TELEM
+B122: CDN, COMP, ONECLICK, MFA, PRIV
+B036: CDN, COMP, RECO, ONECLICK, MFA
+B005: CDN, COMP, CACHE, RECO, CHAT, ONECLICK, AUTOC, PRIV
+B157: REPL, RECO, ONECLICK, PRIV, TELEM
+B097: COMP, CACHE, REPL, CHAT, MFA, MEDIA, AUTOC, TELEM
+B086: CACHE, REPL, CHAT, MFA, MEDIA, AUTOC, PRIV
+B024: COMP, CACHE, REPL, CHAT, ONECLICK, MEDIA, AUTOC
+B026: CDN, CACHE, RECO, MFA, TELEM
+B012: RECO, CHAT, MFA, PRIV, TELEM
+B171: CDN, COMP, REPL, CHAT, MFA, MEDIA
+B185: RECO, CHAT, ONECLICK, MFA, PRIV, TELEM
+B058: CDN, COMP, CACHE, ONECLICK, AUTOC, PRIV
+B013: CDN, REPL, CHAT, ONECLICK, PRIV
+B197: CDN, REPL, CHAT, ONECLICK, MFA, MEDIA
+B128: CDN, COMP, REPL, CHAT, ONECLICK, MFA, PRIV, TELEM
+B130: CDN, CACHE, REPL, MFA
+B071: COMP, CACHE, REPL
+B084: CDN, COMP, REPL, AUTOC, TELEM
+B052: CDN, RECO, MFA, PRIV
+B173: CDN, COMP, CHAT, MEDIA, PRIV
+B010: COMP, CACHE, REPL, CHAT, ONECLICK, MFA
+B123: CACHE, MFA, MEDIA, TELEM
+B073: CDN, CACHE, REPL, CHAT, AUTOC, PRIV
+B078: CDN, COMP, RECO, CHAT, PRIV, TELEM
+B038: REPL, MFA, AUTOC, TELEM
+B186: COMP, CACHE, REPL, CHAT, MFA, MEDIA, AUTOC, PRIV, TELEM
+B182: CACHE, RECO, MFA, MEDIA, AUTOC, TELEM
+B017: CDN, CACHE, REPL, RECO, CHAT, MFA, MEDIA
+B111: CACHE, REPL, ONECLICK, MEDIA, AUTOC
+B048: CDN, RECO, ONECLICK, PRIV, TELEM

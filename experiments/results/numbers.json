@@ -3655,7 +3655,7 @@
      1.73,
      0.83
     ],
-    "screen validity": [
+    "screening validity": [
      -0.95,
      0.88
     ],
@@ -3663,11 +3663,11 @@
      0.66,
      0.89
     ],
-    "radius": [
+    "reach of ideation": [
      0.68,
      0.87
     ],
-    "features": [
+    "number of capabilities": [
      -0.68,
      0.8
     ],
@@ -3675,7 +3675,7 @@
      1.2,
      1.06
     ],
-    "log SNR": [
+    "log signal-to-noise": [
      -2.06,
      1.49
     ]
@@ -3696,7 +3696,7 @@
      -0.62,
      0.77
     ],
-    "screen validity": [
+    "screening validity": [
      0.35,
      0.64
     ],
@@ -3704,11 +3704,11 @@
      1.02,
      0.74
     ],
-    "radius": [
+    "reach of ideation": [
      1.42,
      0.76
     ],
-    "features": [
+    "number of capabilities": [
      -0.14,
      0.69
     ],
@@ -3716,7 +3716,7 @@
      0.5,
      0.94
     ],
-    "log SNR": [
+    "log signal-to-noise": [
      -0.64,
      1.31
     ]
@@ -3737,7 +3737,7 @@
      -1.17,
      0.67
     ],
-    "screen validity": [
+    "screening validity": [
      -0.99,
      0.58
     ],
@@ -3745,11 +3745,11 @@
      0.27,
      0.58
     ],
-    "radius": [
+    "reach of ideation": [
      0.67,
      0.64
     ],
-    "features": [
+    "number of capabilities": [
      0.97,
      0.62
     ],
@@ -3757,7 +3757,7 @@
      -0.21,
      0.7
     ],
-    "log SNR": [
+    "log signal-to-noise": [
      1.13,
      1.2
     ]

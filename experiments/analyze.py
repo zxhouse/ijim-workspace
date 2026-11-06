@@ -96,7 +96,7 @@ def e1():
         a = [r for r in A if r["stratum"] == st]
         ax[0].scatter([r["U_an"] for r in a], [r["U"] for r in a], s=11, marker=m, color=c, alpha=0.8, lw=0, label=lab)
     ax[0].plot([-0.4, 1.2], [-0.4, 1.2], color="#555", lw=0.8, ls="--")
-    ax[0].set_xlim(-0.05, 1.0); ax[0].set_ylim(-0.45, 1.15)
+    ax[0].set_xlim(-0.05, 1.0); ax[0].set_ylim(min(-0.45, min(r["U"] for r in A) - 0.05), max(1.15, max(r["U"] for r in A) + 0.05))
     ax[0].set_xlabel("utility from the analytic model (steady state)")
     ax[0].set_ylabel("utility measured in the emulator\n(one experiment, 6,000 sessions)")
     ax[0].set_title("(a) Emulator vs analytic model")
@@ -124,7 +124,7 @@ def e2():
     rows = load("e2_dynamics.json")
     out = {}
     short = [r for r in rows if r["run"] == "short"]
-    fig, ax = plt.subplots(1, 2, figsize=(W_FULL, 2.6))
+    fig, ax = plt.subplots(1, 2, figsize=(W_FULL, 2.95))
     for pol, ls in (("loop", "-"), ("ledger", "--")):
         a = [r for r in short if r["cls"] == "ref" and r["pol"] == pol]
         T = sorted(set(r["tests"] for r in a))
@@ -139,7 +139,7 @@ def e2():
     ax[0].axhline(100, color="#555", lw=0.7)
     ax[0].set_xlabel("tests"); ax[0].set_ylabel(r"utility, % of $U^*$")
     ax[0].set_title("(a) Reference instance, 400 tests")
-    ax[0].set_ylim(70, 112); ax[0].legend(frameon=False, ncol=2, loc="lower right")
+    ax[0].set_ylim(70, 102); ax[0].legend(frameon=False, ncol=2, loc="lower right")
     for c in CLASSES:
         for pol in ("loop", "ledger"):
             a = [r for r in short if r["cls"] == c and r["pol"] == pol and r["tests"] == 400]
@@ -184,7 +184,7 @@ def e2():
     ax[1].set_ylim(0, 1); ax[1].set_xlabel("tests (log scale)"); ax[1].set_ylabel("share of runs at a local optimum")
     ax[1].set_title("(b) Distance to the limit (loop)")
     ax[1].plot([], [], "k-", label="favourite"); ax[1].plot([], [], "k--", lw=1, label="best found")
-    ax[1].legend(frameon=False, loc="upper left", ncol=1)
+    ax[1].legend(frameon=False, loc="upper center", ncol=3, bbox_to_anchor=(0.45, -0.24), columnspacing=1.0, handletextpad=0.4)
     fig.tight_layout(w_pad=2.0)
     savefig(fig, "fig_e2_dynamics.pdf")
     NUM["e2"] = out
@@ -262,7 +262,7 @@ def e4():
         ax.set_xlabel("new configurations per 5 tests")
         ax.set_title(f"({'abc'[k]}) {CLS_NAME[c]}")
         ax.set_ylabel(r"shipped utility, % of $U^*$")
-    axes[2].legend(frameon=False, loc="lower left")
+    axes[0].legend(frameon=False, loc="lower right")
     fig.tight_layout(w_pad=1.0)
     savefig(fig, "fig_e4_allocation.pdf")
     # best test size given the traffic budget
@@ -379,7 +379,7 @@ def e6():
     axes[0].set_xlabel(r"bias relative to test noise $b/\sigma$")
     axes[0].set_ylabel("change in shipped utility (points)")
     axes[0].set_title("(a) Kinds of bias ($n=2000$)")
-    axes[0].legend(frameon=False, loc="lower left")
+    axes[0].legend(frameon=True, framealpha=1.0, edgecolor="none", loc="lower left")
     for n, col in ((500, "#E53935"), (2000, "#1E88E5"), (8000, "#43A047")):
         a = [r for r in rows if r["kind"] == "hippo" and r["n"] == n]
         res = loss_curve(a)
@@ -480,7 +480,7 @@ def e8():
     out = {"fronts": {c: [int(np.median([v for k, v in d["fronts"].items() if k.startswith(c)])),
                           int(min(v for k, v in d["fronts"].items() if k.startswith(c))),
                           int(max(v for k, v in d["fronts"].items() if k.startswith(c)))] for c in CLASSES}}
-    M = (("archive", "#43A047", "Pareto archive"), ("scalarised3", "#1E88E5", "three scalarised loops"), ("single", "#9E9E9E", "one DVF-weighted loop"))
+    M = (("archive", "#43A047", "Pareto archive"), ("scalarised3", "#1E88E5", "three scalarised loops"), ("single", "#9E9E9E", "one loop, default weights"))
     B = (200, 400, 800)
     fig, axes = plt.subplots(1, 3, figsize=(W_FULL, 2.4))
     for metric, ax, lab in (("hv", axes[0], "Hypervolume, share of the true front"), ("share_local", axes[1], "Share locally Pareto-optimal"),
@@ -498,6 +498,7 @@ def e8():
         ax.set_ylabel({"hv": "hypervolume / true-front hypervolume", "share_local": "share of delivered configurations",
                        "size": "number of configurations"}[metric])
         ax.set_title(f"({'abc'[['hv','share_local','size'].index(metric)]}) {lab}", loc="left", fontsize=7.5)
+    axes[0].set_ylim(0.45, 0.92)
     axes[0].legend(frameon=False, loc="lower right", fontsize=6.5)
     fig.tight_layout(w_pad=1.0)
     savefig(fig, "fig_e8_pareto.pdf")
@@ -538,12 +539,12 @@ def e9():
         out[f"vs_{comp}"] = dict(mean=r2(dlt.mean()), median=r2(np.median(dlt)), share_pos=r2(np.mean(dlt > 0), 3),
                                  q10=r2(np.percentile(dlt, 10)), q90=r2(np.percentile(dlt, 90)))
     # regression of the advantages on standardised scenario factors
-    names = ["log test size", "log budget", "screen validity", "ideas per round", "radius", "features", "rugged family", "log SNR"]
+    names = ["log test size", "log budget", "screening validity", "ideas per round", "reach of ideation", "number of capabilities", "rugged family", "log signal-to-noise"]
     X = np.array([[np.log(r["n_sess"]), np.log(r["budget"]), r["rho"], r["V"], r["radius"], r["nf"],
                    1.0 if r["fam"] == "rug" else 0.0, np.log(r["snr"])] for r in recs])
     Xs = (X - X.mean(0)) / X.std(0)
     Xd = np.column_stack([np.ones(len(Xs)), Xs])
-    fig, axes = plt.subplots(1, 2, figsize=(W_FULL, 2.6), gridspec_kw=dict(width_ratios=[1.25, 1]))
+    fig, axes = plt.subplots(1, 2, figsize=(W_FULL, 2.9), gridspec_kw=dict(width_ratios=[1.25, 1]))
     for j, (comp, col) in enumerate((("abtest", "#FB8C00"), ("oneshot", "#8E24AA"), ("loop", "#1E88E5"))):
         y = np.array([r["ledger"] - r[comp] for r in recs])
         beta, *_ = np.linalg.lstsq(Xd, y, rcond=None)
@@ -565,7 +566,7 @@ def e9():
     axes[0].set_ylabel("scenario factor (standardised)")
     axes[0].set_title("(a) What drives the ledger's advantage")
     axes[0].grid(axis="y", visible=False)
-    axes[0].legend(frameon=False, loc="upper center", fontsize=6.5, ncol=3, bbox_to_anchor=(0.75, -0.2),
+    axes[0].legend(frameon=False, loc="upper center", fontsize=6.5, ncol=3, bbox_to_anchor=(0.75, -0.24),
                    columnspacing=1.0, handletextpad=0.3)
     snr = np.array([r["snr"] for r in recs])
     for comp, col in (("abtest", "#FB8C00"), ("oneshot", "#8E24AA")):
@@ -576,8 +577,10 @@ def e9():
     axes[1].set_xlabel("signal-to-noise: s.d. of top-50 utilities / $\\sigma$")
     axes[1].set_ylabel("ledger advantage (points)")
     axes[1].set_title("(b) Advantage by signal-to-noise")
-    axes[1].legend(frameon=True, framealpha=0.92, edgecolor="none", loc="upper right")
-    fig.tight_layout(w_pad=1.5, rect=(0, 0.06, 1, 1))
+    ytop = max(float(np.max([r["ledger"] - r[c] for r in recs])) for c in ("abtest", "oneshot"))
+    axes[1].set_ylim(top=ytop + 13)
+    axes[1].legend(frameon=False, loc="upper left", ncol=1, handletextpad=0.2, borderaxespad=0.2)
+    fig.tight_layout(w_pad=1.5, rect=(0, 0.09, 1, 1))
     savefig(fig, "fig_e9_robustness.pdf")
     out["snr_range"] = [r2(snr.min(), 3), r2(snr.max(), 3)]
     NUM["e9"] = out
@@ -636,7 +639,7 @@ def e11():
     steps = LADDER[:8]
     names = ["A/B, one test per arm", "+ pool champion evidence", "+ retain all variants", "+ re-test favourite 4x per build",
              "+ re-test three leaders", "+ rotating re-test (loop)", "+ ship on lower bound", "+ three builds per round (ledger)"]
-    fig, axes = plt.subplots(1, 2, figsize=(W_FULL, 2.9), gridspec_kw=dict(width_ratios=[1.25, 1]))
+    fig, axes = plt.subplots(1, 2, figsize=(W_FULL, 3.35), gridspec_kw=dict(width_ratios=[1.25, 1]))
     for c in CLASSES:
         S = summarise([r for r in lad if r["cls"] == c], ("pol",))
         m = [S[(s,)][0] for s in steps]; h = [S[(s,)][1] for s in steps]
@@ -667,7 +670,8 @@ def e11():
     axes[1].set_xticks([0, 1]); axes[1].set_xticklabels(["five random\nconfigurations", "production configuration\nwith history"])
     axes[1].set_xlim(-0.3, 1.3); axes[1].set_xlabel("starting point of the programme")
     axes[1].set_ylabel(r"shipped utility, % of $U^*$ (mean of classes)")
-    axes[1].set_title("(b) Build rate and starting point"); axes[1].legend(frameon=False, fontsize=6.3, loc="lower left")
+    axes[1].set_title("(b) Build rate and starting point")
+    axes[1].legend(frameon=False, fontsize=6.3, loc="upper center", ncol=2, bbox_to_anchor=(0.45, -0.33), columnspacing=0.8, handletextpad=0.3)
     fig.tight_layout(w_pad=2.0)
     savefig(fig, "fig_e11_audit.pdf")
     for st in ("random", "statusquo"):

@@ -10,10 +10,10 @@
 \begin{tikzpicture}
 % columns -----------------------------------------------------------------
 \def\xa{0}\def\xb{4.55}\def\xc{9.1}\def\xd{13.65}
-\node[col=zoneusr, minimum height=82mm] (A) at (\xa,0) {};
-\node[col=zonectl, minimum height=82mm] (B) at (\xb,0) {};
-\node[col=zonedata, minimum height=82mm] (C) at (\xc,0) {};
-\node[col=zonetel, minimum height=82mm] (D) at (\xd,0) {};
+\node[col=zoneusr, minimum height=86mm] (A) at (\xa,0) {};
+\node[col=zonectl, minimum height=86mm] (B) at (\xb,0) {};
+\node[col=zonedata, minimum height=86mm] (C) at (\xc,0) {};
+\node[col=zonetel, minimum height=86mm] (D) at (\xd,0) {};
 \node[head, below=1.5mm of A.north] (hA) {Kernel theory\\{\scriptsize\mdseries convergence of the iterate--test loop}};
 \node[head, below=1.5mm of B.north] (hB) {Design principles\\{\scriptsize\mdseries for an experimentation IS}};
 \node[head, below=1.5mm of C.north] (hC) {Artefact\\{\scriptsize\mdseries evidence-ledger experimentation IS}};
@@ -29,13 +29,13 @@
 \foreach \t [count=\i] in {evidence ledger (belief + count),idea pool with screening scores,re-test planner,ship rule: lower bound $M-\kappa s$,bias audit (A/A + holdout),forgetting factor $\gamma$,Pareto archive}{%
   \node[item] (c\i) at (\xc,{-2.45-0.72*\i}) {\t};}
 % experiments ---------------------------------------------------------------
-\foreach \t [count=\i] in {E1 validation of the testbed,E2 dynamics: H1,E3 governance policies: H2,E4 new vs re-test: H3,E5 GenAI ideation: H4,E6 measurement bias: H5,E7 drift and shift: H6,E8 stakeholders: H7,E9 robustness: H8}{%
-  \node[item] (d\i) at (\xd,{-0.95-0.72*\i}) {\t};}
+\foreach \t [count=\i] in {E1 validation of the testbed,E2 dynamics: H1,E3 governance policies: H2,E4 new vs re-test: H3,E5 GenAI ideation: H4,E6 measurement bias: H5,E7 drift and shift: H6,E8 stakeholders: H7,E9 robustness: H8,E10 checks requested in review,E11 audit of the evaluation,E13 language model as screen}{%
+  \node[item, minimum height=5.4mm] (d\i) at (\xd,{-0.95-0.6*\i}) {\t};}
 % arrows between columns (one per column pair) -----------------------------
 \foreach \u/\v in {A/B,B/C,C/D}{\draw[flow, line width=1.2pt] (\u.east) -- (\v.west);}
-\node[devlabel, anchor=north] at (\xa,-8.25) {\scriptsize arXiv preprint (2026)};
-\node[devlabel, anchor=north] at (\xb,-8.25) {\scriptsize Gregor et al.\ (2020)};
-\node[devlabel, anchor=north] at (\xc,-8.25) {\scriptsize instantiated in the testbed};
-\node[devlabel, anchor=north] at (\xd,-8.25) {\scriptsize tens of thousands of simulated projects};
+\node[devlabel, anchor=north] at (\xa,-8.65) {\scriptsize arXiv preprint (2026)};
+\node[devlabel, anchor=north] at (\xb,-8.65) {\scriptsize Gregor et al.\ (2020)};
+\node[devlabel, anchor=north] at (\xc,-8.65) {\scriptsize instantiated in the testbed};
+\node[devlabel, anchor=north] at (\xd,-8.65) {\scriptsize tens of thousands of simulated projects};
 \end{tikzpicture}
 \end{document}

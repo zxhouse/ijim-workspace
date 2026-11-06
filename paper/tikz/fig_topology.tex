@@ -26,28 +26,28 @@
 \node[devlabel, above=0pt of lb] (lbL) {Load balancer\\(traffic split)};
 % ---------------- application tier ----------------
 \node[dev] (app) at (10.6,0) {\devrack};
-\node[devlabel, below=0pt of app] (appL) {Application pool\\$c$ workers {\scriptsize [REPL\,+3]}};
+\node[devlabel, below=0pt of app] (appL) {Application pool\\$c$ workers\\{\scriptsize [REPL\,+3]}};
 % ---------------- back-end services ----------------
-\node[dev] (cache) at (13.0,1.9) {\devdb[devamber]};
+\node[dev] (cache) at (13.4,1.9) {\devdb[devamber]};
 \node[devlabel, right=1pt of cache] {Data cache\\{\scriptsize [CACHE]}};
-\node[dev] (db) at (13.0,0.35) {\devdb};
+\node[dev] (db) at (13.4,0.35) {\devdb};
 \node[devlabel, right=1pt of db] {Database\\(M/M/3)};
-\node[dev] (ml) at (13.0,-1.25) {\devgpu};
+\node[dev] (ml) at (13.4,-1.25) {\devgpu};
 \node[devlabel, right=1pt of ml] {ML inference\\{\scriptsize [RECO]}};
 \node[dev] (llm) at (10.6,2.75) {\devcloud[devpurple!12]};
 \node[devlabel] at (llm) {LLM API};
 \node[devlabel, right=0pt of llm] {{\scriptsize [CHAT]}};
 % ---------------- telemetry & control plane ----------------
-\node[dev] (tel) at (10.6,-3.55) {\devserver[devpurple]};
+\node[dev] (tel) at (10.6,-4.7) {\devserver[devpurple]};
 \node[devlabel, below=0pt of tel] (telL) {Telemetry\\collector {\scriptsize [TELEM]}};
-\node[dev] (dw) at (8.3,-3.55) {\devdb[devpurple]};
+\node[dev] (dw) at (8.3,-4.7) {\devdb[devpurple]};
 \node[devlabel, below=0pt of dw] (dwL) {Experiment\\data store};
-\node[dev] (ledger) at (6.2,-3.55) {\devledger};
+\node[dev] (ledger) at (6.2,-4.7) {\devledger};
 \node[devlabel, below=0pt of ledger] (ledgerL) {Evidence\\ledger};
-\node[dev] (team) at (3.6,-3.6) {\devdesktop};
+\node[dev] (team) at (3.6,-4.75) {\devdesktop};
 \node[dev, right=-0.5mm of team.south east, anchor=south west] (pers) {\devperson};
 \node[devlabel, below=0pt of team] (teamL) {Product team\\(+ GenAI ideation)};
-\node[dev] (flag) at (1.1,-3.55) {\devflag};
+\node[dev] (flag) at (1.1,-4.7) {\devflag};
 \node[devlabel, below=0pt of flag] (flagL) {Flag \&\\experiment\\server};
 % ---------------- data-plane links ----------------
 \draw[datalink] (phone.east) -- ++(0.95,0) |- ([yshift=1.5mm]inet.west);
@@ -60,7 +60,7 @@
 \draw[datalink] (sw.north) -- (lb.south);
 \draw[datalink] (lb.east) -| ([xshift=-2mm]app.north);
 \draw[datalink] (sw.east) -- (app.west);
-\draw[datalink] (app.east) -- ++(0.55,0) coordinate (bus);
+\draw[datalink] (app.east) -- (12.35,0) coordinate (bus);
 \draw[datalink] (bus) |- (cache.west);
 \draw[datalink] (bus) |- (db.west);
 \draw[datalink] (bus) |- (ml.west);
@@ -72,20 +72,21 @@
 \draw[tellink] (ledger.west) -- (team.east -| pers.east) ;
 % ---------------- control plane (dotted amber) ----------------
 \draw[ctllink] (team.west) -- (flag.east);
-\draw[ctllink, -] (flag.north) |- (7.3,-2.45) coordinate (c1);
+\draw[ctllink, -] (flag.north) |- (7.3,-3.1) coordinate (c1);
 \draw[ctllink] (c1) |- (lb.west);
 \draw[ctllink] (c1) -| ([xshift=-7mm]appL.south);
 % ---------------- zones ----------------
+\coordinate (ztop) at ($(flag.north)+(0,0.42)$);
 \begin{scope}[on background layer]
 \node[zone, fill=zoneusr, fit=(phone)(laptop)(laptopL)(phoneL)] (zu) {};
 \node[zone, fill=zonedata, fit=(cdn)(router)(routerL)(fw)(sw)(lb)(lbL)(app)(appL)(cache)(db)(ml)(llm), inner xsep=10pt] (zd) {};
-\node[zone, fill=zonetel, fit=(tel)(telL)(dw)(dwL)(ledger)(ledgerL)(team)(pers)(teamL)(flag)(flagL)] (zt) {};
+\node[zone, fill=zonetel, fit=(tel)(telL)(dw)(dwL)(ledger)(ledgerL)(team)(pers)(teamL)(flag)(flagL)(ztop)] (zt) {};
 \end{scope}
 \node[zonetitle] at (zu.north west) {Users};
 \node[zonetitle] at (zd.north west) {Service topology (data plane)};
-\node[zonetitle] at ([xshift=17mm]zt.north west) {Experimentation information system (telemetry and control plane)};
+\node[zonetitle] at ([xshift=3mm]flag.north |- zt.north) {Experimentation information system (telemetry and control plane)};
 % ---------------- legend ----------------
-\begin{scope}[shift={(13.6,-3.35)}]
+\begin{scope}[shift={(13.6,-4.5)}]
 \draw[datalink] (0,0.5) -- (0.7,0.5); \node[devlabel, anchor=west] at (0.8,0.5) {request path};
 \draw[tellink] (0,0) -- (0.7,0); \node[devlabel, anchor=west] at (0.8,0) {telemetry / evidence};
 \draw[ctllink] (0,-0.5) -- (0.7,-0.5); \node[devlabel, anchor=west] at (0.8,-0.5) {configuration (flags)};

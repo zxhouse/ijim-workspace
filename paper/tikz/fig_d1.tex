@@ -1,0 +1,41 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{sansmath}
+\input{icons.tex}
+\input{expdesign.tex}
+\begin{document}
+\begin{tikzpicture}
+
+\expgrid{4.8}{Configurations}{Two measurements}{Runs}{Measured}{Analysis}
+\node[dev, anchor=west] at (\cA+0.1,-1.0) {\devlandref};
+\node[stxt, anchor=west, text width=1.8cm] at (\cA+1.25,-1.0) {\textbf{REF service}\\4,096 configs};
+\node[stxt, text width=2.9cm] at (\cA+0.12,-1.6) {141 drawn by utilisation of the busiest tier:};
+\foreach \t/\c/\y in {{below 85\,\%: 90}/devgreen/-2.5, {85--97\,\%: 30}/devamber/-2.95, {97\,\% and over: 20}/devred/-3.4}{\node[chip=\c, text width=2.2cm] at (\cA+0.15,\y) {\t};}
+\node[stxt, text width=2.9cm] at (\cA+0.12,-3.85) {+ the optimum; 6 configs spanning $U$ for noise};
+% (2) lane A: emulation
+\node[dev] (ph) at (\cB+0.35,-1.2) {\devphone};
+\node[dev] (lp) at (\cB+1.0,-1.25) {\devlaptop};
+\node[dev] (rk) at (\cB+2.1,-1.25) {\devrack};
+\draw[flow] (lp.east) -- (rk.west);
+\node[stxt, anchor=west, text width=2.3cm] at (\cB+2.8,-1.2) {\textbf{(a) emulation}: SimPy, 6,000 sessions ($\approx$3 min)};
+% lane B: analytic model
+\node[box, font=\scriptsize\sffamily\sansmath, minimum height=6mm] (an) at (\cB+1.3,-2.5) {Erlang-C,\\M/M/$c$ per tier};
+\node[stxt, anchor=west, text width=2.3cm] at (\cB+2.8,-2.5) {\textbf{(b) analytic model}: steady state, ground truth};
+% lane C: noise
+\foreach \n/\s in {0/1.6,1/2.2,2/3.0,3/4.2}{\node[tst=devfill, minimum size=\s mm] at (\cB+0.35+\n*0.55,-3.85) {};}
+\node[stxt, anchor=west, text width=2.3cm] at (\cB+2.8,-3.85) {\textbf{(c) noise}: 4 sizes, 500 to 4,000 sessions; 20 replications; emulator vs sampler};
+\draw[devline!40, dashed] (\cB+0.1,-1.95) -- (\cB+5.1,-1.95);
+\draw[devline!40, dashed] (\cB+0.1,-3.1) -- (\cB+5.1,-3.1);
+% (3)
+\node[dev, anchor=north] at (\cC+1.3,-0.7) {\devserver[devpurple]};
+\node[stxt, text width=2.4cm] at (\cC+0.12,-1.85) {(a)+(b): 141 emulated experiments\\[3pt](c): 6 configs $\times$ 4 sizes $\times$ 20 = 480 replications\\[3pt]\textbf{621 runs}};
+% (4)
+\node[dev, anchor=north] at (\cD+1.2,-0.65) {\devreport};
+\node[stxt, text width=2.25cm] at (\cD+0.1,-1.75) {conversion rate\\p95 page time\\utility $U$\\[3pt]s.d.\ of a test result at each size $n$};
+% (5)
+\node[stxt, text width=2.05cm] at (\cE+0.12,-0.8) {Correlation and mean difference by stratum\\[4pt]model-error s.d.\ net of measurement noise\\[4pt]log variance ratio emulator\,/\,sampler};
+
+\end{tikzpicture}
+\end{document}

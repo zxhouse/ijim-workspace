@@ -1,0 +1,35 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{sansmath}
+\input{icons.tex}
+\input{expdesign.tex}
+\begin{document}
+\begin{tikzpicture}
+
+\expgrid{4.8}{Landscapes \& runs}{Audit conditions}{Programme}{Measured}{Analysis}
+\landrow{-1.0}{\devlandref}{REF, 1 inst.}{150 runs}
+\landrow{-1.95}{\devlandsvc}{SVC, 30 inst.}{5 runs each}
+\landrow{-2.9}{\devlandrug}{RUG, 20 inst.}{5 runs each}
+\node[stxt, text width=2.9cm] at (\cA+0.12,-3.45) {per condition, common seeds};
+% (2) ladder
+\node[stxt] at (\cB+0.12,-0.7) {\textbf{(a) ladder}: add one element at a time};
+\foreach \i/\t in {0/{A/B, one test per arm}, 1/{+ pool champion's evidence}, 2/{+ retain all variants}, 3/{+ re-test favourite 4$\times$ per build}, 4/{+ re-test three leaders}, 5/{+ rotating re-test (= loop)}, 6/{+ ship on lower bound}, 7/{+ three builds per round (= ledger)}}{%
+  \fill[devacc!\the\numexpr 15+\i*8\relax] (\cB+0.15,{-1.1-\i*0.25}) rectangle ++({0.12+\i*0.1},-0.19);
+  \node[stxt, anchor=west, inner sep=0pt] at (\cB+1.05,{-1.2-\i*0.25}) {L\i\enspace \t};}
+\node[stxt, text width=5.0cm] at (\cB+0.12,-3.15) {\textbf{(b) noise}: $\sigma$ assumed $\times\,0.5,\,1,\,1.3,\,2$, or learned online};
+\node[stxt, text width=5.0cm] at (\cB+0.12,-3.72) {\textbf{(c) start}: 5 random configurations, or the production configuration with 10 history tests; ledger with 1, 2 or 3 builds per round};
+% (3)
+\node[dev, anchor=north] (fl) at (\cC+0.65,-0.7) {\devflag};
+\node[dev, anchor=north] (lg) at (\cC+1.9,-0.7) {\devledger};
+\draw[flow] (fl.east) -- (lg.west);
+\node[stxt, text width=2.4cm] at (\cC+0.12,-1.85) {400 tests of 2,000 sessions, checkpoints at 50, 100, 200, 400\\[3pt]\textbf{17,600 runs}};
+% (4)
+\node[dev, anchor=north] at (\cD+1.2,-0.65) {\devreport};
+\node[stxt, text width=2.25cm] at (\cD+0.1,-1.75) {shipped $U(\hat x)/U^*$\\[3pt](a) gain of each step over the previous one};
+% (5)
+\node[stxt, text width=2.05cm] at (\cE+0.12,-0.8) {Paired differences by seed, 95\,\% CI\\[4pt]Wilcoxon test\\[4pt]families: instance as unit};
+
+\end{tikzpicture}
+\end{document}

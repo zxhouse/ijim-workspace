@@ -1,0 +1,49 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{sansmath}
+\input{icons.tex}
+\input{expdesign.tex}
+\begin{document}
+\begin{tikzpicture}
+
+\expgrid{4.5}{Landscapes \& runs}{Policies \& horizon}{Programme}{Measured}{Analysis}
+\landrow{-1.0}{\devlandref}{REF, 1 inst.}{300 runs}
+\landrow{-1.95}{\devlandsvc}{SVC, 30 inst.}{8 runs each}
+\landrow{-2.9}{\devlandrug}{RUG, 20 inst.}{8 runs each}
+\node[stxt, text width=2.9cm] at (\cA+0.12,-3.45) {long runs (loop): REF 100; 10 SVC + 10 RUG inst.\ $\times$ 6};
+% (2) chips + horizon
+\node[chip=devacc, text width=1.5cm] at (\cB+0.12,-1.0) {Design-thinking loop};
+\node[chip=devgreen, text width=1.5cm] at (\cB+0.12,-1.7) {Evidence ledger};
+\node[stxt, text width=1.4cm] at (\cB+0.12,-2.15) {400 tests of 2,000 sessions, checkpoint every 25\\[3pt]loop also to 3,200 tests};
+% decomposition on a scaled axis (loop, REF, 400 tests): y = (v-84)/16*2.6 - 3.75
+\begin{scope}[shift={(\cB+2.25,-4.05)}]
+  \draw[devline, -{Stealth[length=3pt]}] (0,0) -- (0,2.95);
+  \node[stxt, anchor=south, rotate=90, inner sep=1pt] at (-0.36,1.3) {utility, \% of $U^*$};
+  \foreach \v in {84,88,92,96,100}{\pgfmathsetmacro{\yy}{(\v-84)/16*2.6}\draw[devline] (0,\yy) -- (-0.07,\yy) node[stxt, anchor=east, inner sep=1pt] {\v};}
+  \foreach \v/\t/\c in {97.4/found/devacc, 93.7/shipped/devgreen!60!black, 99.8/believed/devpurple}{%
+    \pgfmathsetmacro{\yy}{(\v-84)/16*2.6}
+    \draw[\c, line width=1.1pt] (0.05,\yy) -- (0.45,\yy);}
+  \node[stxt, anchor=west, text=devacc] at (0.45,{(97.4-84)/16*2.6}) {found 97.4};
+  \node[stxt, anchor=west, text=devgreen!60!black] at (0.45,{(93.7-84)/16*2.6}) {shipped 93.7};
+  \node[stxt, anchor=west, text=devpurple] at (0.45,{(99.8-84)/16*2.6+0.06}) {believed 99.8};
+  \draw[decorate, decoration={brace, amplitude=2pt, mirror}, devline] (1.8,{(93.7-84)/16*2.6}) -- (1.8,{(97.4-84)/16*2.6}) node[midway, right=2pt, stxt, align=left, inner sep=0pt] {cost of\\choosing};
+\end{scope}
+% (3)
+\node[dev, anchor=north] (fl) at (\cC+0.65,-0.7) {\devflag};
+\node[dev, anchor=north] (lg) at (\cC+1.9,-0.7) {\devledger};
+\draw[flow] (fl.east) -- (lg.west);
+\node[stxt] at (\cC+0.12,-1.85) {loop};
+\foreach \k in {0,...,4}{\node[tst=\ifnum\k<1 devacc!35\else white\fi] at (\cC+1.0+\k*0.29,-1.95) {};}
+\node[stxt] at (\cC+0.12,-2.3) {ledger};
+\foreach \k in {0,...,4}{\node[tst=\ifnum\k<3 devacc!35\else white\fi] at (\cC+1.0+\k*0.29,-2.4) {};}
+\node[stxt, text width=2.4cm] at (\cC+0.12,-2.8) {\tikz\node[tst=devacc!35,minimum size=2mm]{}; new variant\\\tikz\node[tst,minimum size=2mm]{}; re-test\\[3pt]5 tests per round};
+% (4)
+\node[dev, anchor=north] at (\cD+1.2,-0.65) {\devreport};
+\node[stxt, text width=2.25cm] at (\cD+0.1,-1.75) {shipped, found, believed\\[3pt]is the favourite / best tested a local optimum? (all 78 variants within two capabilities enumerated)};
+% (5)
+\node[stxt, text width=2.05cm] at (\cE+0.12,-0.8) {Means with 95\,\% $t$-intervals\\[4pt]families: instance as unit\\[4pt]ledger $-$ loop: paired Wilcoxon test};
+
+\end{tikzpicture}
+\end{document}

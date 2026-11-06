@@ -1,0 +1,35 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{sansmath}
+\input{icons.tex}
+\input{expdesign.tex}
+\begin{document}
+\begin{tikzpicture}
+
+\expgrid{4.5}{Landscapes \& runs}{Three checks}{Programme}{Measured}{Analysis}
+\landrow{-1.0}{\devlandref}{REF, 1 inst.}{150 runs}
+\landrow{-1.95}{\devlandsvc}{SVC, 30 inst.}{5 runs each}
+\landrow{-2.9}{\devlandrug}{RUG, 20 inst.}{5 runs each}
+\node[stxt, text width=2.9cm] at (\cA+0.12,-3.45) {per condition, common seeds};
+% (2)
+\node[stxt, text width=5.0cm] at (\cB+0.12,-0.72) {\textbf{(a) stronger practice baselines} (A/B)};
+\node[chip=devred, text width=1.4cm, minimum height=7mm] at (\cB+0.12,-1.35) {5\,\% rule, not pooled};
+\node[chip=devred, text width=1.4cm, minimum height=7mm] at (\cB+1.82,-1.35) {5\,\% rule, pooled};
+\node[chip=devred, text width=1.4cm, minimum height=7mm] at (\cB+3.52,-1.35) {higher arm, pooled};
+\node[stxt, text width=5.0cm] at (\cB+0.12,-1.9) {\textbf{(b) ship rule}: ship $\arg\max\,(\mu-\kappa s)$\\$\kappa\in\{0,\,0.5,\,1,\,1.5,\,2\}$};
+\node[stxt, text width=5.0cm] at (\cB+0.12,-2.6) {\textbf{(c) misspecified ground truth}: $U'=U+\varepsilon$\\$\varepsilon\sim N(0,\tau^2)$, fixed per configuration\\$\tau\in\{0,\,0.044,\,0.088\}$: E1's model error and twice it\\policies: A/B, launch-and-learn, loop, ledger};
+% (3)
+\node[dev, anchor=north] (fl) at (\cC+0.65,-0.7) {\devflag};
+\node[dev, anchor=north] (lg) at (\cC+1.9,-0.7) {\devledger};
+\draw[flow] (fl.east) -- (lg.west);
+\node[stxt, text width=2.4cm] at (\cC+0.12,-1.85) {400 tests of 2,000 sessions\\[3pt]\textbf{8,800 runs}};
+% (4)
+\node[dev, anchor=north] at (\cD+1.2,-0.65) {\devreport};
+\node[stxt, text width=2.25cm] at (\cD+0.1,-1.75) {shipped $U(\hat x)/U^*$; in (c) judged by the perturbed truth $U'$};
+% (5)
+\node[stxt, text width=2.05cm] at (\cE+0.12,-0.8) {Ledger $-$ policy, paired by seed\\[4pt]Wilcoxon test\\[4pt]families: instance as unit};
+
+\end{tikzpicture}
+\end{document}

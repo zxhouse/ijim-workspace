@@ -1,0 +1,40 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{sansmath}
+\input{icons.tex}
+\input{expdesign.tex}
+\begin{document}
+\begin{tikzpicture}
+
+\expgrid{4.5}{Scenarios}{Drawn factors}{Programme}{Measured}{Analysis}
+\node[dev, anchor=north] at (\cA+0.75,-0.75) {\devdice};
+\node[stxt, anchor=north west, text width=1.6cm] at (\cA+1.4,-0.75) {\textbf{120}\\scenarios drawn at random};
+\node[dev, anchor=west] at (\cA+0.1,-2.25) {\devlandsvc};
+\node[stxt, anchor=west] at (\cA+1.25,-2.25) {or};
+\node[dev, anchor=west] at (\cA+1.65,-2.25) {\devlandrug};
+\node[stxt, text width=2.9cm] at (\cA+0.12,-2.85) {family, then a random instance of it};
+% (2) factor table
+\node[stxt, text width=5.0cm] at (\cB+0.12,-0.75) {%
+\renewcommand{\arraystretch}{1.15}%
+\begin{tabular}{@{}l@{\quad}l@{}}
+capabilities & 10, 12 or 14\\
+test size $n$ & 400--8,000 sessions\\
+budget & 100, 200, 400 or 800 tests\\
+validity $\rho$ & 0.2--0.8\\
+ideas per round $V$ & 2--15\\
+reach of an idea & 1, 2 or 3 capabilities\\
+\end{tabular}\\[3pt]1,024 to 16,384 configurations; test size log-uniform};
+\node[stxt, text width=5.0cm] at (\cB+0.12,-3.5) {signal-to-noise: s.d.\ of the 50 best utilities $/\,\sigma(n)$, from 0.07 to 2.1};
+% (3)
+\foreach \t/\c/\y in {{\mbox{Champion--challenger}}/devred/-0.9, Launch-and-learn/devamber/-1.4, Design-thinking loop/devacc/-1.9, Evidence ledger/devgreen/-2.4}{\node[chip=\c, text width=2.3cm] at (\cC+0.08,\y) {\t};}
+\node[stxt, text width=2.4cm] at (\cC+0.12,-2.85) {$\times$ 12 runs with common seeds per scenario\\[2pt]\textbf{5,760 runs}};
+% (4)
+\node[dev, anchor=north] at (\cD+1.2,-0.65) {\devreport};
+\node[stxt, text width=2.25cm] at (\cD+0.1,-1.75) {ledger's advantage over each policy, points of $U^*$\\[3pt]share of scenarios won};
+% (5)
+\node[stxt, text width=2.05cm] at (\cE+0.12,-0.8) {Regression of the advantage on standardised factors\\[4pt]HC3 robust 95\,\% intervals\\[4pt]scenario as unit};
+
+\end{tikzpicture}
+\end{document}

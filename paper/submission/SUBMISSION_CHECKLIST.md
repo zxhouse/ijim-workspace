@@ -8,7 +8,7 @@ Typ artykułu: **Research Article** (design science + evaluation in a validated 
 |---|---|
 | Title page (z danymi autorów, podziękowaniami, deklaracjami) | `Title_page.docx` |
 | Manuscript (anonimowy, źródło LaTeX) | `Manuscript_anonymised.tex` (+ podgląd `Manuscript_anonymised.pdf`) |
-| Figures (osobne pliki, numerowane wg kolejności w tekście) | `Figure_1.pdf` … `Figure_14.pdf` (wektorowe, czcionki osadzone; mapa: `figure_map.txt`) |
+| Figures (osobne pliki, numerowane wg kolejności w tekście) | `Figure_1.pdf` … `Figure_26.pdf` (wektorowe, czcionki osadzone; mapa: `figure_map.txt`) |
 | Highlights (plik edytowalny, „highlights” w nazwie) | `Highlights.docx` (5 punktów, 70–77 znaków) |
 | Graphical abstract (zalecany) | `Graphical_abstract.pdf` (13,1 cm; PNG 1550 px przy 300 dpi) |
 | Vitae (≤100 słów na autora, edytowalne) | `Vitae.docx` – **szablon do uzupełnienia** |

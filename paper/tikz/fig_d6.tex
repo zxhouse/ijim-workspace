@@ -1,0 +1,45 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{sansmath}
+\input{icons.tex}
+\input{expdesign.tex}
+\begin{document}
+\begin{tikzpicture}
+
+\expgrid{4.5}{Landscapes \& runs}{Where bias enters}{Programme}{Measured}{Analysis}
+\landrow{-1.0}{\devlandref}{REF, 1 inst.}{120 runs}
+\landrow{-1.95}{\devlandsvc}{SVC, 30 inst.}{4 runs each}
+\landrow{-2.9}{\devlandrug}{RUG, 20 inst.}{4 runs each}
+\node[stxt, text width=2.9cm] at (\cA+0.12,-3.45) {per cell of 6 bias conditions $\times$ 7 levels};
+% (2)
+\node[dev] (u) at (\cB+0.4,-1.5) {\devphone};
+\node[dev] (tel) at (\cB+1.85,-1.5) {\devserver[devpurple]};
+\node[dev] (led) at (\cB+3.25,-1.5) {\devledger};
+\node[dev] (dm) at (\cB+4.65,-1.55) {\devperson};
+\draw[flow] (u.east) -- (tel.west);
+\draw[flow] (tel.east) -- (led.west);
+\draw[flow] (led.east) -- (dm.west);
+\foreach \n/\t in {u/users, tel/telemetry, led/ledger, dm/decision}{\node[stxt, anchor=north, inner sep=1pt] at (\n.south) {\t};}
+\tikzset{badge/.style={circle, draw=devred, fill=devred!15, font=\tiny\sffamily\bfseries, text=devred!70!black, inner sep=0.6pt, minimum size=3.8mm}}
+\node[badge] at ([yshift=2mm]u.north) {N};
+\node[badge] at ([yshift=2mm]tel.north) {I};
+\node[badge] at ([yshift=2mm]dm.north) {H};
+\node[stxt, text width=5.0cm] at (\cB+0.12,-2.45) {\textcolor{devred!70!black}{\textbf{N}} novelty: first test of every new variant $+b$\\
+\textcolor{devred!70!black}{\textbf{I}} instrumentation: every test of TELEM variants $+b$; also with an audit of 10 tests\\
+\textcolor{devred!70!black}{\textbf{H}} favourite: every re-test of the favourite $+b$\\[2pt]
+$b/\sigma\in\{0,.25,.5,1,1.5,2,3\}$};
+% (3)
+\node[dev, anchor=north] (fl) at (\cC+0.65,-0.7) {\devflag};
+\node[dev, anchor=north] (lg) at (\cC+1.9,-0.7) {\devledger};
+\draw[flow] (fl.east) -- (lg.west);
+\node[stxt, text width=2.4cm] at (\cC+0.12,-1.85) {evidence ledger, 400 tests\\[3pt]tests of 2,000 sessions; H also at 500 and 8,000};
+% (4)
+\node[dev, anchor=north] at (\cD+1.2,-0.65) {\devreport};
+\node[stxt, text width=2.25cm] at (\cD+0.1,-1.75) {change in shipped utility against $b=0$ with the same seeds, points of $U^*$};
+% (5)
+\node[stxt, text width=2.05cm] at (\cE+0.12,-0.8) {Paired difference per level, 95\,\% CI\\[4pt]mean over the three classes\\[4pt]bias in units of $\sigma(n)$ and of utility};
+
+\end{tikzpicture}
+\end{document}

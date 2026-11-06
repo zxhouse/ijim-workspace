@@ -1,0 +1,43 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{sansmath}
+\input{icons.tex}
+\input{expdesign.tex}
+\begin{document}
+\begin{tikzpicture}
+
+\expgrid{4.5}{Landscapes \& runs}{Generative ideation}{Programme}{Measured}{Analysis}
+\landrow{-1.0}{\devlandref}{REF, 1 inst.}{60 runs}
+\landrow{-1.95}{\devlandsvc}{SVC, 30 inst.}{3 runs each}
+\landrow{-2.9}{\devlandrug}{RUG, 20 inst.}{3 runs each}
+\node[stxt, text width=2.9cm] at (\cA+0.12,-3.45) {per cell of the 45-cell factorial};
+% (2)
+\node[dev] (llm) at (\cB+0.65,-1.35) {\devcloud[devpurple!12]};
+\node[devlabel, font=\scriptsize\sffamily] at (llm) {LLM};
+\node[stxt, anchor=north, align=center] at (\cB+0.65,-1.85) {$V$ ideas\\per round};
+\begin{scope}[shift={(\cB+1.55,-0.95)}]
+  \foreach \c in {1,2,5,7}{\fill[devpurple!25] ({\c*0.19-0.095},0.13) rectangle ({\c*0.19+0.095},-1.2);}
+  \foreach \r/\bits in {0/{0,1,0,0,0,1,0,0,0,0,0,0},1/{0,1,1,0,0,0,0,0,0,0,0,0},2/{0,0,0,0,0,1,0,1,0,0,0,0},3/{0,0,0,0,0,0,0,1,0,0,1,0},4/{0,1,0,0,0,0,0,0,0,0,0,0}}{%
+    \foreach \b [count=\c from 0] in \bits{%
+      \ifnum\b=1 \node[tst=devacc!70, minimum size=1.8mm] at ({\c*0.19},{-\r*0.26}) {};\else \node[tst, minimum size=1.8mm] at ({\c*0.19},{-\r*0.26}) {};\fi}}
+  \node[stxt, anchor=north west] at (-0.12,-1.25) {ideas $\times$ 12 flags; shaded: favoured};
+\end{scope}
+\node[box, font=\scriptsize\sffamily\sansmath, minimum height=6mm, text width=1.0cm] (scr) at (\cB+4.6,-1.45) {screen\\validity $\rho$};
+\draw[flow] (llm.east) -- (\cB+1.43,-1.35);
+\draw[flow] (\cB+3.75,-1.45) -- (scr.west);
+\node[stxt, text width=5.0cm] at (\cB+0.12,-2.75) {$\rho\in\{0,.25,.5,.75,.9\}$\quad $V\in\{1,5,20\}$\\homogenisation $h\in\{0,.5,.9\}$: share of ideas confined to 4 favoured capabilities\\[2pt]$5\times3\times3=45$ cells};
+% (3)
+\node[dev, anchor=north] (fl) at (\cC+0.65,-0.7) {\devflag};
+\node[dev, anchor=north] (lg) at (\cC+1.9,-0.7) {\devledger};
+\draw[flow] (fl.east) -- (lg.west);
+\node[stxt, text width=2.4cm] at (\cC+0.12,-1.85) {evidence ledger builds the 3 best-screened ideas per round\\[3pt]400 tests of 2,000 sessions};
+% (4)
+\node[dev, anchor=north] at (\cD+1.2,-0.65) {\devreport};
+\node[stxt, text width=2.25cm] at (\cD+0.1,-1.75) {shipped $U(\hat x)/U^*$ after 100 and 400 tests};
+% (5)
+\node[stxt, text width=2.05cm] at (\cE+0.12,-0.8) {Balanced ANOVA on $V\in\{5,20\}$: partial $\eta^2$\\[4pt]families: instance-level cell means\\[4pt]$V=1$ cannot fill 3 builds: not interpreted};
+
+\end{tikzpicture}
+\end{document}

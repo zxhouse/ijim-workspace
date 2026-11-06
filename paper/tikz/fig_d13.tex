@@ -1,0 +1,43 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{sansmath}
+\input{icons.tex}
+\input{expdesign.tex}
+\begin{document}
+\begin{tikzpicture}
+
+\expgrid{4.7}{Services}{Blind judge and generator}{Ledger runs}{Measured}{Analysis}
+\landrow{-1.0}{\devlandref}{A = REF}{537 rated}
+\landrow{-1.95}{\devlandsvc}{B = SVC inst.}{200 rated}
+\node[stxt, text width=2.9cm] at (\cA+0.12,-2.55) {A: 300 random + 237 one-capability variants of the 30 best\\[2pt]B: 200 random\\[2pt]5 leaders of each for proposals};
+% (2)
+\node[dev] (br) at (\cB+0.45,-1.2) {\devreport};
+\node[stxt, anchor=north, align=center] at (\cB+0.45,-1.75) {brief +\\configs\\(batches\\of 100)};
+\node[dev] (cl) at (\cB+2.1,-1.25) {\devcloud[devpurple!12]};
+\node[devlabel, font=\scriptsize\sffamily] at (cl) {Claude};
+\node[stxt, anchor=north, align=center] at (\cB+2.1,-1.8) {Opus 5.5\\Haiku 5.5};
+\draw[flow] (br.east) -- (cl.west);
+\node[stxt, anchor=west, text width=1.55cm] (out) at (\cB+3.55,-0.95) {ratings 0--100};
+\node[stxt, anchor=west, text width=1.55cm] (out2) at (\cB+3.55,-1.65) {8 variants per leader};
+\coordinate (bus) at (\cB+3.3,-1.25);
+\draw[devline, line width=0.8pt] (cl.east) -- (bus);
+\draw[flow] (bus) |- (out.west);
+\draw[flow] (bus) |- (out2.west);
+\draw[devred, line width=0.8pt, dashed] (\cB+0.12,-2.95) -- (\cB+5.08,-2.95);
+\node[stxt, text width=5.0cm, text=devred!70!black] at (\cB+0.12,-3.07) {blind: no access to the model, the code or any utility; 16 sessions; inputs and outputs released};
+\node[stxt, text width=5.0cm] at (\cB+0.12,-3.95) {true utility $U$ from the testbed is used only to score the outputs};
+% (3)
+\node[dev, anchor=north] (fl) at (\cC+0.65,-0.7) {\devflag};
+\node[dev, anchor=north] (lg) at (\cC+1.9,-0.7) {\devledger};
+\draw[flow] (fl.east) -- (lg.west);
+\node[stxt, text width=2.4cm] at (\cC+0.12,-1.85) {ledger on A with a screen of the measured validity near the leaders\\[3pt]vs no screen and $\rho=0.5$; $V\in\{5,20\}$\\[3pt]100 runs each, \textbf{800 runs}};
+% (4)
+\node[dev, anchor=north] at (\cD+1.2,-0.65) {\devreport};
+\node[stxt, text width=2.25cm] at (\cD+0.1,-1.75) {validity $\rho$: all, random, near leaders\\[2pt]top-decile precision\\[2pt]overload in top quartile\\[2pt]share of proposals improving\\[2pt]toggles on 4 favourite capabilities};
+% (5)
+\node[stxt, text width=2.05cm] at (\cE+0.12,-0.8) {Bootstrap 95\,\% CI (2,000 resamples)\\[4pt]proposals vs random 1--2 capability variants\\[4pt]ledger: paired difference vs no screen};
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,43 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{sansmath}
+\input{icons.tex}
+\input{expdesign.tex}
+\begin{document}
+\begin{tikzpicture}
+
+\expgrid{4.5}{Landscapes \& runs}{Drift and regime shift}{Programme}{Measured}{Analysis}
+\landrow{-1.0}{\devlandref}{REF, 1 inst.}{100 / 150 runs}
+\landrow{-1.95}{\devlandsvc}{SVC, 30 inst.}{3 / 4 runs each}
+\landrow{-2.9}{\devlandrug}{RUG, 20 inst.}{3 / 4 runs each}
+\node[stxt, text width=2.9cm] at (\cA+0.12,-3.45) {per cell: drift (16 cells) / shift (4 cells)};
+% (2) chart with labelled, scaled axes (illustrative weight paths)
+\node[stxt, text width=5.0cm] at (\cB+0.12,-0.72) {drift amplitude $\in\{0,.05,.1,.2\}$ (shaded band)\\\textcolor{devred!70!black}{shift at test 200: traffic $+30\,\%$, mobile $+15$ pp}};
+\begin{scope}[shift={(\cB+0.95,-3.9)}]
+  \draw[devline, -{Stealth[length=3pt]}] (0,0) -- (3.5,0) node[stxt, anchor=west] {tests};
+  \draw[devline, -{Stealth[length=3pt]}] (0,0) -- (0,2.05);
+  \node[stxt, anchor=south, rotate=90, inner sep=1pt] at (-0.45,1.0) {weight $w$};
+  \foreach \x/\l in {0/0,1.6/200,3.2/400}{\draw[devline] (\x,0) -- (\x,-0.07) node[stxt, anchor=north, inner sep=1pt] {\l};}
+  \foreach \y/\l in {0/0,0.6/0.2,1.2/0.4,1.8/0.6}{\draw[devline] (0,\y) -- (-0.07,\y) node[stxt, anchor=east, inner sep=1pt] {\l};}
+  \fill[devacc!12] (0,1.05) rectangle (3.2,1.65);
+  \draw[devacc, line width=0.8pt, domain=0:3.2, samples=100] plot (\x,{1.35+0.27*sin(\x*360)});
+  \draw[devamber, line width=0.8pt, domain=0:3.2, samples=100] plot (\x,{0.75+0.2*sin(\x*360+120)});
+  \node[stxt, text=devacc, anchor=west] at (3.22,1.35) {$w_{\mathrm d}$};
+  \node[stxt, text=devamber, anchor=west] at (3.22,0.75) {$w_{\mathrm f}$};
+  \draw[devred, line width=0.8pt] (1.6,0) -- (1.6,1.95);
+\end{scope}
+% (3)
+\node[dev, anchor=north] (fl) at (\cC+0.65,-0.7) {\devflag};
+\node[dev, anchor=north] (lg) at (\cC+1.9,-0.7) {\devledger};
+\draw[flow] (fl.east) -- (lg.west);
+\node[stxt, text width=2.4cm] at (\cC+0.12,-1.85) {evidence ledger, 400 tests\\[3pt]forgetting: old evidence weighted by $\gamma$ per round\\$\gamma\in\{1,.98,.95,.9\}$};
+% (4)
+\node[dev, anchor=north] at (\cD+1.2,-0.65) {\devreport};
+\node[stxt, text width=2.25cm] at (\cD+0.1,-1.75) {tracking: $U_t(\hat x)/U_t^*$ under the current criteria, every 25 tests\\[3pt]T3: gap to best variant $\le 4D$?};
+% (5)
+\node[stxt, text width=2.05cm] at (\cE+0.12,-0.8) {Drift: mean over tests 100--400\\[4pt]shift: each $\gamma$ vs $\gamma=1$, paired, at 25, 50 and 200 tests after};
+
+\end{tikzpicture}
+\end{document}

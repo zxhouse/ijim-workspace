@@ -19,7 +19,7 @@ Typ artykułu: **Research Article** (design science + evaluation in a validated 
 ## Zgodność z wytycznymi
 
 - [x] Podwójnie anonimowa recenzja: w manuskrypcie brak nazwisk, afiliacji, podziękowań, CRediT, linku do repozytorium; autocytowanie preprintu i zbioru danych jako „Anonymous (2026a/b)”; metadane PDF bez autora. Sprawdzone automatycznie (0 trafień nazwisk/afiliacji).
-- [x] Abstrakt: 243 słowa (limit 250), bez cytowań, z istotnością statystyczną, skróty objaśnione.
+- [x] Abstrakt: 249 słów (limit 250), bez cytowań, z istotnością statystyczną, skróty objaśnione.
 - [x] Słowa kluczowe: 6 (limit 1–7), bez „and/of”.
 - [x] Highlights: 5 punktów, ≤85 znaków, osobny plik.
 - [x] Numerowane sekcje i podsekcje; odwołania przez numery.
